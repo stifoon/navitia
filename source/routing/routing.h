@@ -71,6 +71,9 @@ struct PathItem {
 
 /** Un itinéraire complet */
 struct Path {
+    type::EntryPoint origin; // trace for nem calculation
+    type::EntryPoint destination;
+
     boost::posix_time::time_duration duration;
     uint32_t nb_changes;
     boost::posix_time::ptime request_time;

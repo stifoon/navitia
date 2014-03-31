@@ -142,6 +142,15 @@ def v1_routing(api):
                      endpoint='v1.journeys'
                      )
 
+    api.add_resource(Journeys.Nem_Journeys, 
+                     region + '<uri:uri>/journeys',
+                     coord + '<uri:uri>/journeys',
+                     region + 'journeys',
+                     coord + 'journeys',
+                     '/v1/journeys', 
+                     endpoint='v1.nem_journeys'
+                     )
+
     api.add_resource(Schedules.RouteSchedules,
                      region + '<uri:uri>/route_schedules',
                      coord + '<uri:uri>/route_schedules',

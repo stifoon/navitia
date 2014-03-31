@@ -370,8 +370,11 @@ BOOST_AUTO_TEST_CASE(sn_fin) {
     b.data.build_uri();
     RAPTOR raptor(b.data);
 
+    std::vector<std::pair<type::EntryPoint, std::vector<std::pair<navitia::type::idx_t, bt::time_duration>> > > multi_departures, multi_arrivals;
+    multi_departures.push_back(std::make_pair(type::EntryPoint(), departs));
+    multi_arrivals.push_back(std::make_pair(type::EntryPoint(), destinations));
 
-    auto res1 = raptor.compute_all(departs, destinations, DateTimeUtils::set(0, 9*3600 + 20 * 60), false);
+    auto res1 = raptor.compute_all(multi_departures, multi_arrivals, DateTimeUtils::set(0, 9*3600 + 20 * 60), false);
 
     BOOST_REQUIRE_EQUAL(res1.size(), 1);
     BOOST_CHECK_EQUAL(res1.back().items[0].departure.time_of_day().total_seconds(), 8*3600);

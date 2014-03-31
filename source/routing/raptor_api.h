@@ -8,6 +8,29 @@
 
 namespace navitia { namespace routing {
 
+pbnavitia::Response
+make_generic_response(RAPTOR &raptor,
+              const std::vector<type::EntryPoint> &calc_dep,
+              const std::vector<type::EntryPoint> &calc_arr,
+              const std::vector<std::string> &datetimes_str, bool clockwise, bool details,
+              const type::AccessibiliteParams & accessibilite_params,
+              std::vector<std::string> forbidden,
+              georef::StreetNetwork & worker,
+              bool disruption_active,
+              uint32_t max_duration, uint32_t max_transfers);
+
+pbnavitia::Response
+make_nem_response(RAPTOR &raptor,
+                  const std::vector<type::EntryPoint> &origins,
+                  const std::vector<type::EntryPoint> &destinations,
+                  const std::vector<std::string> &datetimes_str,
+                  bool clockwise, bool details,
+                  const type::AccessibiliteParams & accessibilite_params,
+                  std::vector<std::string> forbidden,
+                  georef::StreetNetwork & worker,
+                  bool disruption_active,
+                  uint32_t max_duration, uint32_t max_transfers);
+
 pbnavitia::Response make_response(RAPTOR &raptor,
                                   const type::EntryPoint &origin,
                                   const type::EntryPoint &destination,

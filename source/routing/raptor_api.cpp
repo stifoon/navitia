@@ -5,6 +5,7 @@
 #include <unordered_set>
 #include <chrono>
 
+namespace bt = boost::posix_time;
 
 namespace navitia { namespace routing {
 
@@ -30,7 +31,6 @@ void fill_section(pbnavitia::Section *pb_section, const type::VehicleJourney* vj
 
 pbnavitia::Response make_pathes(const std::vector<navitia::routing::Path>& paths,
         const nt::Data& d, georef::StreetNetwork& worker,
-        const type::EntryPoint& origin, const type::EntryPoint& destination,
         const std::vector<bt::ptime>& datetimes,
                                 bool clockwise) {
     EnhancedResponse enhanced_response; //wrapper around raw protobuff response to handle ids
@@ -53,7 +53,7 @@ pbnavitia::Response make_pathes(const std::vector<navitia::routing::Path>& paths
             } else {
                 departure = datetime - temp.duration;
             }
-            fill_street_sections(enhanced_response, origin, temp, d, pb_journey, departure);
+            fill_street_sections(enhanced_response, paths[0].origin, temp, d, pb_journey, departure);
 
             const auto str_departure = navitia::to_iso_string_no_fractional(departure);
             const auto str_arrival = navitia::to_iso_string_no_fractional(departure + temp.duration);
@@ -85,7 +85,7 @@ pbnavitia::Response make_pathes(const std::vector<navitia::routing::Path>& paths
 
                 const auto walking_time = temp.duration;
                 departure_time = path.items.front().departure - walking_time;
-                fill_street_sections(enhanced_response, origin, temp, d, pb_journey, departure_time);
+                fill_street_sections(enhanced_response, path.origin, temp, d, pb_journey, departure_time);
             }
         }
 
@@ -180,7 +180,7 @@ pbnavitia::Response make_pathes(const std::vector<navitia::routing::Path>& paths
                 }
 
                 auto begin_section_time = arrival_time;
-                fill_street_sections(enhanced_response, destination, temp, d, pb_journey, begin_section_time);
+                fill_street_sections(enhanced_response, path.destination, temp, d, pb_journey, begin_section_time);
                 arrival_time = arrival_time + temp.duration;
             }
         }
@@ -277,9 +277,80 @@ parse_datetimes(RAPTOR &raptor,const std::vector<std::string> &datetimes_str,
 }
 
 pbnavitia::Response
-make_response(RAPTOR &raptor, const type::EntryPoint &origin,
+make_response(RAPTOR &raptor,
+              const type::EntryPoint &origin,
               const type::EntryPoint &destination,
               const std::vector<std::string> &datetimes_str, bool clockwise,
+              const type::AccessibiliteParams & accessibilite_params,
+              std::vector<std::string> forbidden,
+              georef::StreetNetwork & worker,
+              bool disruption_active,
+              uint32_t max_duration, uint32_t max_transfers) {
+
+    return make_generic_response(raptor,
+        {clockwise ? origin : destination}, {clockwise ? destination : origin},
+        datetimes_str, clockwise, true /* details */,
+        accessibilite_params,
+        forbidden,
+        worker, disruption_active, max_duration, max_transfers);
+}
+
+pbnavitia::Response
+make_nem_response(RAPTOR &raptor,
+                  const std::vector<type::EntryPoint> &origins,
+                  const std::vector<type::EntryPoint> &destinations,
+                  const std::vector<std::string> &datetimes_str,
+                  bool clockwise, bool details,
+                  const type::AccessibiliteParams & accessibilite_params,
+                  std::vector<std::string> forbidden,
+                  georef::StreetNetwork & worker,
+                  bool disruption_active,
+                  uint32_t max_duration, uint32_t max_transfers) {
+
+    pbnavitia::Response response;
+    int count = 0;
+
+    std::vector<type::EntryPoint> calc_dep = clockwise ? origins : destinations;
+    std::vector<type::EntryPoint> calc_dest = clockwise ? destinations : origins;
+
+    for (int i = 0; i < calc_dest.size(); i++) {
+        pbnavitia::Response response_i = make_generic_response(
+                    raptor,
+                    calc_dep, {calc_dest[i]}, datetimes_str,
+                    clockwise, details,
+                    accessibilite_params,
+                    forbidden,
+                    worker,
+                    disruption_active,
+                    max_duration,
+                    max_transfers);
+
+        response = response_i;
+
+        // TO DO : join responses
+        //pbnavitia::Journey *journey = response.add_journeys();
+        //journey->ParseFromString(response_i.journeys(0).SerializeAsString());
+
+        count++;
+        break;
+    }
+
+    if (count == 0) {
+        response.set_response_type(pbnavitia::NO_SOLUTION);
+        response.mutable_error()->set_id(pbnavitia::Error_error_id_no_solution);
+        response.mutable_error()->set_message("no solution found for this journey");
+    }
+    else
+        response.set_response_type(pbnavitia::ITINERARY_FOUND);
+
+    return response;
+}
+
+pbnavitia::Response
+make_generic_response(RAPTOR &raptor,
+              const std::vector<type::EntryPoint> &calc_dep,
+              const std::vector<type::EntryPoint> &calc_arr,
+              const std::vector<std::string> &datetimes_str, bool clockwise, bool details,
               const type::AccessibiliteParams & accessibilite_params,
               std::vector<std::string> forbidden,
               georef::StreetNetwork & worker,
@@ -293,22 +364,35 @@ make_response(RAPTOR &raptor, const type::EntryPoint &origin,
     if(response.has_error() || response.response_type() == pbnavitia::DATE_OUT_OF_BOUNDS) {
         return response;
     }
-    worker.init(origin, {destination});
-    auto departures = get_stop_points(origin, raptor.data.pt_data, worker);
-    auto destinations = get_stop_points(destination, raptor.data.pt_data, worker, true);
-    if(departures.size() == 0 && destinations.size() == 0){
-        fill_pb_error(pbnavitia::Error::no_origin_nor_destionation, "no origin point nor destination point",response.mutable_error());
+    worker.init(calc_dep[0], {calc_arr[0]});
+
+    std::vector<std::pair<type::EntryPoint, std::vector<std::pair<type::idx_t, bt::time_duration> > > > multi_departures;
+    int origin_count = 0;
+    for (auto item_dep : calc_dep) {
+        multi_departures.push_back(std::make_pair(item_dep, get_stop_points(item_dep, raptor.data.pt_data, worker)));
+        origin_count += multi_departures.back().second.size();
+    }
+
+    std::vector<std::pair<type::EntryPoint, std::vector<std::pair<type::idx_t, bt::time_duration> > > > multi_arrivals;
+    int destination_count = 0;
+    for (auto item_arr : calc_arr) {
+        multi_arrivals.push_back(std::make_pair(item_arr, get_stop_points(item_arr, raptor.data.pt_data, worker, true)));
+        destination_count += multi_arrivals.back().second.size();
+    }
+
+    if(origin_count == 0 && destination_count == 0) {
+        fill_pb_error(pbnavitia::Error::no_origin_nor_destination, "no origin point nor destination point",response.mutable_error());
         response.set_response_type(pbnavitia::NO_ORIGIN_NOR_DESTINATION_POINT);
         return response;
     }
 
-    if(departures.size() == 0){
+    if((origin_count == 0 && clockwise) || (destination_count == 0 && !clockwise)) {
         fill_pb_error(pbnavitia::Error::no_origin, "no origin point",response.mutable_error());
         response.set_response_type(pbnavitia::NO_ORIGIN_POINT);
         return response;
     }
 
-    if(destinations.size() == 0){
+    if((destination_count == 0 && clockwise) || (origin_count == 0 && clockwise)) {
         fill_pb_error(pbnavitia::Error::no_destination, "no destination point",response.mutable_error());
         response.set_response_type(pbnavitia::NO_DESTINATION_POINT);
         return response;
@@ -327,9 +411,12 @@ make_response(RAPTOR &raptor, const type::EntryPoint &origin,
             bound = clockwise ? init_dt + max_duration : init_dt - max_duration;
         }
 
-        std::vector<Path> tmp = raptor.compute_all(departures, destinations, init_dt, disruption_active, bound, max_transfers, accessibilite_params, forbidden, clockwise);
+        std::vector<Path> tmp = raptor.compute_all(multi_departures, multi_arrivals,
+                                                   init_dt, disruption_active, bound, max_transfers,
+                                                   accessibilite_params, forbidden,
+                                                   clockwise, details);
 
-        // Lorsqu'on demande qu'un seul horaire, on garde tous les résultas
+        // Lorsqu'on demande qu'un seul horaire, on garde tous les résultats
         if(datetimes.size() == 1) {
             result = tmp;
             for(auto & path : result) {
@@ -346,7 +433,7 @@ make_response(RAPTOR &raptor, const type::EntryPoint &origin,
     if(clockwise)
         std::reverse(result.begin(), result.end());
 
-    return make_pathes(result, raptor.data, worker, origin, destination, datetimes, clockwise);
+    return make_pathes(result, raptor.data, worker, datetimes, clockwise);
 }
 
 

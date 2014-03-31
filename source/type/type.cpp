@@ -475,7 +475,7 @@ bool Connection<JourneyPatternPoint>::operator<(const Connection<JourneyPatternP
 template<>
 bool Connection<StopPoint>::operator<(const Connection<StopPoint> & other) const { return this < &other; }
 
-EntryPoint::EntryPoint(const Type_e type, const std::string &uri) : type(type), uri(uri) {
+EntryPoint::EntryPoint(const Type_e type, const std::string &uri, int access_duration) : type(type), uri(uri), access_duration(access_duration) {
    // Gestion des adresses
    if (type == Type_e::Address){
        std::vector<std::string> vect;
@@ -498,6 +498,8 @@ EntryPoint::EntryPoint(const Type_e type, const std::string &uri) : type(type), 
        }
    }
 }
+
+EntryPoint::EntryPoint(const Type_e type, const std::string &uri): EntryPoint(type, uri, 0) { }
 
 void StreetNetworkParams::set_filter(const std::string &param_uri){
     size_t pos = param_uri.find(":");

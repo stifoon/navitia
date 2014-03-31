@@ -13,6 +13,7 @@
 #include "raptor_init.h"
 #include "raptor_utils.h"
 
+namespace bt = boost::posix_time;
 namespace navitia { namespace routing {
 
 /** Worker Raptor : une instance par thread, les données sont modifiées par le calcul */
@@ -54,7 +55,7 @@ struct RAPTOR
 
     ///Initialise les structure retour et b_dest
     void clear_and_init(std::vector<Departure_Type> departures,
-              std::vector<std::pair<type::idx_t, boost::posix_time::time_duration> > destinations,
+              std::vector<std::pair<type::EntryPoint, std::vector<std::pair<type::idx_t, bt::time_duration> > > > multi_arrivals,
               navitia::DateTime bound, const bool clockwise,
               const type::Properties &properties = 0);
 
@@ -74,13 +75,13 @@ struct RAPTOR
      *  à une heure donnée.
      */
     std::vector<Path> 
-    compute_all(const std::vector<std::pair<type::idx_t, boost::posix_time::time_duration>> &departs,
-                const std::vector<std::pair<type::idx_t, boost::posix_time::time_duration>> &destinations,
+    compute_all(const std::vector<std::pair<type::EntryPoint, std::vector<std::pair<type::idx_t, bt::time_duration> > > > &departures,
+                const std::vector<std::pair<type::EntryPoint, std::vector<std::pair<type::idx_t, bt::time_duration> > > > &arrivals,
                 const DateTime &departure_datetime, bool disruption_active, const DateTime &bound=DateTimeUtils::inf,
                 const uint32_t max_transfers=std::numeric_limits<int>::max(),
                 const type::AccessibiliteParams & accessibilite_params = type::AccessibiliteParams(),
-                const std::vector<std::string> & forbidden = std::vector<std::string>(), bool clockwise=true);
-
+                const std::vector<std::string> & forbidden = std::vector<std::string>(),
+                bool clockwise=true, bool details=true);
 
     
     /** Calcul l'isochrone à partir de tous les points contenus dans departs,

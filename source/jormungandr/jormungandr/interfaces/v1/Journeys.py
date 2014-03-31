@@ -26,6 +26,7 @@ import sys
 from copy import copy
 from datetime import datetime
 from collections import defaultdict
+import json
 
 f_datetime = "%Y%m%dT%H%M%S"
 
@@ -503,3 +504,73 @@ class Journeys(ResourceUri):
             del splitted_address[1]
             return ':'.join(splitted_address)
         return id
+
+class Nem_Journeys(Journeys):
+
+    def __init__(self):
+        Journeys.__init__(self)
+        self.parsers["post"] = self.parsers["get"]
+        parser_post = self.parsers["post"]
+        parser_post.add_argument("optimized", type=boolean, default=False)
+        parser_post.add_argument("details", type=boolean, default=False)          
+
+    @clean_links()
+    @add_id_links()
+    @add_fare_links()
+    @add_journey_pagination()
+    @add_journey_href()
+    @marshal_with(journeys)
+    @ManageError()
+    def post(self, region=None, lon=None, lat=None, uri=None):
+        args = self.parsers['post'].parse_args()
+        # Parse les structures JSON qui definissent les points d'origine et de destination
+        args['from'] = json.loads(args['origin'])
+        args['to'] = json.loads(args['destination'])
+        # TODO : Changer le protobuff pour que ce soit propre
+        if args['destination_mode'] == 'vls':
+            args['destination_mode'] = 'bss'
+        if args['origin_mode'] == 'vls':
+            args['origin_mode'] = 'bss'
+        # Trouve la region
+        if region or (lon and lat):
+            self.region = i_manager.get_region(region, lon, lat)
+        else:
+			self.region = None
+        # Verifie que l'on a au moins un depart et une arrivee
+        if len(args['from']) == 0:
+            return {'error': 'origin must contains at least one item'}, 503
+        if len(args['to']) == 0:
+            return {'error': 'destination must contains at least one item'}, 503
+        # Date par defaut
+        if not args['datetime']:
+            args['datetime'] = datetime.now().strftime('%Y%m%dT1337')
+        # On deroule les structures JSON en 4 tableaux
+        args['origin'] = []
+        args['origin_access_duration'] = []
+        args['destination'] = []
+        args['destination_access_duration'] = []
+        for loop in [('from','origin'),('to','destination')]:
+            for location in args[loop[0]]:
+                if "access_duration" in location:
+                    args[loop[1]+'_access_duration'].append(location["access_duration"])
+                else:
+                    args[loop[1]+'_access_duration'].append(0)
+
+                stop_uri = location["uri"]
+                if region or (lon and lat):
+                    if location["uri"]:
+                        objects = stop_uri.split('/')
+                        if objects and len(objects) % 2 == 0:
+                            stop_uri = self.transform_id(objects[-1])
+                        else:
+							stop_uri = self.transform_id(stop_uri)
+                            #abort(503, message="Unable to compute journeys "
+                             #                  "from this object")
+                else:                               
+                    self.region = i_manager.key_of_id(stop_uri)
+                    stop_uri = self.transform_id(stop_uri)
+                
+                args[loop[1]].append(stop_uri)
+        api = 'nem_journeys'
+        response = i_manager.dispatch(args, api, instance_name=self.region)
+        return response
