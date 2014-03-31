@@ -562,10 +562,11 @@ class Nem_Journeys(Journeys):
                         objects = stop_uri.split('/')
                         if objects and len(objects) % 2 == 0:
                             stop_uri = self.transform_id(objects[-1])
+                        elif len(objects) == 1:
+						    stop_uri = self.transform_id(stop_uri)
                         else:
-							stop_uri = self.transform_id(stop_uri)
-                            #abort(503, message="Unable to compute journeys "
-                             #                  "from this object")
+                            abort(503, message="Unable to compute journeys "
+                                               "from this object")
                 else:                               
                     self.region = i_manager.key_of_id(stop_uri)
                     stop_uri = self.transform_id(stop_uri)
