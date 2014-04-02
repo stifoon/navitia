@@ -257,6 +257,8 @@ class Script(object):
             request["type"] = "all" #why ?
         if "details" in request:
             req.journeys.details = request["details"]
+        else:
+            req.journeys.details = True
 
         return req
 

@@ -511,7 +511,6 @@ class Nem_Journeys(Journeys):
         Journeys.__init__(self)
         self.parsers["post"] = self.parsers["get"]
         parser_post = self.parsers["post"]
-        parser_post.add_argument("optimized", type=boolean, default=False)
         parser_post.add_argument("details", type=boolean, default=False)          
 
     @clean_links()
