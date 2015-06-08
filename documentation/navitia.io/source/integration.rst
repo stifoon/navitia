@@ -392,8 +392,8 @@ Other examples
     * https://api.navitia.io/v1/coverage/fr-idf/physical_modes/physical_mode:Metro/lines
 
 
-Public Transport objects autocomplete (/pt_objects)
-***************************************************
+Public transportation objects autocomplete (/pt_objects)
+********************************************************
 
 This api search in public transport objects via their names. It's a kind of magical autocomplete on public transport data.
 It returns, in addition of classic objects, a collection of places_ .
@@ -561,8 +561,8 @@ Response example for : https://api.navitia.io/v1/coverage/fr-idf/places?q=rue
      ],
     }
 
-Places Nearby (/places_nearby)
-******************************
+Places nearby as the crow flies (/places_nearby)
+************************************************
 
 This api search for public transport object near another object, or near coordinates.
 It returns, in addition of classic objects, a collection of places_.
