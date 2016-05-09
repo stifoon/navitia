@@ -38,13 +38,13 @@
 <p>3 ways to request Navitia</p>
 </blockquote>
 <pre class="highlight shell"><code>
-<span class="c">#using headers</span>
+<span class="c">#using "headers"</span>
 <span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coverage'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span> 
 
-<span class="c">#using user: don't forget ":" at the end of line !</span>
+<span class="c">#using "users": don't forget ":" at the end of line !</span>
 <span class="gp">$ </span>curl https://api.navitia.io/v1/coverage -u 3b036afe-0110-4202-b9ed-99718476c2e0:
 
-<span class="c">#using straight URL</span>
+<span class="c">#using "straight URL"</span>
 <span class="gp">$ </span>curl https://3b036afe-0110-4202-b9ed-99718476c2e0@api.navitia.io/v1/coverage
 
 </code></pre>

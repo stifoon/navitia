@@ -69,7 +69,11 @@ It provides the following services</p>
 
 <p>navitia is a <a href="http://en.wikipedia.org/wiki/HATEOAS">HATEOAS</a> API that returns JSON formated results, available at <a href="https://api.navitia.io">https://api.navitia.io</a></p>
 
-<p>Have a look at the examples below to learn what services we provide and how to use them.</p>
+<p>Have a look at the examples below to learn what services we provide and how to use them. </p>
+
+<aside class="notice">
+A fake token is used in examples below: be aware that this token is really limited. You should use yours to get better services on real data.
+</aside>
 
 <h2 id="getting-started">Getting started</h2>
 <pre class="highlight shell"><code><span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
@@ -137,6 +141,10 @@ with <strong>no password</strong>.</p>
           <h1 id="some-examples"><a name="some_examples"></a>Some examples</h1>
 
 <p>This chapter shows some usages with the minimal required arguments. However, this is not a reference and not all APIs nor arguments are shown.</p>
+
+<aside class="notice">
+You will have to use your own token with the examples below.
+</aside>
 
 <h2 id="a-quick-exploration">A quick exploration</h2>
 <pre class="highlight shell"><code><span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coverage'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
@@ -307,13 +315,13 @@ That&rsquo;s what we call an <code class="prettyprint">isochron</code> (see <a h
 <p>3 ways to request Navitia</p>
 </blockquote>
 <pre class="highlight shell"><code>
-<span class="c">#using headers</span>
+<span class="c">#using "headers"</span>
 <span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coverage'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span> 
 
-<span class="c">#using user: don't forget ":" at the end of line !</span>
+<span class="c">#using "users": don't forget ":" at the end of line !</span>
 <span class="gp">$ </span>curl https://api.navitia.io/v1/coverage -u 3b036afe-0110-4202-b9ed-99718476c2e0:
 
-<span class="c">#using straight URL</span>
+<span class="c">#using "straight URL"</span>
 <span class="gp">$ </span>curl https://3b036afe-0110-4202-b9ed-99718476c2e0@api.navitia.io/v1/coverage
 
 </code></pre>
@@ -556,6 +564,10 @@ HTTP/1.1 200 OK
 </blockquote>
 <pre class="highlight shell"><code><span class="c">#request (be careful, without any filter, the response can be huge)</span>
 <span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/lines/line:RAT:M1/stop_schedules'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
+
+<span class="c">#a smarter request for a line AND a stop_area</span>
+<span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/lines/line:RAT:M1/stop_areas/stop_area:RAT:SA:PLROY/stop_schedules'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
+
 </code></pre>
 
 <p>Under some link sections, you will find a &ldquo;templated&rdquo; property.</p>
@@ -625,12 +637,10 @@ coverage api. The shape of the region is provided in GeoJSON.</p>
 </tbody></table>
 
 <h2 id="inverted-geocoding"><a name="coord"></a>Inverted geocoding</h2>
-<pre class="highlight shell"><code><span class="c">#request</span>
+<pre class="highlight shell"><code><span class="c">#request </span>
 <span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coord/2.37705;48.84675'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
 
-<span class="c">#the request above will give you the right Navitia coverage, and a useful label</span>
-
-<span class="c">#response</span>
+<span class="c">#response where you can find the right Navitia coverage, and a useful label</span>
 HTTP/1.1 200 OK
 
 <span class="o">{</span>

@@ -151,6 +151,10 @@ HTTP/1.1 200 OK
 </blockquote>
 <pre class="highlight shell"><code><span class="c">#request (be careful, without any filter, the response can be huge)</span>
 <span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/lines/line:RAT:M1/stop_schedules'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
+
+<span class="c">#a smarter request for a line AND a stop_area</span>
+<span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/lines/line:RAT:M1/stop_areas/stop_area:RAT:SA:PLROY/stop_schedules'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
+
 </code></pre>
 
 <p>Under some link sections, you will find a &ldquo;templated&rdquo; property.</p>
