@@ -112,7 +112,7 @@ That&rsquo;s lots of links. Links allow you to know all accessible uris and serv
 <blockquote>
 <p>From every object collection</p>
 </blockquote>
-<pre class="highlight shell"><code><span class="c">#request</span>
+<pre class="highlight shell"><code><span class="c">#first request</span>
 
 <span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/lines'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
 
@@ -120,39 +120,39 @@ That&rsquo;s lots of links. Links allow you to know all accessible uris and serv
 HTTP/1.1 200 OK
 
 <span class="c">#first line is like:</span>
+
 <span class="o">{</span>
-<span class="s2">"lines"</span>: <span class="o">[</span>
-    <span class="o">{</span>
-        <span class="s2">"code"</span>: <span class="s2">"1"</span>,
-        <span class="s2">"name"</span>: <span class="s2">"Château de Vincennes - La Défense"</span>,
-        <span class="s2">"links"</span>: <span class="o">[</span> <span class="o">]</span>,
-        <span class="s2">"physical_modes"</span>: <span class="o">[]</span>,
-        <span class="s2">"routes"</span>: <span class="o">[]</span>,
-        <span class="s2">"commercial_mode"</span>: <span class="o">{</span>...<span class="o">}</span>,
-        <span class="s2">"id"</span>: <span class="s2">"line:RAT:M1"</span>,
-        <span class="s2">"network"</span>: <span class="o">{</span>...<span class="o">}</span>
-    <span class="o">}</span>,
-    ...
-<span class="o">]}</span>
+    <span class="s2">"lines"</span>: <span class="o">[</span>
+        <span class="o">{</span>
+            <span class="s2">"id"</span>: <span class="s2">"line:RAT:M1"</span>,
+            <span class="s2">"code"</span>: <span class="s2">"1"</span>,
+            <span class="s2">"name"</span>: <span class="s2">"Château de Vincennes - La Défense"</span>,
+            <span class="s2">"..."</span>: <span class="s2">"..."</span>
+        <span class="o">}</span>,
+        <span class="o">{</span>...<span class="o">}</span>
+        <span class="o">]</span>,
+    ...,
 
 <span class="c">#and a templated link from the example above:</span>
-<span class="s2">"links"</span>: <span class="o">[</span>
-    <span class="o">{</span>
-        <span class="s2">"href"</span>: <span class="s2">"https://api.navitia.io/v1/coverage/sandbox/lines/{lines.id}/stop_schedules"</span>,
-        <span class="s2">"rel"</span>: <span class="s2">"stop_schedules"</span>,
-        <span class="s2">"templated"</span>: <span class="nb">true</span>
-    <span class="o">}</span>,
-    ...
-<span class="o">]</span>
-</code></pre>
 
-<blockquote>
-<p>You can then request for &ldquo;stop_schedules&rdquo; service using templating</p>
-</blockquote>
-<pre class="highlight shell"><code><span class="c">#request (be careful, without any filter, the response can be huge)</span>
+    <span class="s2">"links"</span>: <span class="o">[</span>
+        <span class="o">{</span>
+            <span class="s2">"href"</span>: <span class="s2">"https://api.navitia.io/v1/coverage/sandbox/lines/{lines.id}/stop_schedules"</span>,
+            <span class="s2">"rel"</span>: <span class="s2">"stop_schedules"</span>,
+            <span class="s2">"templated"</span>: <span class="nb">true</span>
+        <span class="o">}</span>,
+        <span class="o">{</span>...<span class="o">}</span>
+    <span class="o">]</span>
+<span class="o">}</span>
+
+<span class="c">#you can then request for "stop_schedules" service using templating</span>
+<span class="c">#be careful, without any filter, the response can be huge</span>
+
+<span class="c">#second request</span>
+<span class="c">#{line.id} has to be replaced by "line:RAT:M1"</span>
 <span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/lines/line:RAT:M1/stop_schedules'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
 
-<span class="c">#a smarter request for a line AND a stop_area</span>
+<span class="c">#here is a smarter request for a line AND a stop_area</span>
 <span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/lines/line:RAT:M1/stop_areas/stop_area:RAT:SA:PLROY/stop_schedules'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
 
 </code></pre>

@@ -32,11 +32,11 @@
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id="welcome-to-navitia-io">Welcome to navitia.io</h1>
+        <h1 id="getting-started">Getting started</h1>
 
 <h2 id="overview">Overview</h2>
 
-<p><em>navitia.io</em> is the open API for building cool stuff with transport data.
+<p><em>navitia.io</em> is the open API for building cool stuff with mobility data.
 It provides the following services</p>
 
 <ul>
@@ -55,24 +55,28 @@ It provides the following services</p>
 A fake token is used in examples below: be aware that this token is really limited. You should use yours to get better services on real data.
 </aside>
 
-<h2 id="getting-started">Getting started</h2>
-<pre class="highlight shell"><code><span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
+<h2 id="first-step">First step</h2>
+<pre class="highlight shell"><code><span class="c">#your token is in your confirmation mail. It sounds like "3b036afe-0110-4202-b9ed-99718476c2e0"</span>
 </code></pre>
 
-<h4 id="first-step">First step,</h4>
+<p>Get a token here <a href="http://navitia.io/register/">http://navitia.io/register/</a>. We need your mail to stay in touch when Navitia changes.</p>
 
-<p>get a token here <a href="http://navitia.io/register/">http://navitia.io/register/</a></p>
-
-<h4 id="second-step">Second step,</h4>
+<h2 id="second-step">Second step</h2>
+<pre class="highlight shell"><code><span class="c">#you can use curl to request Navitia</span>
+<span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/'</span>
+</code></pre>
 
 <p>Go to the API  <a href="https://api.navitia.io">https://api.navitia.io</a></p>
 
 <p>The simpliest way is to use a web browser. 
 Our humble opinion is that <a href="http://www.getfirefox.com">firefox browser</a> and a json viewer extension like <a href="https://addons.mozilla.org/fr/firefox/addon/jsonview/">JSONView</a> is a good setup.</p>
 
-<h4 id="third-step">Third step,</h4>
+<h2 id="third-step">Third step</h2>
+<pre class="highlight shell"><code><span class="c">#in a curl way, with our fake token</span>
+<span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
+</code></pre>
 
-<p>use the token : if you use a modern web browser, you only have to <strong>paste it</strong> in the <strong>user name area</strong>,
+<p>Use the token : if you use a modern web browser, you only have to <strong>paste it</strong> in the <strong>user name area</strong>,
 with <strong>no password</strong>.</p>
 
 <p><img alt="Put token in Firefox browser" src="../images/firefox_token.png" /></p>

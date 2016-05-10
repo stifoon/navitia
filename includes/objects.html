@@ -632,7 +632,44 @@ filter in your application, you should use <a href="#physical-mode">physical_mod
 
 <h2 id="street-network-objects">Street network objects</h2>
 
-<h3 id="poi">Poi</h3>
+<h3 id="poi-type">Poi Type</h3>
+<pre class="highlight shell"><code><span class="c">#request</span>
+<span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/poi_types'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
+</code></pre>
+
+<p><code class="prettyprint">/poi_types</code> lists groups of point of interest. You will find classifications as theater, offices or bicycle rental station for example.</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>Identifier of the poi type</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>Name of the poi type</td>
+</tr>
+</tbody></table>
+
+<h3 id="poi"><a name="poi"></a>Poi</h3>
+<pre class="highlight shell"><code><span class="c">#useless request, with huge response</span>
+<span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/pois'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
+
+<span class="c">#inverted geocoding request, more usable</span>
+<span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/coords/2.377310;48.847002/pois'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
+
+<span class="c">#very smart request</span>
+<span class="c">#combining filters to get some specific POIs, as bicycle rental stations, </span>
+<span class="c">#nearby a coordinate</span>
+<span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/poi_types/poi_type:amenity:bicycle_rental/coords/2.377310;48.847002/pois'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
+</code></pre>
 
 <p>Poi = Point Of Interest</p>
 
@@ -657,27 +694,6 @@ filter in your application, you should use <a href="#physical-mode">physical_mod
 <td>poi_type</td>
 <td><a href="#poi-type">poi_type</a></td>
 <td>Type of the poi</td>
-</tr>
-</tbody></table>
-
-<h3 id="poi-type">Poi Type</h3>
-
-<table><thead>
-<tr>
-<th>Field</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>id</td>
-<td>string</td>
-<td>Identifier of the poi type</td>
-</tr>
-<tr>
-<td>name</td>
-<td>string</td>
-<td>Name of the poi type</td>
 </tr>
 </tbody></table>
 

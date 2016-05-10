@@ -52,11 +52,11 @@
       <div class="dark-box"></div>
       <div class="content">
         
-          <h1 id="welcome-to-navitia-io">Welcome to navitia.io</h1>
+          <h1 id="getting-started">Getting started</h1>
 
 <h2 id="overview">Overview</h2>
 
-<p><em>navitia.io</em> is the open API for building cool stuff with transport data.
+<p><em>navitia.io</em> is the open API for building cool stuff with mobility data.
 It provides the following services</p>
 
 <ul>
@@ -75,24 +75,28 @@ It provides the following services</p>
 A fake token is used in examples below: be aware that this token is really limited. You should use yours to get better services on real data.
 </aside>
 
-<h2 id="getting-started">Getting started</h2>
-<pre class="highlight shell"><code><span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
+<h2 id="first-step">First step</h2>
+<pre class="highlight shell"><code><span class="c">#your token is in your confirmation mail. It sounds like "3b036afe-0110-4202-b9ed-99718476c2e0"</span>
 </code></pre>
 
-<h4 id="first-step">First step,</h4>
+<p>Get a token here <a href="http://navitia.io/register/">http://navitia.io/register/</a>. We need your mail to stay in touch when Navitia changes.</p>
 
-<p>get a token here <a href="http://navitia.io/register/">http://navitia.io/register/</a></p>
-
-<h4 id="second-step">Second step,</h4>
+<h2 id="second-step">Second step</h2>
+<pre class="highlight shell"><code><span class="c">#you can use curl to request Navitia</span>
+<span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/'</span>
+</code></pre>
 
 <p>Go to the API  <a href="https://api.navitia.io">https://api.navitia.io</a></p>
 
 <p>The simpliest way is to use a web browser. 
 Our humble opinion is that <a href="http://www.getfirefox.com">firefox browser</a> and a json viewer extension like <a href="https://addons.mozilla.org/fr/firefox/addon/jsonview/">JSONView</a> is a good setup.</p>
 
-<h4 id="third-step">Third step,</h4>
+<h2 id="third-step">Third step</h2>
+<pre class="highlight shell"><code><span class="c">#in a curl way, with our fake token</span>
+<span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
+</code></pre>
 
-<p>use the token : if you use a modern web browser, you only have to <strong>paste it</strong> in the <strong>user name area</strong>,
+<p>Use the token : if you use a modern web browser, you only have to <strong>paste it</strong> in the <strong>user name area</strong>,
 with <strong>no password</strong>.</p>
 
 <p><img alt="Put token in Firefox browser" src="images/firefox_token.png" /></p>
@@ -525,7 +529,7 @@ That&rsquo;s lots of links. Links allow you to know all accessible uris and serv
 <blockquote>
 <p>From every object collection</p>
 </blockquote>
-<pre class="highlight shell"><code><span class="c">#request</span>
+<pre class="highlight shell"><code><span class="c">#first request</span>
 
 <span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/lines'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
 
@@ -533,39 +537,39 @@ That&rsquo;s lots of links. Links allow you to know all accessible uris and serv
 HTTP/1.1 200 OK
 
 <span class="c">#first line is like:</span>
+
 <span class="o">{</span>
-<span class="s2">"lines"</span>: <span class="o">[</span>
-    <span class="o">{</span>
-        <span class="s2">"code"</span>: <span class="s2">"1"</span>,
-        <span class="s2">"name"</span>: <span class="s2">"Château de Vincennes - La Défense"</span>,
-        <span class="s2">"links"</span>: <span class="o">[</span> <span class="o">]</span>,
-        <span class="s2">"physical_modes"</span>: <span class="o">[]</span>,
-        <span class="s2">"routes"</span>: <span class="o">[]</span>,
-        <span class="s2">"commercial_mode"</span>: <span class="o">{</span>...<span class="o">}</span>,
-        <span class="s2">"id"</span>: <span class="s2">"line:RAT:M1"</span>,
-        <span class="s2">"network"</span>: <span class="o">{</span>...<span class="o">}</span>
-    <span class="o">}</span>,
-    ...
-<span class="o">]}</span>
+    <span class="s2">"lines"</span>: <span class="o">[</span>
+        <span class="o">{</span>
+            <span class="s2">"id"</span>: <span class="s2">"line:RAT:M1"</span>,
+            <span class="s2">"code"</span>: <span class="s2">"1"</span>,
+            <span class="s2">"name"</span>: <span class="s2">"Château de Vincennes - La Défense"</span>,
+            <span class="s2">"..."</span>: <span class="s2">"..."</span>
+        <span class="o">}</span>,
+        <span class="o">{</span>...<span class="o">}</span>
+        <span class="o">]</span>,
+    ...,
 
 <span class="c">#and a templated link from the example above:</span>
-<span class="s2">"links"</span>: <span class="o">[</span>
-    <span class="o">{</span>
-        <span class="s2">"href"</span>: <span class="s2">"https://api.navitia.io/v1/coverage/sandbox/lines/{lines.id}/stop_schedules"</span>,
-        <span class="s2">"rel"</span>: <span class="s2">"stop_schedules"</span>,
-        <span class="s2">"templated"</span>: <span class="nb">true</span>
-    <span class="o">}</span>,
-    ...
-<span class="o">]</span>
-</code></pre>
 
-<blockquote>
-<p>You can then request for &ldquo;stop_schedules&rdquo; service using templating</p>
-</blockquote>
-<pre class="highlight shell"><code><span class="c">#request (be careful, without any filter, the response can be huge)</span>
+    <span class="s2">"links"</span>: <span class="o">[</span>
+        <span class="o">{</span>
+            <span class="s2">"href"</span>: <span class="s2">"https://api.navitia.io/v1/coverage/sandbox/lines/{lines.id}/stop_schedules"</span>,
+            <span class="s2">"rel"</span>: <span class="s2">"stop_schedules"</span>,
+            <span class="s2">"templated"</span>: <span class="nb">true</span>
+        <span class="o">}</span>,
+        <span class="o">{</span>...<span class="o">}</span>
+    <span class="o">]</span>
+<span class="o">}</span>
+
+<span class="c">#you can then request for "stop_schedules" service using templating</span>
+<span class="c">#be careful, without any filter, the response can be huge</span>
+
+<span class="c">#second request</span>
+<span class="c">#{line.id} has to be replaced by "line:RAT:M1"</span>
 <span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/lines/line:RAT:M1/stop_schedules'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
 
-<span class="c">#a smarter request for a line AND a stop_area</span>
+<span class="c">#here is a smarter request for a line AND a stop_area</span>
 <span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/lines/line:RAT:M1/stop_areas/stop_area:RAT:SA:PLROY/stop_schedules'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
 
 </code></pre>
@@ -638,7 +642,7 @@ coverage api. The shape of the region is provided in GeoJSON.</p>
 
 <h2 id="inverted-geocoding"><a name="coord"></a>Inverted geocoding</h2>
 <pre class="highlight shell"><code><span class="c">#request </span>
-<span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coord/2.37705;48.84675'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
+<span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coords/2.37705;48.84675'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
 
 <span class="c">#response where you can find the right Navitia coverage, and a useful label</span>
 HTTP/1.1 200 OK
@@ -697,7 +701,7 @@ HTTP/1.1 200 OK
 
 </code></pre>
 
-<p>Also known as <code class="prettyprint">/coord</code> service.</p>
+<p>Also known as <code class="prettyprint">/coords</code> service.</p>
 
 <p>Very simple service: you give Navitia some coordinates, it answers you</p>
 
@@ -705,6 +709,21 @@ HTTP/1.1 200 OK
 <li>  your detailed postal address</li>
 <li>  the right Navitia &ldquo;coverage&rdquo; which allows you to access to all known
 local mobility services</li>
+</ul>
+
+<p>You can also combine <code class="prettyprint">/coords</code> with other filter as : </p>
+
+<ul>
+<li>  get <a href="#poi">POIs</a> near a coordinate
+
+<ul>
+<li><a href="https://api.navitia.io/v1/coverage/fr-idf/coords/2.377310;48.847002/pois?distance=1000">https://api.navitia.io/v1/coverage/fr-idf/coords/2.377310;48.847002/pois?distance=1000</a></li>
+</ul></li>
+<li>  get specific POIs near a coordinate
+
+<ul>
+<li><a href="https://api.navitia.io/v1/coverage/fr-idf/poi_types/poi_type:amenity:bicycle_rental/coords/2.377310;48.847002/pois?distance=1000">https://api.navitia.io/v1/coverage/fr-idf/poi_types/poi_type:amenity:bicycle_rental/coords/2.377310;48.847002/pois?distance=1000</a></li>
+</ul></li>
 </ul>
 
 <h2 id="public-transportation-objects-exploration"><a name="pt-ref"></a>Public Transportation Objects exploration</h2>
@@ -841,8 +860,9 @@ whatever its type</li>
 </ul>
 
 <p>If you specify coords in your filter, you can modify the radius used for
-the proximity search.
-<a href="https://api.navitia.io/v1/coverage/fr-idf/coords/2.377310;48.847002/stop_schedules?distance=500">https://api.navitia.io/v1/coverage/fr-idf/coords/2.377310;48.847002/stop_schedules?distance=500</a></p>
+the proximity search.</p>
+
+<p><a href="https://api.navitia.io/v1/coverage/fr-idf/coords/2.377310;48.847002/stop_schedules?distance=500">https://api.navitia.io/v1/coverage/fr-idf/coords/2.377310;48.847002/stop_schedules?distance=500</a></p>
 
 <h4 id="headsign">headsign</h4>
 
@@ -895,24 +915,35 @@ is sent. If object or attribute provided is not handled, the filter is
 ignored.</p>
 
 <h4 id="collection-has_code">{collection}.has_code</h4>
-<pre class="highlight shell"><code>
-<span class="c">#on every object, you can find codes, like:</span>
+<pre class="highlight shell"><code><span class="c">#for any pt_object request, as this one:</span>
+<span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/stop_areas'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
 
-    <span class="s2">"codes"</span> :
-    <span class="o">[</span>
+<span class="c">#you can find codes on every pt_object, like:</span>
+HTTP/1.1 200 OK
+
+<span class="o">{</span>
+    <span class="s2">"stop_areas"</span>: <span class="o">[</span>
         <span class="o">{</span>
-            <span class="s2">"type"</span>: <span class="s2">"external_code"</span>,
-            <span class="s2">"value"</span>: <span class="s2">"RATCAMPO"</span>
+            <span class="s2">"codes"</span> :[
+                <span class="o">{</span>
+                    <span class="s2">"type"</span>: <span class="s2">"external_code"</span>,
+                    <span class="s2">"value"</span>: <span class="s2">"RATCAMPO"</span>
+                <span class="o">}</span>,
+                <span class="o">{</span>
+                    <span class="s2">"type"</span> : <span class="s2">"source"</span>,
+                    <span class="s2">"value"</span> : <span class="s2">"CAMPO"</span>
+                <span class="o">}</span>
+            <span class="o">]</span>
+            <span class="s2">"..."</span>: <span class="s2">"..."</span>,
         <span class="o">}</span>,
-        <span class="o">{</span>
-            <span class="s2">"type"</span> : <span class="s2">"source"</span>,
-            <span class="s2">"value"</span> : <span class="s2">"CAMPO"</span>
-        <span class="o">}</span>
-    <span class="o">]</span>
+        <span class="o">{</span>...<span class="o">}</span>
+<span class="o">]</span>
 
-<span class="c">#you can request for object with a specific code</span>
+<span class="c">#you can request for objects with a specific code </span>
+<span class="c">#for example, you can get this stoparea, having a "source" code "CAMPO"</span>
+<span class="c">#by using parameter "filter=stop_area.has_code(source,CAMPO)" like:</span>
+
 <span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/stop_areas?filter=stop_area.has_code(source,CAMPO)'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
-
 </code></pre>
 
 <p>Every object managed by Navitia comes with its own list of ids. 
@@ -930,6 +961,10 @@ Be careful, these codes may not be unique. The navitia id is the only unique id.
 <li>  <a href="https://api.navitia.io/v1/coverage/fr-sw/stop_areas?filter=stop_area.has_code(gtfs_stop_code,1)">https://api.navitia.io/v1/coverage/fr-sw/stop_areas?filter=stop_area.has_code(gtfs_stop_code,1)</a></li>
 <li>  <a href="https://api.navitia.io/v1/coverage/fr-sw/lines?filter=line.has_code(source,11821949021891615)">https://api.navitia.io/v1/coverage/fr-sw/lines?filter=line.has_code(source,11821949021891615)</a></li>
 </ul>
+
+<aside class="warning">
+    these ids (which are not Navitia ids) may not be unique. you will have to manage a tuple in response.
+</aside>
 
 <h4 id="line-code">line.code</h4>
 
@@ -2298,7 +2333,7 @@ object. Arrivals are ordered chronologically in ascending order.</p>
 <pre class="highlight shell"><code><span class="c">#request</span>
 <span class="gp">$ </span>curl <span class="s1">'http://api.navitia.io/v1/coverage/sandbox/traffic_reports'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
 
-<span class="c">#response</span>
+<span class="c">#response, composed by 2 main lists: "traffic_reports" and "disruptions"</span>
 HTTP/1.1 200 OK
 
 <span class="o">{</span>
@@ -2312,25 +2347,52 @@ HTTP/1.1 200 OK
         <span class="s2">"stop_areas"</span>: <span class="o">[</span>
         <span class="c">#list of all disrupted stop_areas from the network and disruptions links</span>
         <span class="o">]</span>,
+    <span class="o">]</span>,[
+        <span class="c">#another network with its lines and stop areas</span>
     <span class="o">]</span>,
-    <span class="o">[</span>
-        <span class="s2">"network"</span>: <span class="o">{</span>
-        <span class="c">#another network</span>
-        <span class="o">}</span>,
-        <span class="s2">"lines"</span>: <span class="o">[</span>...],
-        <span class="s2">"stop_areas"</span>: <span class="o">[</span>...],
-    <span class="o">]</span>,
-<span class="s2">"disruptions"</span>: <span class="o">[</span>...],
-<span class="s2">"link"</span>: <span class="o">{</span> ... <span class="o">}</span>,
-<span class="s2">"pagination"</span>: <span class="o">{</span> ... <span class="o">}</span>
+<span class="s2">"disruptions"</span>: <span class="o">[</span>...]
 <span class="o">}</span>
-
 </code></pre>
 
-<blockquote>
-<p>the response above is composed from 2 main lists : &ldquo;traffic_reports&rdquo; and &ldquo;disruptions&rdquo;</p>
-</blockquote>
-<pre class="highlight shell"><code><span class="c">#response details and links between objects</span>
+<p>Also known as <code class="prettyprint">/traffic_reports</code> service.</p>
+
+<p>This service provides the state of public transport traffic. It can be
+called for an overall coverage or for a specific object.</p>
+
+<p><img alt="Traffic reports" src="images/traffic_reports.png" /></p>
+
+<h3 id="parameters">Parameters</h3>
+
+<p>You can access it via that kind of url: <a href="https://api.navitia.io/v1/%7Ba_path_to_a_resource%7D/traffic_reports">https://api.navitia.io/v1/{a_path_to_a_resource}/traffic_reports</a></p>
+
+<p>For example:</p>
+
+<ul>
+<li>  overall public transport traffic report on Ile de France coverage
+
+<ul>
+<li>  <a href="https://api.navitia.io/v1/coverage/fr-idf/traffic_reports">https://api.navitia.io/v1/coverage/fr-idf/traffic_reports</a></li>
+</ul></li>
+<li>  Is there any perturbations on the RER network ?
+
+<ul>
+<li>  <a href="https://api.navitia.io/v1/coverage/fr-idf/networks/network:RER/traffic_reports">https://api.navitia.io/v1/coverage/fr-idf/networks/network:RER/traffic_reports</a></li>
+</ul></li>
+<li>  Is there any perturbations on the &ldquo;RER A&rdquo; line ?
+
+<ul>
+<li>  <a href="https://api.navitia.io/v1/coverage/fr-idf/networks/network:RER/lines/line:TRN:DUA810801043/traffic_reports">https://api.navitia.io/v1/coverage/fr-idf/networks/network:RER/lines/line:TRN:DUA810801043/traffic_reports</a></li>
+</ul></li>
+</ul>
+
+<p>The response is made of an array of <a href="#traffic-reports">traffic_reports</a>, 
+and another one of <a href="#disruption">disruptions</a>. </p>
+
+<p>There are inner links between this 2 arrays: 
+see the <a href="#inner-references">inner-reference</a> section to use them.</p>
+
+<h3 id="traffic-report-object">Traffic report object</h3>
+<pre class="highlight shell"><code><span class="c">#links between objects in a traffic_reports response</span>
 <span class="o">{</span>
 <span class="s2">"traffic_reports"</span>: <span class="o">[</span>
     <span class="s2">"network"</span>: <span class="o">{</span><span class="s2">"name"</span>: <span class="s2">"bob"</span>, <span class="s2">"links"</span>: <span class="o">[]</span>, <span class="s2">"id"</span>: <span class="s2">"network:bob"</span><span class="o">}</span>,
@@ -2453,50 +2515,14 @@ HTTP/1.1 200 OK
 <span class="s2">"link"</span>: <span class="o">{</span> ... <span class="o">}</span>,
 <span class="s2">"pagination"</span>: <span class="o">{</span> ... <span class="o">}</span>
 <span class="o">}</span>
-
 </code></pre>
 
-<p>Also known as <code class="prettyprint">/traffic_reports</code> service.</p>
+<p>Traffic_reports is an array of some traffic_report object.</p>
 
-<p>This service provides the state of public transport traffic. It can be
-called for an overall coverage or for a specific object.</p>
+<p>One traffic_report object is a complex object, made of a network, an array
+of lines and an array of stop_areas. </p>
 
-<h3 id="parameters">Parameters</h3>
-
-<p>You can access it via that kind of url: <a href="https://api.navitia.io/v1/%7Ba_path_to_a_resource%7D/traffic_reports">https://api.navitia.io/v1/{a_path_to_a_resource}/traffic_reports</a></p>
-
-<p>For example:</p>
-
-<ul>
-<li>  overall public transport traffic report on Ile de France coverage
-
-<ul>
-<li>  <a href="https://api.navitia.io/v1/coverage/fr-idf/traffic_reports">https://api.navitia.io/v1/coverage/fr-idf/traffic_reports</a></li>
-</ul></li>
-<li>  Is there any perturbations on the RER network ?
-
-<ul>
-<li>  <a href="https://api.navitia.io/v1/coverage/fr-idf/networks/network:RER/traffic_reports">https://api.navitia.io/v1/coverage/fr-idf/networks/network:RER/traffic_reports</a></li>
-</ul></li>
-<li>  Is there any perturbations on the &ldquo;RER A&rdquo; line ?
-
-<ul>
-<li>  <a href="https://api.navitia.io/v1/coverage/fr-idf/networks/network:RER/lines/line:TRN:DUA810801043/traffic_reports">https://api.navitia.io/v1/coverage/fr-idf/networks/network:RER/lines/line:TRN:DUA810801043/traffic_reports</a></li>
-</ul></li>
-</ul>
-
-<p>The response is made of an array of <a href="#traffic-reports">traffic_reports</a>, and another one
-of <a href="#disruption">disruptions</a>. There are inner links between this 2 arrays: see the
-<a href="#inner-reference">inner-reference</a> section to use them.</p>
-
-<h3 id="objects">Objects</h3>
-
-<h4 id="traffic-report">Traffic report</h4>
-
-<p>Traffic_reports is an array of some traffic_report object. One
-traffic_report object is a complex object, made of a network, an array
-of lines and an array of stop_areas. A typical traffic_report object
-will contain:</p>
+<p>A typical traffic_report object will contain:</p>
 
 <ul>
 <li>  1 network which is the grouping object
@@ -3154,7 +3180,44 @@ filter in your application, you should use <a href="#physical-mode">physical_mod
 
 <h2 id="street-network-objects">Street network objects</h2>
 
-<h3 id="poi">Poi</h3>
+<h3 id="poi-type">Poi Type</h3>
+<pre class="highlight shell"><code><span class="c">#request</span>
+<span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/poi_types'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
+</code></pre>
+
+<p><code class="prettyprint">/poi_types</code> lists groups of point of interest. You will find classifications as theater, offices or bicycle rental station for example.</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>Identifier of the poi type</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>Name of the poi type</td>
+</tr>
+</tbody></table>
+
+<h3 id="poi"><a name="poi"></a>Poi</h3>
+<pre class="highlight shell"><code><span class="c">#useless request, with huge response</span>
+<span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/pois'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
+
+<span class="c">#inverted geocoding request, more usable</span>
+<span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/coords/2.377310;48.847002/pois'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
+
+<span class="c">#very smart request</span>
+<span class="c">#combining filters to get some specific POIs, as bicycle rental stations, </span>
+<span class="c">#nearby a coordinate</span>
+<span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/poi_types/poi_type:amenity:bicycle_rental/coords/2.377310;48.847002/pois'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
+</code></pre>
 
 <p>Poi = Point Of Interest</p>
 
@@ -3179,27 +3242,6 @@ filter in your application, you should use <a href="#physical-mode">physical_mod
 <td>poi_type</td>
 <td><a href="#poi-type">poi_type</a></td>
 <td>Type of the poi</td>
-</tr>
-</tbody></table>
-
-<h3 id="poi-type">Poi Type</h3>
-
-<table><thead>
-<tr>
-<th>Field</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>id</td>
-<td>string</td>
-<td>Identifier of the poi type</td>
-</tr>
-<tr>
-<td>name</td>
-<td>string</td>
-<td>Name of the poi type</td>
 </tr>
 </tbody></table>
 
