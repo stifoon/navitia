@@ -1,0 +1,1004 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>API Documentation</title>
+
+    <link rel="icon" href="favicon.ico" />
+
+    <link href="../stylesheets/screen.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="../stylesheets/print.css" rel="stylesheet" type="text/css" media="print" />
+    <link href="../stylesheets/navio.css" rel="stylesheet" type="text/css" media="all" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+      <script src="../javascripts/all_nosearch.js" type="text/javascript"></script>
+
+  </head>
+
+  <body class="includes includes_objects">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="../images/navbar.png" />
+      </span>
+    </a>
+    <div class="tocify-wrapper">
+      <img src="../images/logo.png" />
+      <div id="toc">
+      </div>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id="objects">Objects</h1>
+
+<h2 id="standard-objects">Standard Objects</h2>
+
+<h3 id="coord">Coord</h3>
+
+<p>Lots of object are geographically localized :</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>lon</td>
+<td>float</td>
+<td>Longitude</td>
+</tr>
+<tr>
+<td>lat</td>
+<td>float</td>
+<td>Latitude</td>
+</tr>
+</tbody></table>
+
+<h3 id="iso-date-time">Iso-date-time</h3>
+
+<p>Navitia manages every date or time as a UTC date-time. The web-service </p>
+
+<ul>
+<li>  exposes every date times as local times via an ISO 8601 &ldquo;YYYYMMDDThhmmss&rdquo; string</li>
+<li>  can be request using local times via an ISO 8601 &ldquo;YYYYMMDDThhmmss&rdquo; string</li>
+</ul>
+
+<p>For example: <a href="https://api.navitia.io/v1/journeys?from=bob&amp;to=bobette&amp;datetime=20140425T1337">https://api.navitia.io/v1/journeys?from=bob&amp;to=bobette&amp;datetime=20140425T1337</a></p>
+
+<p>There are lots of ISO 8601 libraries in every kind of language that you should use before breaking down <a href="https://youtu.be/-5wpm-gesOY">https://youtu.be/-5wpm-gesOY</a></p>
+
+<h2 id="public-transport-objects">Public transport objects</h2>
+
+<h3 id="network">Network</h3>
+
+<p>Networks are fed by agencies in GTFS format.</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>Identifier of the network</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>Name of the network</td>
+</tr>
+</tbody></table>
+
+<h3 id="line">Line</h3>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>Identifier of the line</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>Name of the line</td>
+</tr>
+<tr>
+<td>code</td>
+<td>string</td>
+<td>Code name of the line</td>
+</tr>
+<tr>
+<td>color</td>
+<td>string</td>
+<td>Color of the line</td>
+</tr>
+<tr>
+<td>routes</td>
+<td>array of <a href="#route">route</a></td>
+<td>Routes of the line</td>
+</tr>
+<tr>
+<td>commercial_mode</td>
+<td><a href="#commercial-mode">commercial_mode</a></td>
+<td>Commercial mode of the line</td>
+</tr>
+</tbody></table>
+
+<h3 id="route">Route</h3>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>Identifier of the route</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>Name of the route</td>
+</tr>
+<tr>
+<td>is_frequence</td>
+<td>bool</td>
+<td>Is the route has frequency or not</td>
+</tr>
+<tr>
+<td>line</td>
+<td><a href="#line">line</a></td>
+<td>The line of this route</td>
+</tr>
+<tr>
+<td>direction</td>
+<td><a href="#place">place</a></td>
+<td>The direction of this route</td>
+</tr>
+</tbody></table>
+
+<p>As &ldquo;direction&rdquo; is a <a href="#place">place</a> , it can be a poi in some data.</p>
+
+<h3 id="stop-point"><a name="stop-point"></a>Stop Point</h3>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>Identifier of the stop point</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>Name of the stop point</td>
+</tr>
+<tr>
+<td>coord</td>
+<td><a href="#coord">coord</a></td>
+<td>Coordinates of the stop point</td>
+</tr>
+<tr>
+<td>administrative_regions</td>
+<td>array of <a href="#admin">admin</a></td>
+<td>Administrative regions of the stop point in which is the stop point</td>
+</tr>
+<tr>
+<td>equipments</td>
+<td>array of string</td>
+<td>list of <a href="#equipment">equipment</a> of the stop point</td>
+</tr>
+<tr>
+<td>stop_area</td>
+<td><a href="#stop-area">stop_area</a></td>
+<td>Stop Area containing this stop point</td>
+</tr>
+</tbody></table>
+
+<h3 id="stop-area"><a name="stop-area"></a>Stop Area</h3>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>Identifier of the stop area</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>Name of the stop area</td>
+</tr>
+<tr>
+<td>coord</td>
+<td><a href="#coord">coord</a></td>
+<td>Coordinates of the stop area</td>
+</tr>
+<tr>
+<td>administrative_regions</td>
+<td>array of <a href="#admin">admin</a></td>
+<td>Administrative regions of the stop area in which is the stop area</td>
+</tr>
+<tr>
+<td>stop_points</td>
+<td>array of <a href="#stop-point">stop_point</a></td>
+<td>Stop points contained in this stop area</td>
+</tr>
+</tbody></table>
+
+<h3 id="commercial-mode"><a name="commercial-mode"></a>Commercial Mode</h3>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>Identifier of the commercial mode</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>Name of the commercial mode</td>
+</tr>
+<tr>
+<td>physical_modes</td>
+<td>array of <a href="#physical-mode">physical_mode</a></td>
+<td>Physical modes of this commercial mode</td>
+</tr>
+</tbody></table>
+
+<h3 id="physical-mode"><a name="physical-mode"></a>Physical Mode</h3>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>Identifier of the physical mode</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>Name of the physical mode</td>
+</tr>
+<tr>
+<td>commercial_modes</td>
+<td>array of <a href="#commercial-mode">commercial_mode</a></td>
+<td>Commercial modes of this physical mode</td>
+</tr>
+</tbody></table>
+
+<p>Physical modes are fastened and normalized. If you want to propose modes
+filter in your application, you should use <a href="#physical-mode">physical_mode</a> rather than
+<a href="#commercial-mode">commercial_mode</a>.</p>
+
+<p>Here is the valid id list:</p>
+
+<ul>
+<li>  physical_mode:Air</li>
+<li>  physical_mode:Boat</li>
+<li>  physical_mode:Bus</li>
+<li>  physical_mode:BusRapidTransit</li>
+<li>  physical_mode:Coach</li>
+<li>  physical_mode:Ferry</li>
+<li>  physical_mode:Funicular</li>
+<li>  physical_mode:LocalTrain</li>
+<li>  physical_mode:LongDistanceTrain</li>
+<li>  physical_mode:Metro</li>
+<li>  physical_mode:RapidTransit</li>
+<li>  physical_mode:Shuttle</li>
+<li>  physical_mode:Taxi</li>
+<li>  physical_mode:Train</li>
+<li>  physical_mode:Tramway</li>
+</ul>
+
+<p>You can use these ids in the forbidden_uris[] parameter from
+<a href="#journeys-parameters">journeys parameters</a> for exemple.</p>
+
+<h3 id="company"><a name="company"></a>Company</h3>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>Identifier of the company</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>Name of the company</td>
+</tr>
+</tbody></table>
+
+<h3 id="place">Place</h3>
+
+<p>A container containing either a <a href="#admin">admin</a>, <a href="#poi">poi</a>, <a href="#address">address</a>, <a href="#stop-area">stop_area</a>,
+<a href="#stop-point">stop_point</a></p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>The name of the embedded object</td>
+</tr>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>The id of the embedded object</td>
+</tr>
+<tr>
+<td>embedded_type</td>
+<td><a href="#embedded-type">embedded_type</a></td>
+<td>The type of the embedded object</td>
+</tr>
+<tr>
+<td>administrative_region</td>
+<td><em>optional</em> <a href="#admin">admin</a></td>
+<td>Embedded administrative region</td>
+</tr>
+<tr>
+<td>stop_area</td>
+<td><em>optional</em> <a href="#stop-area">stop_area</a></td>
+<td>Embedded Stop area</td>
+</tr>
+<tr>
+<td>poi</td>
+<td><em>optional</em> <a href="#poi">poi</a></td>
+<td>Embedded poi</td>
+</tr>
+<tr>
+<td>address</td>
+<td><em>optional</em> <a href="#address">address</a></td>
+<td>Embedded address</td>
+</tr>
+<tr>
+<td>stop_point</td>
+<td><em>optional</em> <a href="#stop-point">stop_point</a></td>
+<td>Embedded Stop point</td>
+</tr>
+</tbody></table>
+
+<h3 id="pt_object"><a name="pt-object"></a>Pt_object</h3>
+
+<p>A container containing either a <a href="#network">network</a>, <a href="#commercial-mode">commercial_mode</a>, <a href="#line">line</a>, <a href="#route">route</a>,
+<a href="#stop_point">stop_area</a>, <a href="#stop_point">stop_area</a></p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>The name of the embedded object</td>
+</tr>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>The id of the embedded object</td>
+</tr>
+<tr>
+<td>embedded_type</td>
+<td><a href="#embedded-type">embedded_type</a></td>
+<td>The type of the embedded object</td>
+</tr>
+<tr>
+<td>stop_area</td>
+<td><em>optional</em> <a href="#stop-area">stop_area</a></td>
+<td>Embedded Stop area</td>
+</tr>
+<tr>
+<td>stop_point</td>
+<td><em>optional</em> <a href="#stop-point">stop_point</a></td>
+<td>Embedded Stop point</td>
+</tr>
+<tr>
+<td>network</td>
+<td><em>optional</em> <a href="#network">network</a></td>
+<td>Embedded network</td>
+</tr>
+<tr>
+<td>commercial_mode</td>
+<td><em>optional</em> <a href="#commercial-mode">commercial_mode</a></td>
+<td>Embedded commercial_mode</td>
+</tr>
+<tr>
+<td>stop_area</td>
+<td><em>optional</em> <a href="#stop-area">stop_area</a></td>
+<td>Embedded Stop area</td>
+</tr>
+<tr>
+<td>line</td>
+<td><em>optional</em> <a href="#line">line</a></td>
+<td>Embedded line</td>
+</tr>
+<tr>
+<td>route</td>
+<td><em>optional</em> <a href="#route">route</a></td>
+<td>Embedded route</td>
+</tr>
+</tbody></table>
+
+<h2 id="real-time-and-disruption-objects">Real time and disruption objects</h2>
+
+<h3 id="disruption">Disruption</h3>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>status</td>
+<td>between: &ldquo;past&rdquo;, &ldquo;active&rdquo; or &ldquo;future&rdquo;</td>
+<td>state of the disruption</td>
+</tr>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>Id of the disruption</td>
+</tr>
+<tr>
+<td>disruption_id</td>
+<td>string</td>
+<td>for traceability: Id of original input disruption</td>
+</tr>
+<tr>
+<td>severity</td>
+<td><a href="#severity">severity</a></td>
+<td>gives some categorization element</td>
+</tr>
+<tr>
+<td>application_periods</td>
+<td>array of <a href="#period">period</a></td>
+<td>dates where the current disruption is active</td>
+</tr>
+<tr>
+<td>messages</td>
+<td><a href="#message">message</a></td>
+<td>text to provide to the traveler</td>
+</tr>
+<tr>
+<td>updated_at</td>
+<td><a href="#iso-date-time">iso-date-time</a></td>
+<td>date_time of last modifications</td>
+</tr>
+<tr>
+<td>impacted_objects</td>
+<td>array of <a href="#pt_object">pt_object</a></td>
+<td>The list of public transport objects which are affected by the disruption</td>
+</tr>
+<tr>
+<td>cause</td>
+<td>string</td>
+<td>why is there such a disruption?</td>
+</tr>
+</tbody></table>
+
+<h3 id="message">Message</h3>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>text</td>
+<td>string</td>
+<td>a message to bring to a traveler</td>
+</tr>
+<tr>
+<td>channel</td>
+<td><a href="#channel">channel</a></td>
+<td>destination media. Be careful, no normalized enum for now</td>
+</tr>
+</tbody></table>
+
+<h3 id="severity">Severity</h3>
+
+<p>Severity object can be used to make visual grouping.</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>color</td>
+<td>string</td>
+<td>HTML color for classification</td>
+</tr>
+<tr>
+<td>priority</td>
+<td>integer</td>
+<td>given by the agency : 0 is strongest priority. it can be null</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>name of severity</td>
+</tr>
+<tr>
+<td>effect</td>
+<td>Enum</td>
+<td>Normalized value of the effect on the public transport object See the GTFS RT documentation at <a href="https://developers.google.com/transit/gtfs-realtime/reference#Effect">https://developers.google.com/transit/gtfs-realtime/reference#Effect</a></td>
+</tr>
+</tbody></table>
+
+<h3 id="channel">Channel</h3>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>Identifier of the address</td>
+</tr>
+<tr>
+<td>content_type</td>
+<td>string</td>
+<td>Like text/html, you know? Otherwise, take a look at <a href="http://www.w3.org/Protocols/rfc1341/4_Content-Type.html">http://www.w3.org/Protocols/rfc1341/4_Content-Type.html</a></td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>name of the Channel</td>
+</tr>
+</tbody></table>
+
+<h3 id="period">Period</h3>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>begin</td>
+<td><a href="#iso-date-time">iso-date-time</a></td>
+<td>Beginning date and time of an activity period</td>
+</tr>
+<tr>
+<td>end</td>
+<td><a href="#iso-date-time">iso-date-time</a></td>
+<td>Closing date and time of an activity period</td>
+</tr>
+</tbody></table>
+
+<h2 id="street-network-objects">Street network objects</h2>
+
+<h3 id="poi-type">Poi Type</h3>
+<pre class="highlight shell"><code><span class="c">#request</span>
+<span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/poi_types'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
+</code></pre>
+
+<p><code class="prettyprint">/poi_types</code> lists groups of point of interest. You will find classifications as theater, offices or bicycle rental station for example.</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>Identifier of the poi type</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>Name of the poi type</td>
+</tr>
+</tbody></table>
+
+<h3 id="poi"><a name="poi"></a>Poi</h3>
+<pre class="highlight shell"><code><span class="c">#useless request, with huge response</span>
+<span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/pois'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
+
+<span class="c">#inverted geocoding request, more usable</span>
+<span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/coords/2.377310;48.847002/pois'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
+
+<span class="c">#very smart request</span>
+<span class="c">#combining filters to get some specific POIs, as bicycle rental stations, </span>
+<span class="c">#nearby a coordinate</span>
+<span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/poi_types/poi_type:amenity:bicycle_rental/coords/2.377310;48.847002/pois'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
+</code></pre>
+
+<p>Poi = Point Of Interest</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>Identifier of the poi</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>Name of the poi</td>
+</tr>
+<tr>
+<td>poi_type</td>
+<td><a href="#poi-type">poi_type</a></td>
+<td>Type of the poi</td>
+</tr>
+</tbody></table>
+
+<h3 id="address">Address</h3>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>Identifier of the address</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>Name of the address</td>
+</tr>
+<tr>
+<td>coord</td>
+<td><a href="#coord">coord</a></td>
+<td>Coordinates of the address</td>
+</tr>
+<tr>
+<td>house_number</td>
+<td>int</td>
+<td>House number of the address</td>
+</tr>
+<tr>
+<td>administrative_regions</td>
+<td>array of <a href="#admin">admin</a></td>
+<td>Administrative regions of the address in which is the stop area</td>
+</tr>
+</tbody></table>
+
+<h3 id="administrative-region">Administrative region</h3>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>Identifier of the address</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>Name of the address</td>
+</tr>
+<tr>
+<td>coord</td>
+<td><a href="#coord">coord</a></td>
+<td>Coordinates of the address</td>
+</tr>
+<tr>
+<td>level</td>
+<td>int</td>
+<td>Level of the admin</td>
+</tr>
+<tr>
+<td>zip_code</td>
+<td>string</td>
+<td>Zip code of the admin</td>
+</tr>
+</tbody></table>
+
+<p>Cities are mainly on the 8 level, dependant on the country
+(<a href="http://wiki.openstreetmap.org/wiki/Tag:boundary%3Dadministrative">http://wiki.openstreetmap.org/wiki/Tag:boundary%3Dadministrative</a>)</p>
+
+<h2 id="other-objects">Other objects</h2>
+
+<h3 id="pt-date-time">pt-date-time</h3>
+
+<p>pt-date-time (pt stands for &ldquo;public transport&rdquo;) is a complex date time object to manage the difference between stop and leaving times at a stop.</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>additionnal_informations</td>
+<td>Array of String</td>
+<td>Other information: TODO enum</td>
+</tr>
+<tr>
+<td>departure_date_time</td>
+<td><a href="#iso-date-time">iso-date-time</a></td>
+<td>A date time</td>
+</tr>
+<tr>
+<td>arrival_date_time</td>
+<td><a href="#iso-date-time">iso-date-time</a></td>
+<td>A date time</td>
+</tr>
+<tr>
+<td>links</td>
+<td>Array of <a href="#link">link</a></td>
+<td>internal links to notes</td>
+</tr>
+</tbody></table>
+
+<h3 id="note">note</h3>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>String</td>
+<td>id of the note</td>
+</tr>
+<tr>
+<td>value</td>
+<td>String</td>
+<td>The content of the note</td>
+</tr>
+</tbody></table>
+
+<h3 id="stop_date_time">stop_date_time</h3>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>date_time</td>
+<td><a href="#pt-date-time">pt-date-time</a></td>
+<td>A public transport date time</td>
+</tr>
+<tr>
+<td>stop_point</td>
+<td><a href="#stop-point">stop_point</a></td>
+<td>A stop point</td>
+</tr>
+</tbody></table>
+
+<h3 id="embedded-type"><a name="embedded-type"></a>Embedded type</h3>
+
+<p>Enum used to identify what kind of objects <em><a href="#places">/places</a></em>, <em><a href="#pt-objects">/pt_objects</a></em> or <em><a href="#disruption">/disruptions</a></em> services are managing.</p>
+
+<table><thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>administrative_region</td>
+<td>a city, a district, a neighborhood</td>
+</tr>
+<tr>
+<td>network</td>
+<td>a public transport network</td>
+</tr>
+<tr>
+<td>commercial_mode</td>
+<td>a public transport branded mode</td>
+</tr>
+<tr>
+<td>line</td>
+<td>a public transport line</td>
+</tr>
+<tr>
+<td>route</td>
+<td>a public transport route</td>
+</tr>
+<tr>
+<td>stop_area</td>
+<td>a nameable zone, where there are some stop points</td>
+</tr>
+<tr>
+<td>stop_point</td>
+<td>a location where vehicles can pickup or drop off passengers</td>
+</tr>
+<tr>
+<td>address</td>
+<td>a point located in a street</td>
+</tr>
+<tr>
+<td>poi</td>
+<td>a point of interest</td>
+</tr>
+</tbody></table>
+
+<aside class="notice">
+    This enum is used by 3 services :<br>
+    <ul>
+    <li>Using <b>places</b> service, navitia would returned objects among administrative_region, stop_area, poi, address and stop_point types<br>
+    <li>Using <b>pt_objects</b> service, navitia would returned objects among network, commercial_mode, stop_area, line and route types<br>
+    <li>Using <b>disruptions</b> service, navitia would returned objects among network, commercial_mode, stop_area, line, route and trips types<br>
+    </ul>
+</aside>
+
+<h3 id="equipment">equipment</h3>
+
+<p>Enum from</p>
+
+<ul>
+<li>  has_wheelchair_accessibility</li>
+<li>  has_bike_accepted</li>
+<li>  has_air_conditioned</li>
+<li>  has_visual_announcement</li>
+<li>  has_audible_announcement</li>
+<li>  has_appropriate_escort</li>
+<li>  has_appropriate_signage</li>
+<li>  has_school_vehicle</li>
+<li>  has_wheelchair_boarding</li>
+<li>  has_sheltered</li>
+<li>  has_elevator</li>
+<li>  has_escalator</li>
+<li>  has_bike_depot</li>
+</ul>
+
+<h3 id="display-informations">display informations</h3>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>network</td>
+<td>String</td>
+<td>The name of the network</td>
+</tr>
+<tr>
+<td>direction</td>
+<td>String</td>
+<td>A direction</td>
+</tr>
+<tr>
+<td>commercial_mode</td>
+<td>String</td>
+<td>The commercial mode</td>
+</tr>
+<tr>
+<td>physical_mode</td>
+<td>String</td>
+<td>The physical mode</td>
+</tr>
+<tr>
+<td>label</td>
+<td>String</td>
+<td>The label of the object</td>
+</tr>
+<tr>
+<td>color</td>
+<td>String</td>
+<td>The hexadecimal code of the line</td>
+</tr>
+<tr>
+<td>code</td>
+<td>String</td>
+<td>The code of the line</td>
+</tr>
+<tr>
+<td>description</td>
+<td>String</td>
+<td>A description</td>
+</tr>
+<tr>
+<td>equipments</td>
+<td>Array of String</td>
+<td>list of <a href="#equipment">equipment</a> of the object</td>
+</tr>
+</tbody></table>
+
+<h3 id="link">link</h3>
+
+<p>See <a href="#interface">interface</a> section.</p>
+
+<h2 id="special-parameters">Special Parameters</h2>
+
+<h3 id="datetime">datetime</h3>
+
+<p>A date time with the format YYYYMMDDThhmmss</p>
+
+<h4 id="depth">depth</h4>
+
+<p>This tiny parameter can expand Navitia power by making it more wordy. As it is valuable on every API, take a look at <a href="#depth">depth</a></p>
+
+      </div>
+      <div class="dark-box">
+      </div>
+    </div>
+  </body>
+</html>
