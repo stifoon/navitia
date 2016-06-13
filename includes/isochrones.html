@@ -44,7 +44,7 @@ the quickest way to reach your destination.</p>
 <p>The Isochrone function provides information either:</p>
 
 <ul>
-<li>  in the form of a table with all the possible stops from a potential destination 
+<li>  in the form of a list with all the reachable stops from a potential destination 
 with their respective arrival times, travel times and number of matches</li>
 <li>  in the form of a multi-polygon in order to plate colors directly on a map, 
 or to filter geocoded objects inside the polygon</li>
@@ -61,8 +61,10 @@ or to filter geocoded objects inside the polygon</li>
 
 <ul>
 <li>  <strong><a href="#places">Places</a></strong> : autocomplete on geographical data to find the departure and destination points from an input text.</li>
-<li>  <strong><a href="#journeys">Journeys</a></strong> : Compute all journeys from a departure point to every reachable point</li>
-<li>  <strong><a href="#isochrones_api">isochrones</a></strong> : same as /journeys, but it returns a geoJson ready to be displayed on map ! This service is currently in beta.</li>
+<li>  <strong><a href="#journeys">Journeys</a></strong> : Compute all journeys from a departure point to every reachable point, 
+and returns a list of all reachable points, ordered by time to reach.</li>
+<li>  <strong><a href="#isochrones_api">isochrones</a></strong> : Compute all journeys from a departure point to every reachable point, 
+and returns multiple geoJson ready to be displayed on map ! This service is currently in beta.</li>
 </ul>
 
       </div>

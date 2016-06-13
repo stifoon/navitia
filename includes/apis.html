@@ -802,6 +802,99 @@ coordinates, returning a <a href="#place">places</a> collection.</p>
 </ul>
 
 <h2 id="journeys"><a name="journeys"></a>Journeys</h2>
+<pre class="highlight shell"><code><span class="c">#request</span>
+<span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/journeys?from=2.3749036;48.8467927&amp;to=2.2922926;48.8583736'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
+
+<span class="c">#response</span>
+HTTP/1.1 200 OK
+
+<span class="o">{</span>
+    <span class="s2">"tickets"</span>: <span class="o">[]</span>,
+    <span class="s2">"links"</span>: <span class="o">[</span>...],
+    <span class="s2">"journeys"</span>: <span class="o">[</span>
+    <span class="o">{</span>
+        <span class="s2">"fare"</span>: <span class="o">{</span>...<span class="o">}</span>,
+        <span class="s2">"status"</span>: <span class="s2">""</span>,
+        <span class="s2">"tags"</span>: <span class="o">[]</span>,
+        <span class="s2">"type"</span>: <span class="s2">"comfort"</span>,
+        <span class="s2">"nb_transfers"</span>: 0,
+        <span class="s2">"duration"</span>: 2671,
+        <span class="s2">"requested_date_time"</span>: <span class="s2">"20160613T133748"</span>,
+        <span class="s2">"departure_date_time"</span>: <span class="s2">"20160613T133830"</span>,
+        <span class="s2">"arrival_date_time"</span>: <span class="s2">"20160613T142301"</span>,
+        <span class="s2">"calendars"</span>: <span class="o">[</span>...],
+        <span class="s2">"co2_emission"</span>: <span class="o">{</span><span class="s2">"unit"</span>: <span class="s2">"gEC"</span>, <span class="s2">"value"</span>: 24.642<span class="o">}</span>,
+        <span class="s2">"sections"</span>: <span class="o">[</span>
+        <span class="o">{</span>
+            <span class="s2">"from"</span>: <span class="o">{</span>... , <span class="s2">"name"</span>: <span class="s2">"Rue Abel"</span><span class="o">}</span>,
+            <span class="s2">"to"</span>: <span class="o">{</span>... , <span class="s2">"name"</span>: <span class="s2">"Bercy (Paris)"</span><span class="o">}</span>,
+            <span class="s2">"arrival_date_time"</span>: <span class="s2">"20160613T135400"</span>,
+            <span class="s2">"departure_date_time"</span>: <span class="s2">"20160613T133830"</span>,
+            <span class="s2">"duration"</span>: 930,
+            <span class="s2">"type"</span>: <span class="s2">"street_network"</span>,
+            <span class="s2">"mode"</span>: <span class="s2">"walking"</span>,
+            <span class="s2">"geojson"</span>: <span class="o">{</span>...<span class="o">}</span>,
+            <span class="s2">"path"</span>: <span class="o">[</span>...],
+            <span class="s2">"links"</span>: <span class="o">[]</span>
+        <span class="o">}</span>,<span class="o">{</span>
+            <span class="s2">"from"</span>: <span class="o">{</span>... , <span class="s2">"name"</span>: <span class="s2">"Bercy (Paris)"</span><span class="o">}</span>,
+            <span class="s2">"to"</span>: <span class="o">{</span>... , <span class="s2">"name"</span>: <span class="s2">"Bir-Hakeim Tour Eiffel (Paris)"</span><span class="o">}</span>,
+            <span class="s2">"type"</span>: <span class="s2">"public_transport"</span>,
+            <span class="s2">"display_informations"</span>: <span class="o">{</span>
+                <span class="s2">"direction"</span>: <span class="s2">"Charles de Gaulle — Étoile (Paris)"</span>,
+                <span class="s2">"code"</span>: <span class="s2">"6"</span>,
+                <span class="s2">"color"</span>: <span class="s2">"79BB92"</span>,
+                <span class="s2">"physical_mode"</span>: <span class="s2">"M?tro"</span>,
+                <span class="s2">"headsign"</span>: <span class="s2">"Charles de Gaulle Etoile"</span>,
+                <span class="s2">"commercial_mode"</span>: <span class="s2">"Metro"</span>,
+                <span class="s2">"label"</span>: <span class="s2">"6"</span>,
+                <span class="s2">"text_color"</span>: <span class="s2">"000000"</span>,
+                <span class="s2">"network"</span>: <span class="s2">"RATP"</span><span class="o">}</span>,
+            <span class="s2">"departure_date_time"</span>: <span class="s2">"20160613T135400"</span>,
+            <span class="s2">"arrival_date_time"</span>: <span class="s2">"20160613T141500"</span>,
+            <span class="s2">"base_arrival_date_time"</span>: <span class="s2">"20160613T141500"</span>,
+            <span class="s2">"base_departure_date_time"</span>: <span class="s2">"20160613T135400"</span>,
+            <span class="s2">"duration"</span>: 1260,
+            <span class="s2">"additional_informations"</span>: <span class="o">[</span><span class="s2">"regular"</span><span class="o">]</span>,
+            <span class="s2">"co2_emission"</span>: <span class="o">{</span><span class="s2">"unit"</span>: <span class="s2">"gEC"</span>, <span class="s2">"value"</span>: 24.642<span class="o">}</span>,
+            <span class="s2">"geojson"</span>: <span class="o">{</span>...<span class="o">}</span>,
+            <span class="s2">"stop_date_times"</span>: <span class="o">[</span>
+            <span class="o">{</span>
+                <span class="s2">"stop_point"</span>: <span class="o">{</span>... , <span class="s2">"label"</span>: <span class="s2">"Bercy (Paris)"</span><span class="o">}</span>,
+                <span class="s2">"arrival_date_time"</span>: <span class="s2">"20160613T135400"</span>,
+                <span class="s2">"departure_date_time"</span>: <span class="s2">"20160613T135400"</span>,
+                <span class="s2">"base_arrival_date_time"</span>: <span class="s2">"20160613T135400"</span>,
+                <span class="s2">"base_departure_date_time"</span>: <span class="s2">"20160613T135400"</span>
+            <span class="o">}</span>,
+            <span class="o">{</span>...<span class="o">}</span>
+            <span class="o">]</span>
+        <span class="o">}</span>,
+        <span class="o">{</span>
+            <span class="s2">"from"</span>: <span class="o">{</span>... , <span class="s2">"name"</span>: <span class="s2">"Bir-Hakeim Tour Eiffel (Paris)"</span> <span class="o">}</span>,
+            <span class="s2">"to"</span>: <span class="o">{</span>... , <span class="s2">"name"</span>: <span class="s2">"Allée des Refuzniks"</span><span class="o">}</span>,
+            <span class="s2">"arrival_date_time"</span>: <span class="s2">"20160613T142301"</span>,
+            <span class="s2">"departure_date_time"</span>: <span class="s2">"20160613T141500"</span>,
+            <span class="s2">"duration"</span>: 481,
+            <span class="s2">"type"</span>: <span class="s2">"street_network"</span>,
+            <span class="s2">"mode"</span>: <span class="s2">"walking"</span>,
+            <span class="s2">"geojson"</span>: <span class="o">{</span>...<span class="o">}</span>,
+            <span class="s2">"path"</span>: <span class="o">[</span>...],
+        <span class="o">}]</span>
+    <span class="o">}</span>,
+    <span class="o">{</span>...<span class="o">}</span>,
+    <span class="o">{</span>...<span class="o">}]</span>,
+    <span class="s2">"disruptions"</span>: <span class="o">[]</span>,
+    <span class="s2">"notes"</span>: <span class="o">[]</span>,
+    <span class="s2">"feed_publishers"</span>: <span class="o">[</span>
+    <span class="o">{</span>
+        <span class="s2">"url"</span>: <span class="s2">""</span>,
+        <span class="s2">"id"</span>: <span class="s2">"sandbox"</span>,
+        <span class="s2">"license"</span>: <span class="s2">""</span>,
+        <span class="s2">"name"</span>: <span class="s2">""</span>
+    <span class="o">}]</span>,
+    <span class="s2">"exceptions"</span>: <span class="o">[]</span>
+<span class="o">}</span>
+</code></pre>
 
 <p>Also known as <code class="prettyprint">/journeys</code> service. This api computes journeys or isochrone tables.</p>
 
@@ -1402,16 +1495,16 @@ of the geocoded object is inside the multi-polygon.</p>
 </tr>
 </thead><tbody>
 <tr>
-<td><code class="prettyprint">/journeys</code></td>
-<td>List of journeys from wherever land</td>
+<td><code class="prettyprint">/isochrones</code></td>
+<td>List of multi-polygons representing one isochrone step. Access from wherever land</td>
 </tr>
 <tr>
-<td><code class="prettyprint">/coverage/{region_id}/journeys</code></td>
-<td>List of journeys on a specific coverage</td>
+<td><code class="prettyprint">/coverage/{region_id}/isochrones</code></td>
+<td>List of multi-polygons representing one isochrone step. Access from on a specific coverage</td>
 </tr>
 </tbody></table>
 
-<h3 id="main-parameters"><a name="journeys-parameters"></a>Main parameters</h3>
+<h3 id="main-parameters"><a name="isochrones-parameters"></a>Main parameters</h3>
 
 <aside class="success">
     'from&rsquo; and 'to&rsquo; parameters works as exclusive parameters:
@@ -1455,6 +1548,20 @@ of the geocoded object is inside the multi-polygon.</p>
 <td>id</td>
 <td>If you want to avoid lines, modes, networks, etc.</br> Note: the forbidden_uris[] concern only the public transport objects. You can&rsquo;t for example forbid the use of the bike with them, you have to set the fallback modes for this (<code class="prettyprint">first_section_mode[]</code> and <code class="prettyprint">last_section_mode[]</code>)</td>
 <td></td>
+</tr>
+<tr>
+<td>nop</td>
+<td>first_section_mode[]</td>
+<td>array of string</td>
+<td>Force the first section mode if the first section is not a public transport one. It takes one the following values: <code class="prettyprint">walking</code>, <code class="prettyprint">car</code>, <code class="prettyprint">bike</code>, <code class="prettyprint">bss</code>.<br><code class="prettyprint">bss</code> stands for bike sharing system.<br>It&rsquo;s an array, you can give multiple modes.<br><br>Note: choosing <code class="prettyprint">bss</code> implicitly allows the <code class="prettyprint">walking</code> mode since you might have to walk to the bss station.<br> Note 2: The parameter is inclusive, not exclusive, so if you want to forbid a mode, you need to add all the other modes.<br> Eg: If you never want to use a <code class="prettyprint">car</code>, you need: <code class="prettyprint">first_section_mode[]=walking&amp;first_section_mode[]=bss&amp;first_section_mode[]=bike&amp;last_section_mode[]=walking&amp;last_section_mode[]=bss&amp;last_section_mode[]=bike</code></td>
+<td>walking</td>
+</tr>
+<tr>
+<td>nop</td>
+<td>last_section_mode[]</td>
+<td>array of string</td>
+<td>Same as first_section_mode but for the last section</td>
+<td>walking</td>
 </tr>
 </tbody></table>
 
