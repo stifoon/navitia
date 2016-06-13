@@ -192,6 +192,13 @@ In this case it needs a region id. This id can the found in the <code class="pre
 
 <p>Easy isn&rsquo;t it?</p>
 
+<p><a
+    href="http://jsfiddle.net/gh/get/jquery/2.2.2/CanalTP/navitia/tree/documentation/slate/source/examples/jsFiddle/lines/"
+    target="_blank"
+    class="button button-blue">
+    Code it yourself on JSFiddle
+</a></p>
+
 <p>We could push the exploration further and:</p>
 
 <ul>
@@ -438,15 +445,32 @@ objects of a region</li>
 <p>Whether using a specific set of coordinates or a general location, you can find places within 
 your reach and their corresponding travel times, using a variety of transportation options. 
 You can even specify the maximum amount of time you want to spare on travel and find 
-the quickest way to reach your destination. 
-The Isochrone function provides information in the form of a table with all the possible stops 
-from a potential destination with their respective arrival times, travel times and number of matches. </p>
+the quickest way to reach your destination.</p>
 
-<p>You have to use these APIs (click on them for details):</p>
+<p><img alt="image" src="images/isochrones_example.png" /></p>
+
+<p>The Isochrone function provides information either:</p>
+
+<ul>
+<li>  in the form of a table with all the possible stops from a potential destination 
+with their respective arrival times, travel times and number of matches</li>
+<li>  in the form of a multi-polygon in order to plate colors directly on a map, 
+or to filter geocoded objects inside the polygon</li>
+</ul>
+
+<p><a
+    href="http://jsfiddle.net/gh/get/jquery/2.2.2/CanalTP/navitia/tree/documentation/slate/source/examples/jsFiddle/isochron/"
+    target="_blank"
+    class="button button-blue">
+    Code it yourself on JSFiddle
+</a></p>
+
+<p>You could use these APIs (click on them for details):</p>
 
 <ul>
 <li>  <strong><a href="#places">Places</a></strong> : autocomplete on geographical data to find the departure and destination points from an input text.</li>
-<li>  <strong><a href="#journeys">Journeys</a></strong> : Compute journeys</li>
+<li>  <strong><a href="#journeys">Journeys</a></strong> : Compute all journeys from a departure point to every reachable point</li>
+<li>  <strong><a href="#isochrones_api">isochrones</a></strong> : same as /journeys, but it returns a geoJson ready to be displayed on map ! This service is currently in beta.</li>
 </ul>
 
           <h1 id="interface">interface</h1>
@@ -1122,7 +1146,7 @@ For example, he could key without any filters:</p>
 </tr>
 </thead><tbody>
 <tr>
-<td><code class="prettyprint">/coverage/pt_objects</code></td>
+<td><code class="prettyprint">/coverage/{resource_path}/pt_objects</code></td>
 <td>List of public transport objects</td>
 </tr>
 </tbody></table>
@@ -1211,10 +1235,20 @@ filter)</li>
 </tr>
 </thead><tbody>
 <tr>
-<td><code class="prettyprint">/coverage/places</code></td>
-<td>List of geographical objects</td>
+<td><code class="prettyprint">/coverage/{region_id}/places</code></td>
+<td>List of geographical objects within a coverage</td>
+</tr>
+<tr>
+<td><code class="prettyprint">/places</code></td>
+<td><em>Beta</em>: List of geographical objects within Earth</td>
 </tr>
 </tbody></table>
+
+<aside class="warning">
+    Until now, you have to specify the right coverage to get `/places`.<br>
+    If you like to play, you can test the &ldquo;beta&rdquo; `/places`, without any coverage: 
+    it will soon be able to request entire Earth on adresses, POIs, stop areas&hellip; with geographical sort.
+</aside>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -1368,15 +1402,26 @@ coordinates, returning a <a href="#place">places</a> collection.</p>
 
 <h2 id="journeys"><a name="journeys"></a>Journeys</h2>
 
-<p>Also known as <code class="prettyprint">/journeys</code> service. This api computes journeys.</p>
+<p>Also known as <code class="prettyprint">/journeys</code> service. This api computes journeys or isochrone tables.</p>
 
-<p>There are two ways to access this api.</p>
+<p>There are two ways to access to this service.</p>
 
 <p>The first one is: <a href="https://api.navitia.io/v1/%7Ba_path_to_resource%7D/journeys">https://api.navitia.io/v1/{a_path_to_resource}/journeys</a> it will
-retrieve all the journeys from the resource (in order to make <em><a href="https://en.wikipedia.org/wiki/Isochrone_map">isochrone maps</a></em>).</p>
+retrieve all the journeys from the resource (in order to make <em><a href="https://en.wikipedia.org/wiki/Isochrone_map">isochrone tables</a></em>).</p>
 
-<p>The other one, the most used, is to access the &lsquo;journey&rsquo; api endpoint:
-<a href="https://api.navitia.io/v1/journeys?from=%7Bresource_id_1%7D&amp;to=%7Bresource_id_2%7D&amp;datetime=%7Bdate_time_to_leave%7D">https://api.navitia.io/v1/journeys?from={resource_id_1}&amp;to={resource_id_2}&amp;datetime={date_time_to_leave}</a> .</p>
+<p><a
+    href="http://jsfiddle.net/gh/get/jquery/2.2.2/CanalTP/navitia/tree/documentation/slate/source/examples/jsFiddle/isochron/"
+    target="_blank"
+    class="button button-blue">
+    Code it yourself on JSFiddle
+</a></p>
+
+<p>The <a href="#isochrones">isochrones</a> service exposes another response structure, which is simplier, for the same data.</p>
+
+<p>But obviously, the most used way to access to this service is to get the <code class="prettyprint">/journeys</code> api endpoint.
+Here is the structure of a standard journey request:</p>
+
+<p><a href="https://api.navitia.io/v1/journeys?from=%7Bresource_id_1%7D&amp;to=%7Bresource_id_2%7D&amp;datetime=%7Bdate_time_to_leave%7D">https://api.navitia.io/v1/journeys?from={resource_id_1}&amp;to={resource_id_2}&amp;datetime={date_time_to_leave}</a> .</p>
 
 <aside class="notice">
     Navitia.io handle lot&rsquo;s of different data sets (regions). Some of them
@@ -1404,7 +1449,7 @@ However when no coordinates are provided, you need to provide on what region you
 </aside>
 
 <aside class="success">
-    Neither the 'from&rsquo; nor the 'to&rsquo; parameter of the journey are required,
+    Neither the &lsquo;from&rsquo; nor the 'to&rsquo; parameter of the journey are required,
     but obviously one of them has to be provided.
     <br>
     If only one is defined an isochrone is computed with every possible
@@ -1451,14 +1496,14 @@ However when no coordinates are provided, you need to provide on what region you
 <td>nop</td>
 <td>from</td>
 <td>id</td>
-<td>The id of the departure of your journey If none are provided an isochrone is computed</td>
+<td>The id of the departure of your journey. If none are provided an isochrone is computed</td>
 <td></td>
 </tr>
 <tr>
 <td>nop</td>
 <td>to</td>
 <td>id</td>
-<td>The id of the arrival of your journey If none are provided an isochrone is computed</td>
+<td>The id of the arrival of your journey. If none are provided an isochrone is computed</td>
 <td></td>
 </tr>
 <tr>
@@ -1479,15 +1524,8 @@ However when no coordinates are provided, you need to provide on what region you
 <td>nop</td>
 <td><a name="traveler-type"></a>traveler_type</td>
 <td>enum</td>
-<td>Define speeds and accessibility values for different kind of people.<br>Each profile also automatically determines appropriate first and last section modes to the covered area. You can overload all parameters (especially speeds, distances, first and last modes) by setting all of them specifically<br><div data-collapse><p>enum values:</p><ul><li>standard</li><li>slow_walker</li><li>fast_walker</li><li>luggage</li></ul></div></td>
+<td>Define speeds and accessibility values for different kind of people.<br>Each profile also automatically determines appropriate first and last section modes to the covered area. Note: this means that you might get car, bike, etc fallback routes even if you set <code class="prettyprint">forbidden_uris[]</code>! You can overload all parameters (especially speeds, distances, first and last modes) by setting all of them specifically. We advise that you don&rsquo;t rely on the traveler_type&rsquo;s fallback modes (<code class="prettyprint">first_section_mode[]</code> and <code class="prettyprint">last_section_mode[]</code>) and set them yourself.<br><div data-collapse><p>enum values:</p><ul><li>standard</li><li>slow_walker</li><li>fast_walker</li><li>luggage</li></ul></div></td>
 <td>standard</td>
-</tr>
-<tr>
-<td>nop</td>
-<td>forbidden_uris[]</td>
-<td>id</td>
-<td>If you want to avoid lines, modes, networks, etc.</td>
-<td></td>
 </tr>
 <tr>
 <td>nop</td>
@@ -1495,6 +1533,27 @@ However when no coordinates are provided, you need to provide on what region you
 <td>enum</td>
 <td>Define the freshness of data to use to compute journeys <ul><li>realtime</li><li>base_schedule</li></ul> <em><strong>when using the following parameter</strong></em> &ldquo;&amp;data_freshness=base_schedule&rdquo; <br> you can get disrupted journeys in the response. You can then display the disruption message to the traveler and make a realtime request to get a new undisrupted solution.</td>
 <td>base_schedule</td>
+</tr>
+<tr>
+<td>nop</td>
+<td>forbidden_uris[]</td>
+<td>id</td>
+<td>If you want to avoid lines, modes, networks, etc.</br> Note: the forbidden_uris[] concern only the public transport objects. You can&rsquo;t for example forbid the use of the bike with them, you have to set the fallback modes for this (<code class="prettyprint">first_section_mode[]</code> and <code class="prettyprint">last_section_mode[]</code>)</td>
+<td></td>
+</tr>
+<tr>
+<td>nop</td>
+<td>first_section_mode[]</td>
+<td>array of string</td>
+<td>Force the first section mode if the first section is not a public transport one. It takes one the following values: <code class="prettyprint">walking</code>, <code class="prettyprint">car</code>, <code class="prettyprint">bike</code>, <code class="prettyprint">bss</code>.<br><code class="prettyprint">bss</code> stands for bike sharing system.<br>It&rsquo;s an array, you can give multiple modes.<br><br>Note: choosing <code class="prettyprint">bss</code> implicitly allows the <code class="prettyprint">walking</code> mode since you might have to walk to the bss station.<br> Note 2: The parameter is inclusive, not exclusive, so if you want to forbid a mode, you need to add all the other modes.<br> Eg: If you never want to use a <code class="prettyprint">car</code>, you need: <code class="prettyprint">first_section_mode[]=walking&amp;first_section_mode[]=bss&amp;first_section_mode[]=bike&amp;last_section_mode[]=walking&amp;last_section_mode[]=bss&amp;last_section_mode[]=bike</code></td>
+<td>walking</td>
+</tr>
+<tr>
+<td>nop</td>
+<td>last_section_mode[]</td>
+<td>array of string</td>
+<td>Same as first_section_mode but for the last section</td>
+<td>walking</td>
 </tr>
 </tbody></table>
 
@@ -1509,20 +1568,6 @@ However when no coordinates are provided, you need to provide on what region you
 <th>Default value</th>
 </tr>
 </thead><tbody>
-<tr>
-<td>nop</td>
-<td>first_section_mode[]</td>
-<td>array of string</td>
-<td>Force the first section mode if the first section is not a public transport one. It takes one the following values: walking, car, bike, bss.<br>bss stands for bike sharing system.<br>It&rsquo;s an array, you can give multiple modes.<br>Note: choosing bss implicitly allows the walking mode since you might have to walk to the bss station</td>
-<td>walking</td>
-</tr>
-<tr>
-<td>nop</td>
-<td>last_section_mode[]</td>
-<td>array of string</td>
-<td>Same as first_section_mode but for the last section</td>
-<td>walking</td>
-</tr>
 <tr>
 <td>nop</td>
 <td>max_duration_to_pt</td>
@@ -1927,6 +1972,93 @@ However when no coordinates are provided, you need to provide on what region you
 </tr>
 </tbody></table>
 
+<h2 id="isochrones-currently-in-beta"><a name="isochrones_api"></a>Isochrones (currently in Beta)</h2>
+
+<p>Also known as <code class="prettyprint">/isochrones</code> service.</p>
+
+<aside class="warning">
+    This service is under development. So it is accessible as a <b>&ldquo;Beta&rdquo; service</b>. 
+    <br>
+    Every feed back is welcome on <a href="https://groups.google.com/forum/#!forum/navitia">https://groups.google.com/forum/#!forum/navitia</a> !
+</aside>
+
+<p>This service gives you a multi-polygon response which 
+represent a same time travel zone: https://en.wikipedia.org/wiki/Isochrone_map</p>
+
+<p>As you can find isochrone tables using <code class="prettyprint">/journeys</code>, this service is only another representation 
+of the same data, map oriented.</p>
+
+<p>It is also really usefull to make filters on geocoded objects to find which of 
+them are reachable beneath a specific time. You just have to verify that coordinates 
+of the geocoded object is inside the multi-polygon.</p>
+
+<h3 id="accesses">Accesses</h3>
+
+<table><thead>
+<tr>
+<th>url</th>
+<th>Result</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">/journeys</code></td>
+<td>List of journeys from wherever land</td>
+</tr>
+<tr>
+<td><code class="prettyprint">/coverage/{region_id}/journeys</code></td>
+<td>List of journeys on a specific coverage</td>
+</tr>
+</tbody></table>
+
+<h3 id="main-parameters"><a name="journeys-parameters"></a>Main parameters</h3>
+
+<aside class="success">
+    'from&rsquo; and 'to&rsquo; parameters works as exclusive parameters:
+    <li>When 'from&rsquo; is provided, 'to&rsquo; is ignore and Navitia computes a &ldquo;departure after&rdquo; isochrone.
+    <li>When 'from&rsquo; is not provided, 'to&rsquo; is required and Navitia computes a &ldquo;arrival after&rdquo; isochrone.
+</aside>
+
+<table><thead>
+<tr>
+<th>Required</th>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>nop</td>
+<td>from</td>
+<td>id</td>
+<td>The id of the departure of your journey. Required to compute isochrones &ldquo;departure after&rdquo;</td>
+<td></td>
+</tr>
+<tr>
+<td>nop</td>
+<td>to</td>
+<td>id</td>
+<td>The id of the arrival of your journey. Required to compute isochrones &ldquo;arrival before&rdquo;</td>
+<td></td>
+</tr>
+<tr>
+<td>yep</td>
+<td>datetime</td>
+<td><a href="#iso-date-time">iso-date-time</a></td>
+<td>Date and time to go</td>
+<td></td>
+</tr>
+<tr>
+<td>nop</td>
+<td>forbidden_uris[]</td>
+<td>id</td>
+<td>If you want to avoid lines, modes, networks, etc.</br> Note: the forbidden_uris[] concern only the public transport objects. You can&rsquo;t for example forbid the use of the bike with them, you have to set the fallback modes for this (<code class="prettyprint">first_section_mode[]</code> and <code class="prettyprint">last_section_mode[]</code>)</td>
+<td></td>
+</tr>
+</tbody></table>
+
+<p>Other parameters to come&hellip;</p>
+
 <h2 id="route-schedules-and-time-tables"><a name="route-schedules"></a>Route Schedules and time tables</h2>
 
 <p>Also known as <code class="prettyprint">/route_schedules</code> service.</p>
@@ -1944,7 +2076,7 @@ access it via that kind of url: <a href="https://api.navitia.io/v1/%7Ba_path_to_
 </tr>
 </thead><tbody>
 <tr>
-<td><code class="prettyprint">coverage/{resource_path}/route_schedules</code></td>
+<td><code class="prettyprint">/coverage/{resource_path}/route_schedules</code></td>
 <td>List of the entire route schedules for a given resource</td>
 </tr>
 <tr>
@@ -2202,7 +2334,7 @@ You can access it via that kind of url: <a href="https://api.navitia.io/v1/%7Ba_
 <tr>
 <td>additional_informations</td>
 <td><a href="#additional-informations">additional_informations</a></td>
-<td>Other informations, when no departures <div data-collapse><p>enum values:</p><ul><li>date_out_of_bound</li><li>terminus</li><li>active_disruption</li><li>no_departures_known</li></ul></div></td>
+<td>Other informations, when no departures <div data-collapse><p>enum values:</p><ul><li>date_out_of_bounds</li><li>terminus</li><li>partial_terminus</li><li>active_disruption</li><li>no_departures_known</li></ul></div></td>
 </tr>
 </tbody></table>
 
