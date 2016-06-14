@@ -45,6 +45,7 @@
             <li><a href='http://www.navitia.io/datasets/'>Explore Data</a></li>
             <li><a href='https://groups.google.com/forum/#!forum/navitia'>Help !</a></li>
             <li><a href='http://navitia.io'>Navitia.io</a></li>
+            <li><a href='http://canaltp.github.io/navitia-playground'>Navitia Playground</a></li>
             <li><a href='https://github.com/CanalTP/navitia'>Navitia on Github</a></li>
         </ul>
     </div>
@@ -119,6 +120,14 @@ with <strong>no password</strong>.</p>
 <li><a href="#lexicon">transport public lexicon</a></li>
 <li><a href="#ressources">Ressources overview</a></li>
 </ul>
+
+<h2 id="i-39-m-just-a-human">I&rsquo;m just a human</h2>
+
+<p>OK, if you only want to challenge Navitia functionality, take your token and go to the <a href="#http://canaltp.github.io/navitia-playground">navitia playground website</a>.</p>
+
+<p>For example, you can easy request for a journey there:</p>
+
+<p><a href="#http://canaltp.github.io/navitia-playground/play.html?request=https%3A%2F%2Fapi.navitia.io%2Fv1%2Fcoverage%2Fsandbox%2Fjourneys%3Ffrom%3D2.3749036%253B48.8467927%26to%3D2.2922926%253B48.8583736%26&amp;token=3b036afe-0110-4202-b9ed-99718476c2e0">http://canaltp.github.io/navitia-playground/</a></p>
 
 <h2 id="about-the-data">About the data</h2>
 
@@ -457,6 +466,8 @@ with their respective arrival times, travel times and number of matches</li>
 <li>  in the form of a multi-polygon in order to plate colors directly on a map, 
 or to filter geocoded objects inside the polygon</li>
 </ul>
+
+<p>Using the raw list, here is a fiddle example:</p>
 
 <p><a
     href="http://jsfiddle.net/gh/get/jquery/2.2.2/CanalTP/navitia/tree/documentation/slate/source/examples/jsFiddle/isochron/"
@@ -1405,8 +1416,8 @@ coordinates, returning a <a href="#place">places</a> collection.</p>
 <h2 id="journeys"><a name="journeys"></a>Journeys</h2>
 <pre class="highlight shell"><code><span class="c">#request</span>
 <span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/journeys?from=2.3749036;48.8467927&amp;to=2.2922926;48.8583736'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
-
-<span class="c">#response</span>
+</code></pre>
+<pre class="highlight shell"><code><span class="c">#response</span>
 HTTP/1.1 200 OK
 
 <span class="o">{</span>
@@ -1499,49 +1510,7 @@ HTTP/1.1 200 OK
 
 <p>Also known as <code class="prettyprint">/journeys</code> service. This api computes journeys or isochrone tables.</p>
 
-<p>There are two ways to access to this service.</p>
-
-<p>The first one is: <a href="https://api.navitia.io/v1/%7Ba_path_to_resource%7D/journeys">https://api.navitia.io/v1/{a_path_to_resource}/journeys</a> it will
-retrieve all the journeys from the resource (in order to make <em><a href="https://en.wikipedia.org/wiki/Isochrone_map">isochrone tables</a></em>).</p>
-
-<p><a
-    href="http://jsfiddle.net/gh/get/jquery/2.2.2/CanalTP/navitia/tree/documentation/slate/source/examples/jsFiddle/isochron/"
-    target="_blank"
-    class="button button-blue">
-    Code it yourself on JSFiddle
-</a></p>
-
-<p>The <a href="#isochrones">isochrones</a> service exposes another response structure, which is simplier, for the same data.</p>
-
-<p>But obviously, the most used way to access to this service is to get the <code class="prettyprint">/journeys</code> api endpoint.
-Here is the structure of a standard journey request:</p>
-
-<p><a href="https://api.navitia.io/v1/journeys?from=%7Bresource_id_1%7D&amp;to=%7Bresource_id_2%7D&amp;datetime=%7Bdate_time_to_leave%7D">https://api.navitia.io/v1/journeys?from={resource_id_1}&amp;to={resource_id_2}&amp;datetime={date_time_to_leave}</a> .</p>
-
-<aside class="notice">
-    Navitia.io handle lot&rsquo;s of different data sets (regions). Some of them
-    can overlap. For example opendata data sets can overlap with private
-    data sets.
-    <br>
-    When using the journeys endpoint the data set used to compute the
-    journey is chosen using the possible datasets of the origin and the
-    destination.
-    <br>
-    For the moment it is not yet possible to compute journeys on different
-    data sets, but it will one day be possible (with a cross-data-set
-    system).
-</aside>
-
-<p>In the <a href="#examples">examples</a>, positions are given by coordinates and no network is specified.
-However when no coordinates are provided, you need to provide on what region you want to request as
-<a href="https://api.navitia.io/v1/coverage/us-ca/journeys?from=-122.4752;37.80826&amp;to=-122.402770;37.794682">https://api.navitia.io/v1/coverage/us-ca/journeys?from=-122.4752;37.80826&amp;to=-122.402770;37.794682</a></p>
-
-<p>The list of regions covered by navitia is available through <a href="#coverage">coverage</a>.</p>
-
-<aside class="notice">
-    If you want to use a specific data set, use the journey api within the
-    data set: https://api.navitia.io/v1/coverage/{your_dataset}/journeys
-</aside>
+<p>There are two ways to access to this service : journeys from point to point, or isochrones from a single point to every point.</p>
 
 <aside class="success">
     Neither the &lsquo;from&rsquo; nor the 'to&rsquo; parameter of the journey are required,
@@ -1550,13 +1519,6 @@ However when no coordinates are provided, you need to provide on what region you
     If only one is defined an isochrone is computed with every possible
     journeys from or to the point.
 </aside>
-
-<p><a
-    href="http://jsfiddle.net/gh/get/jquery/2.2.2/CanalTP/navitia/tree/documentation/slate/source/examples/jsFiddle/journeys/"
-    target="_blank"
-    class="button button-blue">
-    Code it yourself on JSFiddle
-</a></p>
 
 <h3 id="accesses">Accesses</h3>
 
@@ -1574,7 +1536,67 @@ However when no coordinates are provided, you need to provide on what region you
 <td><code class="prettyprint">/coverage/{region_id}/journeys</code></td>
 <td>List of journeys on a specific coverage</td>
 </tr>
+<tr>
+<td><code class="prettyprint">/coverage/{a_path_to_resource}/journeys</code></td>
+<td>Isochrone from a specific coverage</td>
+</tr>
 </tbody></table>
+
+<aside class="notice">
+    Navitia.io handle lot&rsquo;s of different data sets (regions). Some of them
+    can overlap. For example opendata data sets can overlap with private
+    data sets.
+    <br>
+    When using the journeys endpoint the data set used to compute the
+    journey is chosen using the possible datasets of the origin and the
+    destination.
+    <br>
+    For the moment it is not yet possible to compute journeys on different
+    data sets, but it will one day be possible (with a cross-data-set
+    system).
+</aside>
+
+<h4 id="requesting-a-single-journey">Requesting a single journey</h4>
+
+<p>The most used way to access to this service is to get the <code class="prettyprint">/journeys</code> api endpoint.
+Here is the structure of a standard journey request:</p>
+
+<p><a href="https://api.navitia.io/v1/journeys?from=%7Bresource_id_1%7D&amp;to=%7Bresource_id_2%7D&amp;datetime=%7Bdate_time_to_leave%7D">https://api.navitia.io/v1/journeys?from={resource_id_1}&amp;to={resource_id_2}&amp;datetime={date_time_to_leave}</a> .</p>
+
+<p><a
+    href="http://jsfiddle.net/gh/get/jquery/2.2.2/CanalTP/navitia/tree/documentation/slate/source/examples/jsFiddle/journeys/"
+    target="_blank"
+    class="button button-blue">
+    Code it yourself on JSFiddle
+</a></p>
+
+<p>In the <a href="#examples">examples</a>, positions are given by coordinates and no network is specified.
+However when no coordinates are provided, you need to provide on what region you want to request as
+<a href="https://api.navitia.io/v1/coverage/us-ca/journeys?from=-122.4752;37.80826&amp;to=-122.402770;37.794682">https://api.navitia.io/v1/coverage/us-ca/journeys?from=-122.4752;37.80826&amp;to=-122.402770;37.794682</a></p>
+
+<p>The list of regions covered by navitia is available through <a href="#coverage">coverage</a>.</p>
+
+<aside class="notice">
+    If you want to use a specific data set, use the journey api within the
+    data set: https://api.navitia.io/v1/coverage/{your_dataset}/journeys
+</aside>
+
+<h4 id="requesting-an-isochrone">Requesting an isochrone</h4>
+
+<p>If you want to retrive every possible journeys form a single point at a time, you can request as:</p>
+
+<p><a href="https://api.navitia.io/v1/%7Ba_path_to_resource%7D/journeys">https://api.navitia.io/v1/{a_path_to_resource}/journeys</a> </p>
+
+<p>It will retrieve all the journeys from the resource (in order to make <em><a href="https://en.wikipedia.org/wiki/Isochrone_map">isochrone tables</a></em>).</p>
+
+<p><a
+    href="http://jsfiddle.net/gh/get/jquery/2.2.2/CanalTP/navitia/tree/documentation/slate/source/examples/jsFiddle/isochron/"
+    target="_blank"
+    class="button button-blue">
+    Code it yourself on JSFiddle
+</a></p>
+
+<p>The <a href="#isochrones">isochrones</a> service exposes another response structure, which is simplier, for the same data.</p>
 
 <h3 id="main-parameters"><a name="journeys-parameters"></a>Main parameters</h3>
 
