@@ -377,6 +377,8 @@ using all available means of travel, including: bus, train, subway, bike, public
 This function returns a roadmap with specific instructions for a route based on available information, 
 such as: time of departure and arrival, journey time, possible modes of transport, and walking distance.</p>
 
+<p><img alt="image" src="images/playground_journey.png" /></p>
+
 <p>In order to compute a journey, you may have to use these APIs (click on them for details):</p>
 
 <ul>
@@ -462,12 +464,12 @@ the quickest way to reach your destination.</p>
 
 <p><img alt="image" src="images/isochrones_example.png" /></p>
 
-<p>The Isochrone function provides information either:</p>
+<p>Isochrone computing exposes information under two formats:</p>
 
 <ul>
-<li>  in the form of a list with all the reachable stops from a potential destination 
+<li>  either <a href="#journeys">Journeys</a> service which provides a list with all the reachable stops from a potential destination 
 with their respective arrival times, travel times and number of matches</li>
-<li>  in the form of a multi-polygon in order to plate colors directly on a map, 
+<li>  or <a href="#isochrones_api">isochrones</a> service which provides a multi-polygon stream in order to plate colors directly on a map, 
 or to filter geocoded objects inside the polygon</li>
 </ul>
 
@@ -480,7 +482,7 @@ or to filter geocoded objects inside the polygon</li>
     Code it yourself on JSFiddle
 </a></p>
 
-<p>You could use these APIs (click on them for details):</p>
+<p>You can use these APIs (click on them for details):</p>
 
 <ul>
 <li>  <strong><a href="#places">Places</a></strong> : autocomplete on geographical data to find the departure and destination points from an input text.</li>
@@ -1587,7 +1589,7 @@ However when no coordinates are provided, you need to provide on what region you
 
 <h4 id="requesting-an-isochrone">Requesting an isochrone</h4>
 
-<p>If you want to retrive every possible journeys form a single point at a time, you can request as:</p>
+<p>If you want to retreive every possible journey from a single point at a time, you can request as follow:</p>
 
 <p><a href="https://api.navitia.io/v1/%7Ba_path_to_resource%7D/journeys">https://api.navitia.io/v1/{a_path_to_resource}/journeys</a> </p>
 
@@ -1600,7 +1602,7 @@ However when no coordinates are provided, you need to provide on what region you
     Code it yourself on JSFiddle
 </a></p>
 
-<p>The <a href="#isochrones">isochrones</a> service exposes another response structure, which is simplier, for the same data.</p>
+<p>The <a href="#isochrones">isochrones</a> service exposes another response structure, which is simpler, for the same data.</p>
 
 <h3 id="main-parameters"><a name="journeys-parameters"></a>Main parameters</h3>
 
@@ -2109,9 +2111,8 @@ represent a same time travel zone: https://en.wikipedia.org/wiki/Isochrone_map</
 <p>As you can find isochrone tables using <code class="prettyprint">/journeys</code>, this service is only another representation 
 of the same data, map oriented.</p>
 
-<p>It is also really usefull to make filters on geocoded objects to find which of 
-them are reachable beneath a specific time. You just have to verify that coordinates 
-of the geocoded object is inside the multi-polygon.</p>
+<p>It is also really usefull to make filters on geocoded objects in order to find which ones are reachable within specific times. 
+You just have to verify that the coordinates of the geocoded object are inside the multi-polygon.</p>
 
 <h3 id="accesses">Accesses</h3>
 
