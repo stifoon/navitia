@@ -71,6 +71,56 @@ HTTP/1.1 200 OK
 <li>in the <code class="prettyprint">regions</code> section the list of covered regions</li>
 <li>in the <code class="prettyprint">links</code> section the list of possible interactions with them</li>
 </ul>
+<pre class="highlight shell"><code><span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/lines'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
+
+
+HTTP/1.1 200 OK
+
+<span class="o">{</span>
+    <span class="s2">"lines"</span>:[
+        <span class="o">{</span>
+            <span class="s2">"id"</span>:<span class="s2">"line:RAT:M1"</span>,
+            <span class="s2">"code"</span>:<span class="s2">"1"</span>,
+            <span class="s2">"name"</span>:<span class="s2">"Château de Vincennes - La Défense"</span>,
+            <span class="s2">"opening_time"</span>:<span class="s2">"053000"</span>,
+            <span class="s2">"closing_time"</span>:<span class="s2">"013600"</span>,
+            <span class="s2">"color"</span>:<span class="s2">"F2C931"</span>,
+            <span class="s2">"commercial_mode"</span>:<span class="o">{</span>
+                <span class="s2">"id"</span>:<span class="s2">"commercial_mode:Metro"</span>,
+                <span class="s2">"name"</span>:<span class="s2">"Metro"</span>
+            <span class="o">}</span>,
+            <span class="s2">"physical_modes"</span>:[
+                <span class="o">{</span>
+                    <span class="s2">"id"</span>:<span class="s2">"physical_mode:Metro"</span>,
+                    <span class="s2">"name"</span>:<span class="s2">"Métro"</span>
+                <span class="o">}</span>
+            <span class="o">]</span>,
+            <span class="s2">"network"</span>:<span class="o">{</span>
+                <span class="s2">"id"</span>:<span class="s2">"network:RAT:1"</span>,
+                <span class="s2">"name"</span>:<span class="s2">"RATP"</span>
+            <span class="o">}</span>,
+            <span class="s2">"routes"</span>:[
+                <span class="o">{</span>
+                    <span class="s2">"id"</span>:<span class="s2">"route:RAT:M1"</span>,
+                    <span class="s2">"name"</span>:<span class="s2">"Château de Vincennes - La Défense"</span>,
+                    <span class="s2">"direction"</span>:<span class="o">{</span>
+                        <span class="s2">"id"</span>:<span class="s2">"stop_area:RAT:SA:DENFE"</span>,
+                        <span class="s2">"name"</span>:<span class="s2">"La Défense Grande Arche (Puteaux)"</span>
+                    <span class="o">}</span>
+                <span class="o">}</span>,
+                <span class="o">{</span>
+                    <span class="s2">"id"</span>:<span class="s2">"route:RAT:M12_R"</span>,
+                    <span class="s2">"name"</span>:<span class="s2">"Mairie d'Issy - Front Populaire"</span>,
+                    <span class="s2">"direction"</span>:<span class="o">{</span>
+                        <span class="s2">"id"</span>:<span class="s2">"stop_area:RAT:SA:MISSY"</span>,
+                        <span class="s2">"name"</span>:<span class="s2">"Mairie d'Issy (Vanves)"</span>
+                    <span class="o">}</span>
+                <span class="o">}</span>
+            <span class="o">]</span>
+        <span class="o">}</span>
+    <span class="o">]</span>
+<span class="o">}</span>
+</code></pre>
 
 <p>In the <code class="prettyprint">links</code> section there is for example this link: <code class="prettyprint">&quot;href&quot;: &quot;https://api.navitia.io/v1/coverage/{regions.id}/lines&quot;</code></p>
 

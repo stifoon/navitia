@@ -34,26 +34,38 @@
       <div class="content">
         <h1 id="isochrones"><a name="isochrones"></a><img alt="Isochrones" src="../images/isochrons.png" />Isochrones</h1>
 
+<blockquote>
+<p><a href="http://canaltp.github.io/navitia-playground/play.html?request=https%3A%2F%2Fapi.navitia.io%2Fv1%2Fcoverage%2Fsandbox%2Fisochrones%3Ffrom%3D2.377097%3B48.846905%26datetime%3D20160505T080000%26max_duration%3D2000%26min_duration%3D1000">Try it on Navitia playground (click on &ldquo;MAP&rdquo; buttons for &ldquo;wow effect&rdquo;)</a></p>
+</blockquote>
+
 <p>Whether using a specific set of coordinates or a general location, you can find places within 
 your reach and their corresponding travel times, using a variety of transportation options. 
 You can even specify the maximum amount of time you want to spare on travel and find 
 the quickest way to reach your destination.</p>
 
-<p><img alt="image" src="../images/isochrones_example.png" /></p>
+<p><a href="http://canaltp.github.io/navitia-playground/play.html?request=https%3A%2F%2Fapi.navitia.io%2Fv1%2Fcoverage%2Fsandbox%2Fisochrones%3Ffrom%3D2.377097%3B48.846905%26datetime%3D20160505T080000%26max_duration%3D2000%26min_duration%3D1000"><img alt="a simple isochrone request on Navitia playground" src="../images/isochrones_example.png" /></a></p>
 
 <p>Isochrone computing exposes information under two formats:</p>
 
 <ul>
 <li>  either <a href="#journeys">Journeys</a> service which provides a list with all the reachable stops from a potential destination 
-with their respective arrival times, travel times and number of matches</li>
-<li>  or <a href="#isochrones_api">isochrones</a> service which provides a multi-polygon stream in order to plate colors directly on a map, 
-or to filter geocoded objects inside the polygon</li>
+with their respective arrival times, travel times and number of matches. Here is a fiddle example:</li>
 </ul>
-
-<p>Using the raw list, here is a fiddle example:</p>
 
 <p><a
     href="http://jsfiddle.net/gh/get/jquery/2.2.2/CanalTP/navitia/tree/documentation/slate/source/examples/jsFiddle/isochron/"
+    target="_blank"
+    class="button button-blue">
+    Code it yourself on JSFiddle
+</a></p>
+
+<ul>
+<li>  or <a href="#isochrones_api">isochrones</a> service which provides a multi-polygon stream in order to plate colors directly on a map, 
+or to filter geocoded objects inside the polygon. Here is a fiddle example:</li>
+</ul>
+
+<p><a
+    href="http://jsfiddle.net/gh/get/jquery/2.2.2/CanalTP/navitia/tree/documentation/slate/source/examples/jsFiddle/graphical_isochrone/"
     target="_blank"
     class="button button-blue">
     Code it yourself on JSFiddle

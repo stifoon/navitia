@@ -77,13 +77,16 @@ A fake token is used in examples below: be aware that this token is really limit
 </aside>
 
 <h2 id="first-step">First step</h2>
-<pre class="highlight shell"><code><span class="c">#your token is in your confirmation mail. It sounds like "3b036afe-0110-4202-b9ed-99718476c2e0"</span>
-</code></pre>
+
+<blockquote>
+<p>Your token is in your confirmation mail.
+It sounds like &ldquo;3b036afe-0110-4202-b9ed-99718476c2e0&rdquo;</p>
+</blockquote>
 
 <p>Get a token here <a href="http://navitia.io/register/">http://navitia.io/register/</a>. We need your mail to stay in touch when Navitia changes.</p>
 
 <h2 id="second-step">Second step</h2>
-<pre class="highlight shell"><code><span class="c">#you can use curl to request Navitia</span>
+<pre class="highlight shell"><code><span class="c"># You can use curl to request Navitia</span>
 <span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/'</span>
 </code></pre>
 
@@ -93,7 +96,7 @@ A fake token is used in examples below: be aware that this token is really limit
 Our humble opinion is that <a href="http://www.getfirefox.com">firefox browser</a> and a json viewer extension like <a href="https://addons.mozilla.org/fr/firefox/addon/jsonview/">JSONView</a> is a good setup.</p>
 
 <h2 id="third-step">Third step</h2>
-<pre class="highlight shell"><code><span class="c">#in a curl way, with our fake token</span>
+<pre class="highlight shell"><code><span class="c"># In a curl way, with our fake token</span>
 <span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
 </code></pre>
 
@@ -121,7 +124,13 @@ with <strong>no password</strong>.</p>
 <li><a href="#ressources">Ressources overview</a></li>
 </ul>
 
-<h2 id="i-39-m-only-a-human">I&rsquo;m only a human</h2>
+<h2 id="navitia-for-human">Navitia for human</h2>
+
+<blockquote>
+<p><a href="http://canaltp.github.io/navitia-playground/play.html?request=https%3A%2F%2Fapi.navitia.io%2Fv1%2F%2Fcoverage%2Fsandbox%2F%3F&amp;token=3b036afe-0110-4202-b9ed-99718476c2e0">Try a basic request on Navitia playground</a></p>
+
+<p><a href="http://canaltp.github.io/navitia-playground/play.html?request=https%3A%2F%2Fapi.navitia.io%2Fv1%2Fcoverage%2Fsandbox%2Fjourneys%3Ffrom%3D2.3749036%253B48.8467927%26to%3D2.2922926%253B48.8583736%26&amp;token=3b036afe-0110-4202-b9ed-99718476c2e0">Try a journey request on Navitia playground</a></p>
+</blockquote>
 
 <aside class="success">
 if you only want to challenge Navitia functionality, take your token and go to the <a href="http://canaltp.github.io/navitia-playground">navitia playground website </a>.
@@ -129,9 +138,25 @@ if you only want to challenge Navitia functionality, take your token and go to t
 
 <p><img alt="Try Navitia playgroung" src="images/navitia_playground.png" /></p>
 
-<p>For example, you can easy request for a journey there:</p>
+<h2 id="plugins">Plugins</h2>
 
-<p><a href="http://canaltp.github.io/navitia-playground/play.html?request=https%3A%2F%2Fapi.navitia.io%2Fv1%2Fcoverage%2Fsandbox%2Fjourneys%3Ffrom%3D2.3749036%253B48.8467927%26to%3D2.2922926%253B48.8583736%26&amp;token=3b036afe-0110-4202-b9ed-99718476c2e0">http://canaltp.github.io/navitia-playground/</a></p>
+<p>To help you in the building of your project, we have implemented tools to query the API Navitia:</p>
+
+<table><thead>
+<tr>
+<th>Language / Framework</th>
+<th>Plugin</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>PHP5</td>
+<td><a href="https://github.com/CanalTP/NavitiaComponent">https://github.com/CanalTP/NavitiaComponent</a></td>
+</tr>
+<tr>
+<td>Symfony 2 or 3</td>
+<td><a href="https://github.com/CanalTP/NavitiaBundle">https://github.com/CanalTP/NavitiaBundle</a></td>
+</tr>
+</tbody></table>
 
 <h2 id="about-the-data">About the data</h2>
 
@@ -194,6 +219,56 @@ HTTP/1.1 200 OK
 <li>in the <code class="prettyprint">regions</code> section the list of covered regions</li>
 <li>in the <code class="prettyprint">links</code> section the list of possible interactions with them</li>
 </ul>
+<pre class="highlight shell"><code><span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/lines'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
+
+
+HTTP/1.1 200 OK
+
+<span class="o">{</span>
+    <span class="s2">"lines"</span>:[
+        <span class="o">{</span>
+            <span class="s2">"id"</span>:<span class="s2">"line:RAT:M1"</span>,
+            <span class="s2">"code"</span>:<span class="s2">"1"</span>,
+            <span class="s2">"name"</span>:<span class="s2">"Château de Vincennes - La Défense"</span>,
+            <span class="s2">"opening_time"</span>:<span class="s2">"053000"</span>,
+            <span class="s2">"closing_time"</span>:<span class="s2">"013600"</span>,
+            <span class="s2">"color"</span>:<span class="s2">"F2C931"</span>,
+            <span class="s2">"commercial_mode"</span>:<span class="o">{</span>
+                <span class="s2">"id"</span>:<span class="s2">"commercial_mode:Metro"</span>,
+                <span class="s2">"name"</span>:<span class="s2">"Metro"</span>
+            <span class="o">}</span>,
+            <span class="s2">"physical_modes"</span>:[
+                <span class="o">{</span>
+                    <span class="s2">"id"</span>:<span class="s2">"physical_mode:Metro"</span>,
+                    <span class="s2">"name"</span>:<span class="s2">"Métro"</span>
+                <span class="o">}</span>
+            <span class="o">]</span>,
+            <span class="s2">"network"</span>:<span class="o">{</span>
+                <span class="s2">"id"</span>:<span class="s2">"network:RAT:1"</span>,
+                <span class="s2">"name"</span>:<span class="s2">"RATP"</span>
+            <span class="o">}</span>,
+            <span class="s2">"routes"</span>:[
+                <span class="o">{</span>
+                    <span class="s2">"id"</span>:<span class="s2">"route:RAT:M1"</span>,
+                    <span class="s2">"name"</span>:<span class="s2">"Château de Vincennes - La Défense"</span>,
+                    <span class="s2">"direction"</span>:<span class="o">{</span>
+                        <span class="s2">"id"</span>:<span class="s2">"stop_area:RAT:SA:DENFE"</span>,
+                        <span class="s2">"name"</span>:<span class="s2">"La Défense Grande Arche (Puteaux)"</span>
+                    <span class="o">}</span>
+                <span class="o">}</span>,
+                <span class="o">{</span>
+                    <span class="s2">"id"</span>:<span class="s2">"route:RAT:M12_R"</span>,
+                    <span class="s2">"name"</span>:<span class="s2">"Mairie d'Issy - Front Populaire"</span>,
+                    <span class="s2">"direction"</span>:<span class="o">{</span>
+                        <span class="s2">"id"</span>:<span class="s2">"stop_area:RAT:SA:MISSY"</span>,
+                        <span class="s2">"name"</span>:<span class="s2">"Mairie d'Issy (Vanves)"</span>
+                    <span class="o">}</span>
+                <span class="o">}</span>
+            <span class="o">]</span>
+        <span class="o">}</span>
+    <span class="o">]</span>
+<span class="o">}</span>
+</code></pre>
 
 <p>In the <code class="prettyprint">links</code> section there is for example this link: <code class="prettyprint">&quot;href&quot;: &quot;https://api.navitia.io/v1/coverage/{regions.id}/lines&quot;</code></p>
 
@@ -372,12 +447,16 @@ for authentication, where the username is the key, and password remains empty.</
 
           <h1 id="journey-planning"><a name="journey_planning"></a><img alt="Journey planning" src="images/journeys.png" />Journey planning</h1>
 
+<blockquote>
+<p><a href="http://canaltp.github.io/navitia-playground/play.html?request=https%3A%2F%2Fapi.navitia.io%2Fv1%2Fcoverage%2Fsandbox%2Fjourneys%3Ffrom%3D2.3749036%3B48.8467927%26to%3D2.2922926%3B48.8583736">Try it on Navitia playground</a></p>
+</blockquote>
+
 <p>The multi-modal itinerary feature allows you to compute the best routes from point A to point B 
 using all available means of travel, including: bus, train, subway, bike, public bike, walking, car, etc.
 This function returns a roadmap with specific instructions for a route based on available information, 
 such as: time of departure and arrival, journey time, possible modes of transport, and walking distance.</p>
 
-<p><img alt="image" src="images/playground_journey.png" /></p>
+<p><a href="http://canaltp.github.io/navitia-playground/play.html?request=https%3A%2F%2Fapi.navitia.io%2Fv1%2Fcoverage%2Fsandbox%2Fjourneys%3Ffrom%3D2.3749036%253B48.8467927%26to%3D2.2922926%253B48.8583736%26&amp;token=3b036afe-0110-4202-b9ed-99718476c2e0"><img alt="a journey on Navitia playground" src="images/playground_journey.png" /></a></p>
 
 <p>In order to compute a journey, you may have to use these APIs (click on them for details):</p>
 
@@ -391,11 +470,22 @@ such as: time of departure and arrival, journey time, possible modes of transpor
 <p>The &ldquo;Next Departures&rdquo; feature provides the next scheduled departures or arrivals 
 for a specific mode of public transport (bus, tram, metro, train) at your selected stop, near coordinates, etc. </p>
 
+<blockquote>
+<p><a href="http://canaltp.github.io/navitia-playground/play.html?request=https%3A%2F%2Fapi.navitia.io%2Fv1%2Fcoverage%2Fsandbox%2Fstop_areas%2Fstop_area%253ARAT%253ASA%253AGDLYO%2Fstop_schedules%3Fitems_per_schedule%3D2%26&amp;token=3b036afe-0110-4202-b9ed-99718476c2e0">Try it on Navitia playground (click on &ldquo;EXT&rdquo; buttons to see times)</a></p>
+</blockquote>
+
 <ul>
-<li><p>use <code class="prettyprint">stop_schedules</code> if you want to display departures grouped by route (2 next departures for each route for example)
-<img alt="stop_schedules" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Panneau_SIEL_couleurs_Paris-Op%C3%A9ra.jpg/640px-Panneau_SIEL_couleurs_Paris-Op%C3%A9ra.jpg" /></p></li>
-<li><p>use <code class="prettyprint">departures</code> or <code class="prettyprint">arrivals</code> if you want to display a multi-route table (like big departure boards in train stations)
-<img alt="departures" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Display_at_bus_stop_sign_in_Karlovo_n%C3%A1m%C4%9Bst%C3%AD%2C_T%C5%99eb%C3%AD%C4%8D%2C_T%C5%99eb%C3%AD%C4%8D_District.JPG/640px-Display_at_bus_stop_sign_in_Karlovo_n%C3%A1m%C4%9Bst%C3%AD%2C_T%C5%99eb%C3%AD%C4%8D%2C_T%C5%99eb%C3%AD%C4%8D_District.JPG" /></p></li>
+<li>use <code class="prettyprint">stop_schedules</code> if you want to display departures grouped by route (2 next departures for each route for example)
+<a href="http://canaltp.github.io/navitia-playground/play.html?request=https%3A%2F%2Fapi.navitia.io%2Fv1%2Fcoverage%2Fsandbox%2Fstop_areas%2Fstop_area%253ARAT%253ASA%253AGDLYO%2Fstop_schedules%3Fitems_per_schedule%3D2%26&amp;token=3b036afe-0110-4202-b9ed-99718476c2e0"><img alt="a stop_schedules on Navitia playground" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Panneau_SIEL_couleurs_Paris-Op%C3%A9ra.jpg/640px-Panneau_SIEL_couleurs_Paris-Op%C3%A9ra.jpg" /></a></li>
+</ul>
+
+<blockquote>
+<p><a href="http://canaltp.github.io/navitia-playground/play.html?request=https%3A%2F%2Fapi.navitia.io%2Fv1%2Fcoverage%2Fsandbox%2Fstop_areas%2Fstop_area%253ARAT%253ASA%253AGDLYO%2Fdepartures%3F&amp;token=3b036afe-0110-4202-b9ed-99718476c2e0">Try it on Navitia playground</a></p>
+</blockquote>
+
+<ul>
+<li>use <code class="prettyprint">departures</code> or <code class="prettyprint">arrivals</code> if you want to display a multi-route table (like big departure boards in train stations)
+<a href="http://canaltp.github.io/navitia-playground/play.html?request=https%3A%2F%2Fapi.navitia.io%2Fv1%2Fcoverage%2Fsandbox%2Fstop_areas%2Fstop_area%253ARAT%253ASA%253AGDLYO%2Fdepartures%3F&amp;token=3b036afe-0110-4202-b9ed-99718476c2e0"><img alt="a departures on Navitia playground" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Display_at_bus_stop_sign_in_Karlovo_n%C3%A1m%C4%9Bst%C3%AD%2C_T%C5%99eb%C3%AD%C4%8D%2C_T%C5%99eb%C3%AD%C4%8D_District.JPG/640px-Display_at_bus_stop_sign_in_Karlovo_n%C3%A1m%C4%9Bst%C3%AD%2C_T%C5%99eb%C3%AD%C4%8D%2C_T%C5%99eb%C3%AD%C4%8D_District.JPG" /></a></li>
 </ul>
 
 <p>In order to display departures, you may have to use these APIs (click on them for details):</p>
@@ -426,8 +516,14 @@ Compute time tables for a given resource</li>
 
           <h1 id="places-nearby"><a name="nearby"></a><img alt="Places nearby" src="images/places_nearby.png" />Places nearby</h1>
 
+<blockquote>
+<p><a href="http://canaltp.github.io/navitia-playground/play.html?request=https%3A%2F%2Fapi.navitia.io%2Fv1%2Fcoverage%2Fsandbox%2Fstop_areas%2Fstop_area%3ARAT%3ASA%3ACAMPO%2Fplaces_nearby">Try it on Navitia playground (click on &ldquo;MAP&rdquo; buttons to see places)</a></p>
+</blockquote>
+
 <p>The Places Nearby feature displays the different transport options around a location - a GPS coordinate, 
 or an address, for example.</p>
+
+<p><a href="http://canaltp.github.io/navitia-playground/play.html?request=https%3A%2F%2Fapi.navitia.io%2Fv1%2Fcoverage%2Fsandbox%2Fcoord%2F2.32794%253B48.817184%2Fplaces_nearby%3F&amp;token=3b036afe-0110-4202-b9ed-99718476c2e0"><img alt="a map around on Navitia playground" src="images/playground_places_nearby.png" /></a></p>
 
 <p>Using OpenStreetMap data, this function also provides information about bicycle parking, public park schedules, and parking fees.</p>
 
@@ -443,8 +539,14 @@ Compute time tables for a given resource</li>
 
           <h1 id="explore-transport"><a name="explore"></a><img alt="Explore transport" src="images/search_places.png" />Explore transport</h1>
 
+<blockquote>
+<p><a href="http://canaltp.github.io/navitia-playground/play.html?request=https%3A%2F%2Fapi.navitia.io%2Fv1%2Fcoverage%2Fsandbox%2Flines%2F%2F%3F&amp;token=3b036afe-0110-4202-b9ed-99718476c2e0">Try it on Navitia playground</a></p>
+</blockquote>
+
 <p>The Explore Transport feature lets you explore places, coordinates, bus stops, subway stations, etc. 
 to navigate all the data available on the API (collection service). </p>
+
+<p><a href="http://canaltp.github.io/navitia-playground/play.html?request=https%3A%2F%2Fapi.navitia.io%2Fv1%2Fcoverage%2Fsandbox%2Flines%2F%2F%3F&amp;token=3b036afe-0110-4202-b9ed-99718476c2e0"><img alt="some data request on Navitia playground" src="images/playground_pt_ref.png" /></a></p>
 
 <p>You can use these APIs (click on them for details):</p>
 
@@ -457,26 +559,38 @@ objects of a region</li>
 
           <h1 id="isochrones"><a name="isochrones"></a><img alt="Isochrones" src="images/isochrons.png" />Isochrones</h1>
 
+<blockquote>
+<p><a href="http://canaltp.github.io/navitia-playground/play.html?request=https%3A%2F%2Fapi.navitia.io%2Fv1%2Fcoverage%2Fsandbox%2Fisochrones%3Ffrom%3D2.377097%3B48.846905%26datetime%3D20160505T080000%26max_duration%3D2000%26min_duration%3D1000">Try it on Navitia playground (click on &ldquo;MAP&rdquo; buttons for &ldquo;wow effect&rdquo;)</a></p>
+</blockquote>
+
 <p>Whether using a specific set of coordinates or a general location, you can find places within 
 your reach and their corresponding travel times, using a variety of transportation options. 
 You can even specify the maximum amount of time you want to spare on travel and find 
 the quickest way to reach your destination.</p>
 
-<p><img alt="image" src="images/isochrones_example.png" /></p>
+<p><a href="http://canaltp.github.io/navitia-playground/play.html?request=https%3A%2F%2Fapi.navitia.io%2Fv1%2Fcoverage%2Fsandbox%2Fisochrones%3Ffrom%3D2.377097%3B48.846905%26datetime%3D20160505T080000%26max_duration%3D2000%26min_duration%3D1000"><img alt="a simple isochrone request on Navitia playground" src="images/isochrones_example.png" /></a></p>
 
 <p>Isochrone computing exposes information under two formats:</p>
 
 <ul>
 <li>  either <a href="#journeys">Journeys</a> service which provides a list with all the reachable stops from a potential destination 
-with their respective arrival times, travel times and number of matches</li>
-<li>  or <a href="#isochrones_api">isochrones</a> service which provides a multi-polygon stream in order to plate colors directly on a map, 
-or to filter geocoded objects inside the polygon</li>
+with their respective arrival times, travel times and number of matches. Here is a fiddle example:</li>
 </ul>
-
-<p>Using the raw list, here is a fiddle example:</p>
 
 <p><a
     href="http://jsfiddle.net/gh/get/jquery/2.2.2/CanalTP/navitia/tree/documentation/slate/source/examples/jsFiddle/isochron/"
+    target="_blank"
+    class="button button-blue">
+    Code it yourself on JSFiddle
+</a></p>
+
+<ul>
+<li>  or <a href="#isochrones_api">isochrones</a> service which provides a multi-polygon stream in order to plate colors directly on a map, 
+or to filter geocoded objects inside the polygon. Here is a fiddle example:</li>
+</ul>
+
+<p><a
+    href="http://jsfiddle.net/gh/get/jquery/2.2.2/CanalTP/navitia/tree/documentation/slate/source/examples/jsFiddle/graphical_isochrone/"
     target="_blank"
     class="button button-blue">
     Code it yourself on JSFiddle
@@ -684,7 +798,7 @@ coverage api. The shape of the region is provided in GeoJSON.</p>
 </tbody></table>
 
 <h2 id="inverted-geocoding"><a name="coord"></a>Inverted geocoding</h2>
-<pre class="highlight shell"><code><span class="c">#request </span>
+<pre class="highlight shell"><code><span class="c">#request</span>
 <span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coords/2.37705;48.84675'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
 
 <span class="c">#response where you can find the right Navitia coverage, and a useful label</span>
@@ -703,7 +817,7 @@ HTTP/1.1 200 OK
 </code></pre>
 
 <blockquote>
-<p>in this example, the coverage id is &ldquo;regions&rdquo;: [&ldquo;sandbox&rdquo;] 
+<p>in this example, the coverage id is &ldquo;regions&rdquo;: [&ldquo;sandbox&rdquo;]
 so you can ask Navitia on accessible local mobility services:</p>
 </blockquote>
 <pre class="highlight shell"><code><span class="c">#request</span>
@@ -754,7 +868,7 @@ HTTP/1.1 200 OK
 local mobility services</li>
 </ul>
 
-<p>You can also combine <code class="prettyprint">/coords</code> with other filter as : </p>
+<p>You can also combine <code class="prettyprint">/coords</code> with other filter as :</p>
 
 <ul>
 <li>  get <a href="#poi">POIs</a> near a coordinate
@@ -770,6 +884,48 @@ local mobility services</li>
 </ul>
 
 <h2 id="public-transportation-objects-exploration"><a name="pt-ref"></a>Public Transportation Objects exploration</h2>
+
+<blockquote>
+<p><a href="http://canaltp.github.io/navitia-playground/play.html?request=https%3A%2F%2Fapi.navitia.io%2Fv1%2Fcoverage%2Fsandbox%2Fpt_objects%3Fq%3Dmetro%25201">Try it on Navitia playground</a></p>
+</blockquote>
+<pre class="highlight shell"><code>curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/pt_objects?q=metro%201'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
+
+HTTP/1.1 200 OK
+
+<span class="o">{</span>
+    <span class="s2">"pt_objects"</span>:[
+        <span class="o">{</span>
+            <span class="s2">"id"</span>:<span class="s2">"line:RAT:M1"</span>,
+            <span class="s2">"name"</span>:<span class="s2">"RATP Metro 1 (Château de Vincennes - La Défense)"</span>,
+            <span class="s2">"embedded_type"</span>:<span class="s2">"line"</span>,
+            <span class="s2">"line"</span>:<span class="o">{</span>
+                <span class="s2">"id"</span>:<span class="s2">"line:RAT:M1"</span>,
+                <span class="s2">"name"</span>:<span class="s2">"Château de Vincennes - La Défense"</span>,
+                <span class="s2">"code"</span>:<span class="s2">"1"</span>,
+                <span class="s2">"..."</span>: <span class="s2">"..."</span>
+            <span class="o">}</span>
+        <span class="o">}</span>,
+        <span class="o">{</span>
+            <span class="s2">"id"</span>:<span class="s2">"line:RAT:M11"</span>,
+            <span class="s2">"name"</span>:<span class="s2">"RATP Metro 11 (Mairie des Lilas - Châtelet)"</span>
+            <span class="s2">"embedded_type"</span>:<span class="s2">"line"</span>,
+            <span class="s2">"line"</span>:<span class="o">{</span>
+                <span class="s2">"..."</span>: <span class="s2">"..."</span>
+            <span class="o">}</span>,
+        <span class="o">}</span>,
+        <span class="o">{</span>
+            <span class="s2">"id"</span>:<span class="s2">"line:RAT:M12"</span>,
+            <span class="s2">"name"</span>:<span class="s2">"RATP Metro 12 (Mairie d'Issy - Front Populaire)"</span>,
+            <span class="s2">"embedded_type"</span>:<span class="s2">"line"</span>,
+            <span class="s2">"line"</span>:<span class="o">{</span>
+                <span class="s2">"..."</span>: <span class="s2">"..."</span>
+            <span class="o">}</span>
+        <span class="o">}</span>,
+        <span class="o">{</span><span class="s2">"..."</span>: <span class="s2">"..."</span><span class="o">}</span>,
+        <span class="o">{</span><span class="s2">"..."</span>: <span class="s2">"..."</span><span class="o">}</span>
+    <span class="o">]</span>
+<span class="o">}</span>
+</code></pre>
 
 <p>Also known as <code class="prettyprint">/networks</code>, <code class="prettyprint">/lines</code>, <code class="prettyprint">/stop_areas</code>&hellip; services.</p>
 
@@ -832,30 +988,30 @@ Here is some examples around &ldquo;metro line 1&rdquo; from the Parisian networ
 <li>Get &ldquo;line 1&rdquo; id
 
 <ul>
-<li><a href="https://api.navitia.io/v1/coverage/fr-idf/pt_objects?q=metro%201">https://api.navitia.io/v1/coverage/fr-idf/pt_objects?q=metro%201</a></li>
-<li>The id is &ldquo;line:OIF:100110001:1OIF439&rdquo;</li>
+<li><a href="https://api.navitia.io/v1/coverage/sandbox/pt_objects?q=metro%201">https://api.navitia.io/v1/coverage/sandbox/pt_objects?q=metro%201</a></li>
+<li>The id is &ldquo;line:RAT:M1&rdquo;</li>
 </ul></li>
 <li>Get routes for this line
 
 <ul>
-<li><a href="https://api.navitia.io/v1/coverage/fr-idf/lines/line:OIF:100110001:1OIF439/routes">https://api.navitia.io/v1/coverage/fr-idf/lines/line:OIF:100110001:1OIF439/routes</a></li>
+<li><a href="https://api.navitia.io/v1/coverage/sandbox/lines/line:RAT:M1/routes">https://api.navitia.io/v1/coverage/sandbox/lines/line:RAT:M1/routes</a></li>
 </ul></li>
 <li>Want to get a tiny response? Just add &ldquo;depth=0&rdquo;
 
 <ul>
-<li><a href="https://api.navitia.io/v1/coverage/fr-idf/lines/line:OIF:100110001:1OIF439/routes?depth=0">https://api.navitia.io/v1/coverage/fr-idf/lines/line:OIF:100110001:1OIF439/routes?depth=0</a></li>
+<li><a href="https://api.navitia.io/v1/coverage/sandbox/lines/line:RAT:M1/routes?depth=0">https://api.navitia.io/v1/coverage/sandbox/lines/line:RAT:M1/routes?depth=0</a></li>
 <li>The response is lighter (parent lines disappear for example)</li>
 </ul></li>
 <li>Want more informations, just add &ldquo;depth=2&rdquo;
 
 <ul>
-<li><a href="https://api.navitia.io/v1/coverage/fr-idf/lines/line:OIF:100110001:1OIF439/routes?depth=2">https://api.navitia.io/v1/coverage/fr-idf/lines/line:OIF:100110001:1OIF439/routes?depth=2</a></li>
-<li>The response is a little more verbose (with some geojson appear in response)</li>
+<li><a href="https://api.navitia.io/v1/coverage/sandbox/lines/line:RAT:M1/routes?depth=2">https://api.navitia.io/v1/coverage/sandbox/lines/line:RAT:M1/routes?depth=2</a></li>
+<li>The response is a little more verbose (some geojson can appear in response when using your open data token)</li>
 </ul></li>
 <li>Wanna fat more informations, let&rsquo;s try &ldquo;depth=3&rdquo;
 
 <ul>
-<li><a href="https://api.navitia.io/v1/coverage/fr-idf/lines/line:OIF:100110001:1OIF439/routes?depth=3">https://api.navitia.io/v1/coverage/fr-idf/lines/line:OIF:100110001:1OIF439/routes?depth=3</a></li>
+<li><a href="https://api.navitia.io/v1/coverage/sandbox/lines/line:RAT:M1/routes?depth=3">https://api.navitia.io/v1/coverage/sandbox/lines/line:RAT:M1/routes?depth=3</a></li>
 <li>Big response: all stop_points are shown</li>
 </ul></li>
 <li>Wanna spam the internet bandwidth? Try &ldquo;depth=42&rdquo;
@@ -958,6 +1114,10 @@ is sent. If object or attribute provided is not handled, the filter is
 ignored.</p>
 
 <h4 id="collection-has_code">{collection}.has_code</h4>
+
+<blockquote>
+<p><a href="http://canaltp.github.io/navitia-playground/play.html?request=https%3A%2F%2Fapi.navitia.io%2Fv1%2Fcoverage%2Fsandbox%2Fstop_areas%3Ffilter%3Dstop_area.has_code%28source%2CCAMPO%29">Try it on Navitia playground</a></p>
+</blockquote>
 <pre class="highlight shell"><code><span class="c">#for any pt_object request, as this one:</span>
 <span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/stop_areas'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
 
@@ -982,14 +1142,14 @@ HTTP/1.1 200 OK
         <span class="o">{</span>...<span class="o">}</span>
 <span class="o">]</span>
 
-<span class="c">#you can request for objects with a specific code </span>
+<span class="c">#you can request for objects with a specific code</span>
 <span class="c">#for example, you can get this stoparea, having a "source" code "CAMPO"</span>
 <span class="c">#by using parameter "filter=stop_area.has_code(source,CAMPO)" like:</span>
 
 <span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/stop_areas?filter=stop_area.has_code(source,CAMPO)'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
 </code></pre>
 
-<p>Every object managed by Navitia comes with its own list of ids. 
+<p>Every object managed by Navitia comes with its own list of ids.
 You will find some source ids, merge ids, etc. in &ldquo;codes&rdquo; list in json responses.
 Be careful, these codes may not be unique. The navitia id is the only unique id.</p>
 
@@ -1074,33 +1234,39 @@ HTTP/1.1 200 OK
 </ul></li>
 </ul>
 
-<p>But you will find lots of more advanced example in <a href="#a-quick-exploration">a quick exploration</a>
+<p>You will find lots of more advanced example in <a href="#a-quick-exploration">a quick exploration</a>
 chapter</p>
 
-<h2 id="autocomplete-on-public-transport-objects"><a name="pt-objects"></a>Autocomplete on Public Transport objects </h2>
-<pre class="highlight shell"><code><span class="c">#request</span>
+<h2 id="autocomplete-on-public-transport-objects"><a name="pt-objects"></a>Autocomplete on Public Transport objects</h2>
+
+<blockquote>
+<p><a href="http://canaltp.github.io/navitia-playground/play.html?request=https%3A%2F%2Fapi.navitia.io%2Fv1%2Fcoverage%2Fsandbox%2Fpt_objects%3Fq%3Dmetro%25204%26type%5B%5D%3Dline%26type%5B%5D%3Droute">Try it on Navitia playground</a></p>
+</blockquote>
+<pre class="highlight shell"><code><span class="c"># Search objects of type 'line' or 'route' containing 'metro 4'</span>
+
+<span class="c">#request</span>
 <span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/pt_objects?q=metro%204&amp;type\[\]=line&amp;type\[\]=route'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
 
 <span class="c">#response</span>
 HTTP/1.1 200 OK
 
 <span class="o">{</span>
-<span class="s2">"pt_objects"</span>: <span class="o">[</span>
+    <span class="s2">"pt_objects"</span>: <span class="o">[</span>
         <span class="o">{</span>
             <span class="s2">"embedded_type"</span>: <span class="s2">"line"</span>,
             <span class="s2">"line"</span>: <span class="o">{</span>...<span class="o">}</span>,
             <span class="s2">"id"</span>: <span class="s2">"line:RAT:M4"</span>,
             <span class="s2">"name"</span>: <span class="s2">"RATP Metro 4 (Porte de Clignancourt - Mairie de Montrouge)"</span>
         <span class="o">}</span>,
-     <span class="o">]</span>,
-<span class="s2">"links"</span> : <span class="o">[</span>...],
+    <span class="o">]</span>,
+    <span class="s2">"links"</span> : <span class="o">[</span>...],
 <span class="o">}</span>
 </code></pre>
 
 <p>Also known as <code class="prettyprint">/pt_objects</code> service.</p>
 
 <p>This endpoint allows you to search in public transport objects using their names. It&rsquo;s a kind
-of magical <a href="https://en.wikipedia.org/wiki/Autocomplete">autocomplete</a> on public transport data. 
+of magical <a href="https://en.wikipedia.org/wiki/Autocomplete">autocomplete</a> on public transport data.
 It returns a collection of <a href="#pt-object">pt_object</a>.</p>
 
 <h3 id="how-does-it-works">How does it works</h3>
@@ -1116,7 +1282,7 @@ It returns a collection of <a href="#pt-object">pt_object</a>.</p>
 </ul>
 
 <p>Here is a typical use case. A traveler has to find a line between the
-1500 lines around Paris. 
+1500 lines around Paris.
 For example, he could key without any filters:</p>
 
 <div data-collapse>
@@ -1157,6 +1323,25 @@ For example, he could key without any filters:</p>
 </div>
 
 <h3 id="access">Access</h3>
+<pre class="highlight shell"><code><span class="c"># Search objects of type 'network' containing 'RAT'</span>
+curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/pt_objects?q=RAT&amp;type\[\]=network'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
+
+HTTP/1.1 200 OK
+
+<span class="o">{</span>
+    <span class="s2">"pt_objects"</span>:[
+        <span class="o">{</span>
+            <span class="s2">"id"</span>:<span class="s2">"network:RAT:1"</span>,
+            <span class="s2">"name"</span>:<span class="s2">"RATP"</span>,
+            <span class="s2">"embedded_type"</span>:<span class="s2">"network"</span>,
+            <span class="s2">"network"</span>:<span class="o">{</span>
+                <span class="s2">"id"</span>:<span class="s2">"network:RAT:1"</span>,
+                <span class="s2">"name"</span>:<span class="s2">"RATP"</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">]</span>
+<span class="o">}</span>
+</code></pre>
 
 <table><thead>
 <tr>
@@ -1227,7 +1412,7 @@ HTTP/1.1 200 OK
 <p>This endpoint allows you to search in all geographical objects using their names, returning
 a <a href="#place">place</a> collection.</p>
 
-<p>It is very useful to make some <a href="https://en.wikipedia.org/wiki/Autocomplete">autocomplete</a> stuff ie 
+<p>It is very useful to make some <a href="https://en.wikipedia.org/wiki/Autocomplete">autocomplete</a> stuff ie
 to understand the user input even if he has mittens.</p>
 
 <p>Differents kind of objects can be returned (sorted as):</p>
@@ -1265,7 +1450,7 @@ filter)</li>
 
 <aside class="warning">
     Until now, you have to specify the right coverage to get `/places`.<br>
-    If you like to play, you can test the &ldquo;beta&rdquo; `/places`, without any coverage: 
+    If you like to play, you can test the &ldquo;beta&rdquo; `/places`, without any coverage:
     it will soon be able to request entire Earth on adresses, POIs, stop areas&hellip; with geographical sort.
 </aside>
 
@@ -1304,6 +1489,10 @@ filter)</li>
 </tbody></table>
 
 <h2 id="places-nearby"><a name="places-nearby-api"></a>Places Nearby</h2>
+
+<blockquote>
+<p><a href="http://canaltp.github.io/navitia-playground/play.html?request=https%3A%2F%2Fapi.navitia.io%2Fv1%2Fcoverage%2Fsandbox%2Fstop_areas%2Fstop_area%3ARAT%3ASA%3ACAMPO%2Fplaces_nearby">Try it on Navitia playground (click on &ldquo;MAP&rdquo; buttons to see places)</a></p>
+</blockquote>
 <pre class="highlight shell"><code><span class="c">#request</span>
 <span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/stop_areas/stop_area:RAT:SA:CAMPO/places_nearby'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
 
@@ -1420,6 +1609,10 @@ coordinates, returning a <a href="#place">places</a> collection.</p>
 </ul>
 
 <h2 id="journeys"><a name="journeys"></a>Journeys</h2>
+
+<blockquote>
+<p><a href="http://canaltp.github.io/navitia-playground/play.html?request=https%3A%2F%2Fapi.navitia.io%2Fv1%2Fcoverage%2Fsandbox%2Fjourneys%3Ffrom%3D2.3749036%3B48.8467927%26to%3D2.2922926%3B48.8583736">Try it on Navitia playground</a></p>
+</blockquote>
 <pre class="highlight shell"><code><span class="c">#request</span>
 <span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/journeys?from=2.3749036;48.8467927&amp;to=2.2922926;48.8583736'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
 </code></pre>
@@ -1591,7 +1784,7 @@ However when no coordinates are provided, you need to provide on what region you
 
 <p>If you want to retreive every possible journey from a single point at a time, you can request as follow:</p>
 
-<p><a href="https://api.navitia.io/v1/%7Ba_path_to_resource%7D/journeys">https://api.navitia.io/v1/{a_path_to_resource}/journeys</a> </p>
+<p><a href="https://api.navitia.io/v1/%7Ba_path_to_resource%7D/journeys">https://api.navitia.io/v1/{a_path_to_resource}/journeys</a></p>
 
 <p>It will retrieve all the journeys from the resource (in order to make <em><a href="https://en.wikipedia.org/wiki/Isochrone_map">isochrone tables</a></em>).</p>
 
@@ -2097,21 +2290,62 @@ However when no coordinates are provided, you need to provide on what region you
 
 <h2 id="isochrones-currently-in-beta"><a name="isochrones_api"></a>Isochrones (currently in Beta)</h2>
 
+<blockquote>
+<p><a href="http://canaltp.github.io/navitia-playground/play.html?request=https%3A%2F%2Fapi.navitia.io%2Fv1%2Fcoverage%2Fsandbox%2Fisochrones%3Ffrom%3D2.377097%3B48.846905%26datetime%3D20160505T080000%26max_duration%3D2000%26min_duration%3D1000">Try it on Navitia playground (click on &ldquo;MAP&rdquo; buttons for &ldquo;wow effect&rdquo;)</a></p>
+</blockquote>
+<pre class="highlight shell"><code><span class="c"># Request</span>
+curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/isochrones?from=stop_area:RAT:SA:GDLYO&amp;max_duration=3600'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
+
+<span class="c"># Response</span>
+HTTP/1.1 200 OK
+
+<span class="o">{</span>
+    <span class="s2">"isochrones"</span>:[
+        <span class="o">{</span>
+            <span class="s2">"geojson"</span>:<span class="o">{</span>
+                <span class="s2">"type"</span>:<span class="s2">"MultiPolygon"</span>,
+                <span class="s2">"coordinates"</span>:[
+                    <span class="o">[</span>
+                        <span class="o">[</span>
+                            <span class="o">[</span>
+                                2.3186837324,
+                                48.9324437042
+                            <span class="o">]</span>,
+                            <span class="o">[</span>
+                                2.3187241561,
+                                48.9324771012
+                            <span class="o">]</span>,
+                            <span class="o">[</span>
+                                2.3190737256,
+                                48.9327557777
+                            <span class="o">]</span>,
+                            <span class="o">[</span><span class="s2">"..."</span><span class="o">]</span>,
+                            <span class="o">[</span><span class="s2">"..."</span><span class="o">]</span>,
+                            <span class="o">[</span><span class="s2">"..."</span><span class="o">]</span>
+                        <span class="o">]</span>
+                    <span class="o">]</span>
+                <span class="o">]</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">]</span>
+<span class="o">}</span>
+</code></pre>
+
 <p>Also known as <code class="prettyprint">/isochrones</code> service.</p>
 
 <aside class="warning">
-    This service is under development. So it is accessible as a <b>&ldquo;Beta&rdquo; service</b>. 
+    This service is under development. So it is accessible as a <b>&ldquo;Beta&rdquo; service</b>.
     <br>
     Every feed back is welcome on <a href="https://groups.google.com/forum/#!forum/navitia">https://groups.google.com/forum/#!forum/navitia</a> !
 </aside>
 
-<p>This service gives you a multi-polygon response which 
+<p>This service gives you a multi-polygon response which
 represent a same time travel zone: https://en.wikipedia.org/wiki/Isochrone_map</p>
 
-<p>As you can find isochrone tables using <code class="prettyprint">/journeys</code>, this service is only another representation 
+<p>As you can find isochrone tables using <code class="prettyprint">/journeys</code>, this service is only another representation
 of the same data, map oriented.</p>
 
-<p>It is also really usefull to make filters on geocoded objects in order to find which ones are reachable within specific times. 
+<p>It is also really usefull to make filters on geocoded objects in order to find which ones are reachable within a specific time.
 You just have to verify that the coordinates of the geocoded object are inside the multi-polygon.</p>
 
 <h3 id="accesses">Accesses</h3>
@@ -2196,6 +2430,104 @@ You just have to verify that the coordinates of the geocoded object are inside t
 <p>Other parameters to come&hellip;</p>
 
 <h2 id="route-schedules-and-time-tables"><a name="route-schedules"></a>Route Schedules and time tables</h2>
+<pre class="highlight shell"><code><span class="c">#request</span>
+<span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/lines/line:RAT:M1/route_schedules'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
+
+<span class="c">#response</span>
+HTTP/1.1 200 OK
+
+<span class="o">{</span>
+    <span class="s2">"pagination"</span>: <span class="o">{}</span>,
+    <span class="s2">"links"</span>: <span class="o">[]</span>,
+    <span class="s2">"disruptions"</span>: <span class="o">[]</span>,
+    <span class="s2">"notes"</span>: <span class="o">[]</span>,
+    <span class="s2">"feed_publishers"</span>: <span class="o">[]</span>,
+    <span class="s2">"exceptions"</span>: <span class="o">[]</span>,
+    <span class="s2">"route_schedules"</span>: <span class="o">[</span>
+    <span class="o">{</span>
+        <span class="s2">"display_informations"</span>: <span class="o">{</span>
+            <span class="s2">"direction"</span>: <span class="s2">"Château de Vincennes (Saint-Mandé)"</span>,
+            <span class="s2">"code"</span>: <span class="s2">"1"</span>,
+            <span class="s2">"network"</span>: <span class="s2">"RATP"</span>,
+            <span class="s2">"links"</span>: <span class="o">[]</span>,
+            <span class="s2">"color"</span>: <span class="s2">"F2C931"</span>,
+            <span class="s2">"commercial_mode"</span>: <span class="s2">"Metro"</span>,
+            <span class="s2">"text_color"</span>: <span class="s2">"000000"</span>,
+            <span class="s2">"label"</span>: <span class="s2">"1"</span>
+        <span class="o">}</span>,
+        <span class="s2">"table"</span>: <span class="o">{</span>
+            <span class="s2">"headers"</span>: <span class="o">[{</span>
+                    <span class="s2">"display_informations"</span>: <span class="o">{</span>
+                        <span class="s2">"direction"</span>: <span class="s2">"Château de Vincennes (Saint-Mandé)"</span>,
+                        <span class="s2">"code"</span>: <span class="s2">""</span>,
+                        <span class="s2">"description"</span>: <span class="s2">""</span>,
+                        <span class="s2">"links"</span>: <span class="o">[]</span>,
+                        <span class="s2">"color"</span>: <span class="s2">""</span>,
+                        <span class="s2">"physical_mode"</span>: <span class="s2">"Métro"</span>,
+                        <span class="s2">"headsign"</span>: <span class="s2">"Château de Vincennes"</span>,
+                        <span class="s2">"commercial_mode"</span>: <span class="s2">""</span>,
+                        <span class="s2">"equipments"</span>: <span class="o">[]</span>,
+                        <span class="s2">"text_color"</span>: <span class="s2">""</span>,
+                        <span class="s2">"network"</span>: <span class="s2">""</span>
+                    <span class="o">}</span>,
+                    <span class="s2">"additional_informations"</span>: <span class="o">[</span><span class="s2">"regular"</span><span class="o">]</span>,
+                    <span class="s2">"links"</span>: <span class="o">[{</span>
+                        <span class="s2">"type"</span>: <span class="s2">"vehicle_journey"</span>,
+                        <span class="s2">"id"</span>: <span class="s2">"vehicle_journey:RAT:RATRM1REGA9828-1_dst_2"</span>
+                    <span class="o">}</span>, <span class="o">{</span>
+                        <span class="s2">"type"</span>: <span class="s2">"physical_mode"</span>,
+                        <span class="s2">"id"</span>: <span class="s2">"physical_mode:Metro"</span>
+                    <span class="o">}]</span>
+                <span class="o">}</span>,
+                <span class="o">{</span> ... <span class="o">}</span>,
+                <span class="o">{</span> ... <span class="o">}</span>
+            <span class="o">]</span>,
+            <span class="s2">"rows"</span>: <span class="o">[{</span>
+                <span class="s2">"stop_point"</span>: <span class="o">{</span>
+                    <span class="s2">"codes"</span>: <span class="o">[</span> ... <span class="o">]</span>,
+                    <span class="s2">"name"</span>: <span class="s2">"La Défense Grande Arche"</span>,
+                    <span class="s2">"links"</span>: <span class="o">[]</span>,
+                    <span class="s2">"physical_modes"</span>: <span class="o">[{</span>
+                        <span class="s2">"name"</span>: <span class="s2">"Métro"</span>,
+                        <span class="s2">"id"</span>: <span class="s2">"physical_mode:Metro"</span>
+                    <span class="o">}]</span>,
+                    <span class="s2">"coord"</span>: <span class="o">{</span><span class="s2">"lat"</span>: <span class="s2">"48.891935"</span>,<span class="s2">"lon"</span>: <span class="s2">"2.237883"</span><span class="o">}</span>,
+                    <span class="s2">"label"</span>: <span class="s2">"La Défense Grande Arche (Puteaux)"</span>,
+                    <span class="s2">"equipments"</span>: <span class="o">[]</span>,
+                    <span class="s2">"commercial_modes"</span>: <span class="o">[</span>...],
+                    <span class="s2">"administrative_regions"</span>: <span class="o">[</span> ... <span class="o">]</span>,
+                    <span class="s2">"id"</span>: <span class="s2">"stop_point:RAT:SP:DENFE2"</span>,
+                    <span class="s2">"stop_area"</span>: <span class="o">{</span> ... <span class="o">}</span>
+                <span class="o">}</span>,
+                <span class="s2">"date_times"</span>: <span class="o">[{</span>
+                    <span class="s2">"date_time"</span>: <span class="s2">"20160616T093300"</span>,
+                    <span class="s2">"additional_informations"</span>: <span class="o">[]</span>,
+                    <span class="s2">"links"</span>: <span class="o">[{</span>
+                        <span class="s2">"type"</span>: <span class="s2">"vehicle_journey"</span>,
+                        <span class="s2">"value"</span>: <span class="s2">"vehicle_journey:RAT:RATRM1REGA9828-1_dst_2"</span>,
+                        <span class="s2">"rel"</span>: <span class="s2">"vehicle_journeys"</span>,
+                        <span class="s2">"id"</span>: <span class="s2">"vehicle_journey:RAT:RATRM1REGA9828-1_dst_2"</span>
+                    <span class="o">}]</span>,
+                    <span class="s2">"data_freshness"</span>: <span class="s2">"base_schedule"</span>
+                <span class="o">}</span>, <span class="o">{</span>
+                    <span class="s2">"date_time"</span>: <span class="s2">"20160617T094400"</span>,
+                    <span class="s2">"additional_informations"</span>: <span class="o">[]</span>,
+                    <span class="s2">"links"</span>: <span class="o">[{</span>
+                        <span class="s2">"type"</span>: <span class="s2">"vehicle_journey"</span>,
+                        <span class="s2">"value"</span>: <span class="s2">"vehicle_journey:RAT:RATRM1REGA9827-1_dst_2"</span>,
+                        <span class="s2">"rel"</span>: <span class="s2">"vehicle_journeys"</span>,
+                        <span class="s2">"id"</span>: <span class="s2">"vehicle_journey:RAT:RATRM1REGA9827-1_dst_2"</span>
+                    <span class="o">}]</span>,
+                    <span class="s2">"data_freshness"</span>: <span class="s2">"base_schedule"</span>
+                <span class="o">}]</span>
+            <span class="o">}]</span>
+        <span class="o">}</span>,
+        <span class="s2">"additional_informations"</span>: null,
+        <span class="s2">"links"</span>: <span class="o">[]</span>,
+        <span class="s2">"geojson"</span>: <span class="o">{}</span>
+    <span class="o">}]</span>
+<span class="o">}</span>
+</code></pre>
 
 <p>Also known as <code class="prettyprint">/route_schedules</code> service.</p>
 
@@ -2362,6 +2694,71 @@ access it via that kind of url: <a href="https://api.navitia.io/v1/%7Ba_path_to_
 
 <h2 id="stop-schedules-and-other-kind-of-time-tables"><a name="stop-schedules"></a>Stop Schedules and other kind of time tables</h2>
 
+<blockquote>
+<p><a href="http://canaltp.github.io/navitia-playground/play.html?request=https%3A%2F%2Fapi.navitia.io%2Fv1%2Fcoverage%2Fsandbox%2Fstop_areas%2Fstop_area%253ARAT%253ASA%253AGDLYO%2Fstop_schedules%3Fitems_per_schedule%3D2%26&amp;token=3b036afe-0110-4202-b9ed-99718476c2e0">Try it on Navitia playground (click on &ldquo;EXT&rdquo; buttons to see times)</a></p>
+</blockquote>
+<pre class="highlight shell"><code><span class="c">#request</span>
+<span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/lines/line:RAT:M1/stop_schedules'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
+
+<span class="c">#response</span>
+HTTP/1.1 200 OK
+<span class="o">{</span>
+    <span class="s2">"stop_schedules"</span>: <span class="o">[</span>
+        <span class="o">{</span>
+            <span class="s2">"stop_point"</span>: <span class="o">{</span>...<span class="o">}</span>,
+            <span class="s2">"links"</span>: <span class="o">[</span>...],
+            <span class="s2">"date_times"</span>: <span class="o">[</span>
+                <span class="o">{</span>
+                    <span class="s2">"date_time"</span>: <span class="s2">"20160615T115300"</span>,
+                    <span class="s2">"additional_informations"</span>: <span class="o">[]</span>,
+                    <span class="s2">"links"</span>: <span class="o">[</span>
+                        <span class="o">{</span>
+                            <span class="s2">"type"</span>: <span class="s2">"vehicle_journey"</span>,
+                            <span class="s2">"value"</span>: <span class="s2">"vehicle_journey:RAT:RATRM1REGA9869-1_dst_2"</span>,
+                            <span class="s2">"rel"</span>: <span class="s2">"vehicle_journeys"</span>,
+                            <span class="s2">"id"</span>: <span class="s2">"vehicle_journey:RAT:RATRM1REGA9869-1_dst_2"</span>
+                        <span class="o">}</span>
+                    <span class="o">]</span>,
+                    <span class="s2">"data_freshness"</span>: <span class="s2">"base_schedule"</span>
+                <span class="o">}</span>,
+                <span class="o">{</span>
+                    <span class="s2">"date_time"</span>: <span class="s2">"20160616T115000"</span>,
+                    <span class="s2">"additional_informations"</span>: <span class="o">[]</span>,
+                    <span class="s2">"links"</span>: <span class="o">[</span>
+                        <span class="o">{</span>
+                            <span class="s2">"type"</span>: <span class="s2">"vehicle_journey"</span>,
+                            <span class="s2">"value"</span>: <span class="s2">"vehicle_journey:RAT:RATRM1REGA9868-1_dst_2"</span>,
+                            <span class="s2">"rel"</span>: <span class="s2">"vehicle_journeys"</span>,
+                            <span class="s2">"id"</span>: <span class="s2">"vehicle_journey:RAT:RATRM1REGA9868-1_dst_2"</span>
+                        <span class="o">}</span>
+                    <span class="o">]</span>,
+                    <span class="s2">"data_freshness"</span>: <span class="s2">"base_schedule"</span>
+                <span class="o">}</span>,
+                <span class="s2">"..."</span>
+            <span class="o">]</span>,
+            <span class="s2">"route"</span>: <span class="o">{</span>...<span class="o">}</span>,
+            <span class="s2">"additional_informations"</span>: null,
+            <span class="s2">"display_informations"</span>: <span class="o">{</span>
+                <span class="s2">"direction"</span>: <span class="s2">"Château de Vincennes (Saint-Mandé)"</span>,
+                <span class="s2">"code"</span>: <span class="s2">"1"</span>,
+                <span class="s2">"network"</span>: <span class="s2">"RATP"</span>,
+                <span class="s2">"links"</span>: <span class="o">[]</span>,
+                <span class="s2">"color"</span>: <span class="s2">"F2C931"</span>,
+                <span class="s2">"commercial_mode"</span>: <span class="s2">"Metro"</span>,
+                <span class="s2">"text_color"</span>: <span class="s2">"000000"</span>,
+                <span class="s2">"label"</span>: <span class="s2">"1"</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">]</span>,
+    <span class="s2">"pagination"</span>: <span class="o">{</span>...<span class="o">}</span>,
+    <span class="s2">"links"</span>: <span class="o">[</span>...],
+    <span class="s2">"disruptions"</span>: <span class="o">[]</span>,
+    <span class="s2">"notes"</span>: <span class="o">[]</span>,
+    <span class="s2">"feed_publishers"</span>: <span class="o">[</span>...],
+    <span class="s2">"exceptions"</span>: <span class="o">[]</span>
+<span class="o">}</span>
+</code></pre>
+
 <p>Also known as <code class="prettyprint">/stop_schedules</code> service.</p>
 
 <p>This endpoint gives you access to time tables going through a stop
@@ -2369,7 +2766,7 @@ point as:
 <img alt="stop_schedules" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Panneau_SIEL_couleurs_Paris-Op%C3%A9ra.jpg/640px-Panneau_SIEL_couleurs_Paris-Op%C3%A9ra.jpg" /></p>
 
 <p>The response is made of an array of <a href="#stop-schedule">stop_schedule</a>, and another
-one of <a href="#note">note</a>. 
+one of <a href="#note">note</a>.
 You can access it via that kind of url: <a href="https://api.navitia.io/v1/%7Ba_path_to_a_resource%7D/stop_schedules">https://api.navitia.io/v1/{a_path_to_a_resource}/stop_schedules</a></p>
 
 <h3 id="accesses">Accesses</h3>
@@ -2476,10 +2873,66 @@ You can access it via that kind of url: <a href="https://api.navitia.io/v1/%7Ba_
 
 <h2 id="departures"><a name="departures"></a>Departures</h2>
 
+<blockquote>
+<p><a href="http://canaltp.github.io/navitia-playground/play.html?request=https%3A%2F%2Fapi.navitia.io%2Fv1%2Fcoverage%2Fsandbox%2Fstop_areas%2Fstop_area%253ARAT%253ASA%253AGDLYO%2Fdepartures%3F&amp;token=3b036afe-0110-4202-b9ed-99718476c2e0">Try it on Navitia playground</a></p>
+</blockquote>
+<pre class="highlight shell"><code>
+<span class="c">#Request</span>
+<span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/lines/line:RAT:M1/departures?from_datetime=20160615T1337'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
+
+<span class="c">#Response</span>
+HTTP/1.1 200 OK
+<span class="o">{</span>
+   <span class="s2">"departures"</span>:[
+        <span class="o">{</span>
+            <span class="s2">"display_informations"</span>:<span class="o">{</span>
+                <span class="s2">"direction"</span>:<span class="s2">"Ch</span><span class="se">\u</span><span class="s2">00e2teau de Vincennes (Saint-Mand</span><span class="se">\u</span><span class="s2">00e9)"</span>,
+                <span class="s2">"color"</span>:<span class="s2">"F2C931"</span>,
+                <span class="s2">"physical_mode"</span>:<span class="s2">"M?tro"</span>,
+                <span class="s2">"headsign"</span>:<span class="s2">"Ch</span><span class="se">\u</span><span class="s2">00e2teau de Vincennes"</span>,
+                <span class="s2">"commercial_mode"</span>:<span class="s2">"Metro"</span>,
+                <span class="s2">"network"</span>:<span class="s2">"RATP"</span>,
+                <span class="s2">"..."</span>
+            <span class="o">}</span>,
+            <span class="s2">"stop_point"</span>:<span class="o">{</span>
+                <span class="s2">"name"</span>:<span class="s2">"Esplanade de la D</span><span class="se">\u</span><span class="s2">00e9fense"</span>,
+                <span class="s2">"physical_modes"</span>:[
+                   <span class="o">{</span>
+                      <span class="s2">"name"</span>:<span class="s2">"M?tro"</span>,
+                      <span class="s2">"id"</span>:<span class="s2">"physical_mode:Metro"</span>
+                   <span class="o">}</span>
+                <span class="o">]</span>,
+                <span class="s2">"coord"</span>:<span class="o">{</span>
+                   <span class="s2">"lat"</span>:<span class="s2">"48.887843"</span>,
+                   <span class="s2">"lon"</span>:<span class="s2">"2.250442"</span>
+                <span class="o">}</span>,
+                <span class="s2">"label"</span>:<span class="s2">"Esplanade de la D</span><span class="se">\u</span><span class="s2">00e9fense (Puteaux)"</span>,
+                <span class="s2">"id"</span>:<span class="s2">"stop_point:RAT:SP:ESDEN2"</span>,
+                <span class="s2">"..."</span>
+            <span class="o">}</span>,
+            <span class="s2">"route"</span>:<span class="o">{</span>
+                <span class="s2">"id"</span>:<span class="s2">"route:RAT:M1_R"</span>,
+                <span class="s2">"name"</span>:<span class="s2">"Ch</span><span class="se">\u</span><span class="s2">00e2teau de Vincennes - La D</span><span class="se">\u</span><span class="s2">00e9fense"</span>,
+                <span class="s2">"..."</span>
+            <span class="o">}</span>,
+            <span class="s2">"stop_date_time"</span>:<span class="o">{</span>
+                <span class="s2">"arrival_date_time"</span>:<span class="s2">"20160615T133700"</span>,
+                <span class="s2">"departure_date_time"</span>:<span class="s2">"20160615T133700"</span>,
+                <span class="s2">"base_arrival_date_time"</span>:<span class="s2">"20160615T133700"</span>,
+                <span class="s2">"base_departure_date_time"</span>:<span class="s2">"20160615T133700"</span>
+            <span class="o">}</span>
+        <span class="o">}</span>,
+        <span class="o">{</span><span class="s2">"..."</span>:<span class="s2">"..."</span><span class="o">}</span>,
+        <span class="o">{</span><span class="s2">"..."</span>:<span class="s2">"..."</span><span class="o">}</span>,
+        <span class="o">{</span><span class="s2">"..."</span>:<span class="s2">"..."</span><span class="o">}</span>
+   <span class="o">]</span>
+<span class="o">}</span>
+</code></pre>
+
 <p>Also known as <code class="prettyprint">/departures</code> service.</p>
 
 <p>This endpoint retrieves a list of departures from a specific datetime of a selected
-object. 
+object.
 Departures are ordered chronologically in ascending order as:
 <img alt="departures" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Display_at_bus_stop_sign_in_Karlovo_n%C3%A1m%C4%9Bst%C3%AD%2C_T%C5%99eb%C3%AD%C4%8D%2C_T%C5%99eb%C3%AD%C4%8D_District.JPG/640px-Display_at_bus_stop_sign_in_Karlovo_n%C3%A1m%C4%9Bst%C3%AD%2C_T%C5%99eb%C3%AD%C4%8D%2C_T%C5%99eb%C3%AD%C4%8D_District.JPG" /></p>
 
@@ -2570,6 +3023,48 @@ Departures are ordered chronologically in ascending order as:
 
 <h2 id="arrivals"><a name="arrivals"></a>Arrivals</h2>
 
+<blockquote>
+<p><a href="http://canaltp.github.io/navitia-playground/play.html?request=https%3A%2F%2Fapi.navitia.io%2Fv1%2Fcoverage%2Fsandbox%2Fstop_areas%2Fstop_area%253ARAT%253ASA%253AGDLYO%2Farrivals%3F&amp;token=3b036afe-0110-4202-b9ed-99718476c2e0">Try it on Navitia playground</a></p>
+</blockquote>
+<pre class="highlight shell"><code>curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/stop_areas/stop_area:RAT:SA:GDLYO/arrivals'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
+
+HTTP/1.1 200 OK
+
+<span class="o">{</span>
+    <span class="s2">"arrivals"</span>:[
+        <span class="o">{</span>
+            <span class="s2">"display_informations"</span>:<span class="o">{</span>
+                <span class="s2">"direction"</span>:<span class="s2">"Saint-Lazare (Paris)"</span>,
+                <span class="s2">"code"</span>:<span class="s2">"14"</span>,
+                <span class="s2">"color"</span>:<span class="s2">"67328E"</span>,
+                <span class="s2">"physical_mode"</span>:<span class="s2">"Métro"</span>,
+                <span class="s2">"headsign"</span>:<span class="s2">"Olympiades"</span>,
+                <span class="s2">"commercial_mode"</span>:<span class="s2">"Metro"</span>,
+                <span class="s2">"network"</span>:<span class="s2">"RATP"</span>
+            <span class="o">}</span>,
+            <span class="s2">"stop_date_time"</span>:<span class="o">{</span>
+                <span class="s2">"arrival_date_time"</span>:<span class="s2">"20160615T115400"</span>,
+                <span class="s2">"departure_date_time"</span>:<span class="s2">"20160615T115400"</span>,
+                <span class="s2">"base_arrival_date_time"</span>:<span class="s2">"20160615T115400"</span>,
+                <span class="s2">"base_departure_date_time"</span>:<span class="s2">"20160615T115400"</span>,
+                <span class="s2">"data_freshness"</span>:<span class="s2">"base_schedule"</span>
+            <span class="o">}</span>,
+            <span class="s2">"stop_point"</span>:<span class="o">{</span>
+                <span class="s2">"id"</span>:<span class="s2">"stop_point:RAT:SP:GDLYO4"</span>,
+                <span class="s2">"name"</span>:<span class="s2">"Gare de Lyon"</span>,
+                <span class="s2">"label"</span>:<span class="s2">"Gare de Lyon (Paris)"</span>
+            <span class="o">}</span>,
+            <span class="s2">"route"</span>:<span class="o">{</span>
+                <span class="s2">"id"</span>:<span class="s2">"route:RAT:M14_R"</span>,
+                <span class="s2">"name"</span>:<span class="s2">"Olympiades - Gare Saint-Lazare"</span>
+            <span class="o">}</span>
+        <span class="o">}</span>,
+        <span class="o">{</span><span class="s2">"..."</span>: <span class="s2">"..."</span><span class="o">}</span>,
+        <span class="o">{</span><span class="s2">"..."</span>: <span class="s2">"..."</span><span class="o">}</span>
+    <span class="o">]</span>
+<span class="o">}</span>
+</code></pre>
+
 <p>Also known as <code class="prettyprint">/arrivals</code> service.</p>
 
 <p>This endpoint retrieves a list of arrivals from a specific datetime of a selected
@@ -2618,7 +3113,9 @@ HTTP/1.1 200 OK
     <span class="o">]</span>,[
         <span class="c">#another network with its lines and stop areas</span>
     <span class="o">]</span>,
-<span class="s2">"disruptions"</span>: <span class="o">[</span>...]
+<span class="s2">"disruptions"</span>: <span class="o">[</span>
+        <span class="c">#list of linked disruptions</span>
+    <span class="o">]</span>
 <span class="o">}</span>
 </code></pre>
 
@@ -2653,10 +3150,10 @@ called for an overall coverage or for a specific object.</p>
 </ul></li>
 </ul>
 
-<p>The response is made of an array of <a href="#traffic-reports">traffic_reports</a>, 
-and another one of <a href="#disruption">disruptions</a>. </p>
+<p>The response is made of an array of <a href="#traffic-reports">traffic_reports</a>,
+and another one of <a href="#disruption">disruptions</a>.</p>
 
-<p>There are inner links between this 2 arrays: 
+<p>There are inner links between this 2 arrays:
 see the <a href="#inner-references">inner-reference</a> section to use them.</p>
 
 <h3 id="traffic-report-object">Traffic report object</h3>
@@ -2788,7 +3285,7 @@ see the <a href="#inner-references">inner-reference</a> section to use them.</p>
 <p>Traffic_reports is an array of some traffic_report object.</p>
 
 <p>One traffic_report object is a complex object, made of a network, an array
-of lines and an array of stop_areas. </p>
+of lines and an array of stop_areas.</p>
 
 <p>A typical traffic_report object will contain:</p>
 
@@ -2891,6 +3388,11 @@ many times.</p>
 <h2 id="public-transport-objects">Public transport objects</h2>
 
 <h3 id="network">Network</h3>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="s2">"network:RAT:1"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"RATP"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 
 <p>Networks are fed by agencies in GTFS format.</p>
 
@@ -2914,6 +3416,28 @@ many times.</p>
 </tbody></table>
 
 <h3 id="line">Line</h3>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="s2">"line:RAT:M6"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"Nation - Charles de Gaule Etoile"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"6"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"color"</span><span class="p">:</span><span class="s2">"79BB92"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"opening_time"</span><span class="p">:</span><span class="s2">"053000"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"closing_time"</span><span class="p">:</span><span class="s2">"013600"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"routes"</span><span class="p">:[</span><span class="w">
+        </span><span class="p">{</span><span class="nt">"..."</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nt">"commercial_mode"</span><span class="p">:{</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="s2">"commercial_mode:Metro"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"Metro"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"physical_modes"</span><span class="p">:[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"Métro"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"id"</span><span class="p">:</span><span class="s2">"physical_mode:Metro"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 
 <table><thead>
 <tr>
@@ -2943,6 +3467,16 @@ many times.</p>
 <td>Color of the line</td>
 </tr>
 <tr>
+<td>opening_time</td>
+<td>string</td>
+<td>Opening hour at format HHMMSS</td>
+</tr>
+<tr>
+<td>closing_time</td>
+<td>string</td>
+<td>Closing hour at format HHMMSS</td>
+</tr>
+<tr>
 <td>routes</td>
 <td>array of <a href="#route">route</a></td>
 <td>Routes of the line</td>
@@ -2952,9 +3486,30 @@ many times.</p>
 <td><a href="#commercial-mode">commercial_mode</a></td>
 <td>Commercial mode of the line</td>
 </tr>
+<tr>
+<td>physical_mode</td>
+<td>array of <a href="#physical-mode">physical_mode</a></td>
+<td>Physical modes of the line</td>
+</tr>
 </tbody></table>
 
 <h3 id="route">Route</h3>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="s2">"route:RAT:M6"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"Nation - Charles de Gaule Etoile"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"is_frequence"</span><span class="p">:</span><span class="s2">"False"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"line"</span><span class="p">:{</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="s2">"line:RAT:M6"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"Nation - Charles de Gaule Etoile"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"..."</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"direction"</span><span class="p">:{</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="s2">"stop_area:RAT:SA:GAUET"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"Charles de Gaulle - Etoile (Paris)"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"..."</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 
 <table><thead>
 <tr>
@@ -2993,6 +3548,19 @@ many times.</p>
 <p>As &ldquo;direction&rdquo; is a <a href="#place">place</a> , it can be a poi in some data.</p>
 
 <h3 id="stop-point"><a name="stop-point"></a>Stop Point</h3>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="s2">"stop_point:RAT:SP:GARIB2"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"Garibaldi"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"label"</span><span class="p">:</span><span class="s2">"Garibaldi (Saint-Ouen)"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"coord"</span><span class="p">:{</span><span class="w">
+        </span><span class="nt">"lat"</span><span class="p">:</span><span class="s2">"48.906032"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"lon"</span><span class="p">:</span><span class="s2">"2.331733"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"administrative_regions"</span><span class="p">:[{</span><span class="nt">"..."</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="p">}],</span><span class="w">
+    </span><span class="nt">"equipments"</span><span class="p">:[{</span><span class="nt">"..."</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="p">}],</span><span class="w">
+    </span><span class="nt">"stop_area"</span><span class="p">:{</span><span class="nt">"..."</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 
 <table><thead>
 <tr>
@@ -3034,6 +3602,19 @@ many times.</p>
 </tbody></table>
 
 <h3 id="stop-area"><a name="stop-area"></a>Stop Area</h3>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="s2">"stop_area:RAT:SA:GAUET"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"Charles de Gaulle - Etoile"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"label"</span><span class="p">:</span><span class="s2">"Charles de Gaulle - Etoile (Paris)"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"coord"</span><span class="p">:{</span><span class="w">
+        </span><span class="nt">"lat"</span><span class="p">:</span><span class="s2">"48.874408"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"lon"</span><span class="p">:</span><span class="s2">"2.295763"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"administrative_regions"</span><span class="p">:[</span><span class="w">
+        </span><span class="p">{</span><span class="nt">"..."</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 
 <table><thead>
 <tr>
@@ -3070,6 +3651,11 @@ many times.</p>
 </tbody></table>
 
 <h3 id="commercial-mode"><a name="commercial-mode"></a>Commercial Mode</h3>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="s2">"commercial_mode:Metro"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"Metro"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 
 <table><thead>
 <tr>
@@ -3096,6 +3682,11 @@ many times.</p>
 </tbody></table>
 
 <h3 id="physical-mode"><a name="physical-mode"></a>Physical Mode</h3>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="s2">"physical_mode:Tramway"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"Tramway"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 
 <table><thead>
 <tr>
@@ -3149,6 +3740,11 @@ filter in your application, you should use <a href="#physical-mode">physical_mod
 <a href="#journeys-parameters">journeys parameters</a> for exemple.</p>
 
 <h3 id="company"><a name="company"></a>Company</h3>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"company:RAT:1"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RATP"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 
 <table><thead>
 <tr>
@@ -3173,6 +3769,16 @@ filter in your application, you should use <a href="#physical-mode">physical_mod
 
 <p>A container containing either a <a href="#admin">admin</a>, <a href="#poi">poi</a>, <a href="#address">address</a>, <a href="#stop-area">stop_area</a>,
 <a href="#stop-point">stop_point</a></p>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"admin:2191338"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Quartier des Épinettes (75017)"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"quality"</span><span class="p">:</span><span class="w"> </span><span class="mi">70</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"embedded_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"administrative_region"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"administrative_region"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"..."</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 
 <table><thead>
 <tr>
@@ -3182,14 +3788,19 @@ filter in your application, you should use <a href="#physical-mode">physical_mod
 </tr>
 </thead><tbody>
 <tr>
+<td>id</td>
+<td>string</td>
+<td>The id of the embedded object</td>
+</tr>
+<tr>
 <td>name</td>
 <td>string</td>
 <td>The name of the embedded object</td>
 </tr>
 <tr>
-<td>id</td>
-<td>string</td>
-<td>The id of the embedded object</td>
+<td>quality</td>
+<td><em>optional</em> integer</td>
+<td>The quality of the place</td>
 </tr>
 <tr>
 <td>embedded_type</td>
@@ -3223,10 +3834,16 @@ filter in your application, you should use <a href="#physical-mode">physical_mod
 </tr>
 </tbody></table>
 
-<h3 id="pt_object"><a name="pt-object"></a>Pt_object</h3>
+<h3 id="trip">Trip</h3>
 
-<p>A container containing either a <a href="#network">network</a>, <a href="#commercial-mode">commercial_mode</a>, <a href="#line">line</a>, <a href="#route">route</a>,
-<a href="#stop_point">stop_area</a>, <a href="#stop_point">stop_area</a></p>
+<p>A trip corresponds to a scheduled vehicle circulation (and all its linked real-time and disrupted routes).</p>
+
+<p>An example : a train, routing a Paris to Lyon itinerary every day at 06h29, is the &ldquo;Trip&rdquo; named &ldquo;6641&rdquo;.</p>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OIF:67308746-10-1"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"67308746"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 
 <table><thead>
 <tr>
@@ -3236,14 +3853,58 @@ filter in your application, you should use <a href="#physical-mode">physical_mod
 </tr>
 </thead><tbody>
 <tr>
+<td>id</td>
+<td>string</td>
+<td>The id of the trip</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>The name of the trip</td>
+</tr>
+</tbody></table>
+
+<p>It also encapsulates many instances of vehicle_journey, accessible with the url:</p>
+
+<p><code class="prettyprint">https://api.navitia.io/v1/coverage/sandbox/trips/{trip.id}/vehicle_journeys</code>.</p>
+
+<h3 id="pt_object"><a name="pt-object"></a>Pt_object</h3>
+
+<p>A container containing either a <a href="#network">network</a>, <a href="#commercial-mode">commercial_mode</a>, <a href="#line">line</a>, <a href="#route">route</a>,
+<a href="#stop_point">stop_area</a>, <a href="#stop_point">stop_area</a>, <a href="#trip">trip</a></p>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OCE:SN009862F01013"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OCE:SN009862F01013"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"quality"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"embedded_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"trip"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"trip"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OCE:SN009862F01013"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9862"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>The id of the embedded object</td>
+</tr>
+<tr>
 <td>name</td>
 <td>string</td>
 <td>The name of the embedded object</td>
 </tr>
 <tr>
-<td>id</td>
-<td>string</td>
-<td>The id of the embedded object</td>
+<td>quality</td>
+<td><em>optional</em> integer</td>
+<td>The quality of the object</td>
 </tr>
 <tr>
 <td>embedded_type</td>
@@ -3285,11 +3946,41 @@ filter in your application, you should use <a href="#physical-mode">physical_mod
 <td><em>optional</em> <a href="#route">route</a></td>
 <td>Embedded route</td>
 </tr>
+<tr>
+<td>trip</td>
+<td><em>optional</em> <a href="#trip">trip</a></td>
+<td>Embedded trip</td>
+</tr>
 </tbody></table>
 
 <h2 id="real-time-and-disruption-objects">Real time and disruption objects</h2>
 
 <h3 id="disruption">Disruption</h3>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ce7e265d-5762-45b6-ab4d-a1df643dd48d"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"disruption_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ce7e265d-5762-45b6-ab4d-a1df643dd48d"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"impact_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ce7e265d-5762-45b6-ab4d-a1df643dd48d"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"severity"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"trip delayed"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SIGNIFICANT_DELAYS"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"application_periods"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"begin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20160608T215400"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"end"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20160608T230959"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nt">"messages"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="nt">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Strike"</span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20160617T132624"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"impacted_objects"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="nt">"..."</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nt">"cause"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cause..."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 
 <table><thead>
 <tr>
@@ -3299,19 +3990,24 @@ filter in your application, you should use <a href="#physical-mode">physical_mod
 </tr>
 </thead><tbody>
 <tr>
-<td>status</td>
-<td>between: &ldquo;past&rdquo;, &ldquo;active&rdquo; or &ldquo;future&rdquo;</td>
-<td>state of the disruption</td>
-</tr>
-<tr>
 <td>id</td>
 <td>string</td>
 <td>Id of the disruption</td>
 </tr>
 <tr>
+<td>status</td>
+<td>between: &ldquo;past&rdquo;, &ldquo;active&rdquo; or &ldquo;future&rdquo;</td>
+<td>state of the disruption</td>
+</tr>
+<tr>
 <td>disruption_id</td>
 <td>string</td>
 <td>for traceability: Id of original input disruption</td>
+</tr>
+<tr>
+<td>impact_id</td>
+<td>string</td>
+<td>for traceability: Id of original input impact</td>
 </tr>
 <tr>
 <td>severity</td>
@@ -3346,6 +4042,13 @@ filter in your application, you should use <a href="#physical-mode">physical_mod
 </tbody></table>
 
 <h3 id="message">Message</h3>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Strike"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"channel"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"..."</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 
 <table><thead>
 <tr>
@@ -3369,6 +4072,13 @@ filter in your application, you should use <a href="#physical-mode">physical_mod
 <h3 id="severity">Severity</h3>
 
 <p>Severity object can be used to make visual grouping.</p>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"color"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#FF0000"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"priority"</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"trip delayed"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SIGNIFICANT_DELAYS"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 
 <table><thead>
 <tr>
@@ -3400,6 +4110,16 @@ filter in your application, you should use <a href="#physical-mode">physical_mod
 </tbody></table>
 
 <h3 id="channel">Channel</h3>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rt"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"content_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"text/html"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rt"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"types"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"web"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"mobile"</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 
 <table><thead>
 <tr>
@@ -3426,6 +4146,11 @@ filter in your application, you should use <a href="#physical-mode">physical_mod
 </tbody></table>
 
 <h3 id="period">Period</h3>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"begin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20160608T215400"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"end"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20160608T230959"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 
 <table><thead>
 <tr>
@@ -3676,40 +4401,44 @@ filter in your application, you should use <a href="#physical-mode">physical_mod
 </tr>
 </thead><tbody>
 <tr>
-<td>administrative_region</td>
+<td><a href="#administrative-region">administrative_region</a></td>
 <td>a city, a district, a neighborhood</td>
 </tr>
 <tr>
-<td>network</td>
+<td><a href="#network">network</a></td>
 <td>a public transport network</td>
 </tr>
 <tr>
-<td>commercial_mode</td>
+<td><a href="#commercial-mode">commercial_mode</a></td>
 <td>a public transport branded mode</td>
 </tr>
 <tr>
-<td>line</td>
+<td><a href="#line">line</a></td>
 <td>a public transport line</td>
 </tr>
 <tr>
-<td>route</td>
+<td><a href="#route">route</a></td>
 <td>a public transport route</td>
 </tr>
 <tr>
-<td>stop_area</td>
+<td><a href="#stop-area">stop_area</a></td>
 <td>a nameable zone, where there are some stop points</td>
 </tr>
 <tr>
-<td>stop_point</td>
+<td><a href="#stop-point">stop_point</a></td>
 <td>a location where vehicles can pickup or drop off passengers</td>
 </tr>
 <tr>
-<td>address</td>
+<td><a href="#address">address</a></td>
 <td>a point located in a street</td>
 </tr>
 <tr>
-<td>poi</td>
+<td><a href="#poi">poi</a></td>
 <td>a point of interest</td>
+</tr>
+<tr>
+<td><a href="#trip">trip</a></td>
+<td>a trip</td>
 </tr>
 </tbody></table>
 

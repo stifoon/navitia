@@ -56,13 +56,16 @@ A fake token is used in examples below: be aware that this token is really limit
 </aside>
 
 <h2 id="first-step">First step</h2>
-<pre class="highlight shell"><code><span class="c">#your token is in your confirmation mail. It sounds like "3b036afe-0110-4202-b9ed-99718476c2e0"</span>
-</code></pre>
+
+<blockquote>
+<p>Your token is in your confirmation mail.
+It sounds like &ldquo;3b036afe-0110-4202-b9ed-99718476c2e0&rdquo;</p>
+</blockquote>
 
 <p>Get a token here <a href="http://navitia.io/register/">http://navitia.io/register/</a>. We need your mail to stay in touch when Navitia changes.</p>
 
 <h2 id="second-step">Second step</h2>
-<pre class="highlight shell"><code><span class="c">#you can use curl to request Navitia</span>
+<pre class="highlight shell"><code><span class="c"># You can use curl to request Navitia</span>
 <span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/'</span>
 </code></pre>
 
@@ -72,7 +75,7 @@ A fake token is used in examples below: be aware that this token is really limit
 Our humble opinion is that <a href="http://www.getfirefox.com">firefox browser</a> and a json viewer extension like <a href="https://addons.mozilla.org/fr/firefox/addon/jsonview/">JSONView</a> is a good setup.</p>
 
 <h2 id="third-step">Third step</h2>
-<pre class="highlight shell"><code><span class="c">#in a curl way, with our fake token</span>
+<pre class="highlight shell"><code><span class="c"># In a curl way, with our fake token</span>
 <span class="gp">$ </span>curl <span class="s1">'https://api.navitia.io/v1/coverage/sandbox/'</span> -H <span class="s1">'Authorization: 3b036afe-0110-4202-b9ed-99718476c2e0'</span>
 </code></pre>
 
@@ -100,7 +103,13 @@ with <strong>no password</strong>.</p>
 <li><a href="#ressources">Ressources overview</a></li>
 </ul>
 
-<h2 id="i-39-m-only-a-human">I&rsquo;m only a human</h2>
+<h2 id="navitia-for-human">Navitia for human</h2>
+
+<blockquote>
+<p><a href="http://canaltp.github.io/navitia-playground/play.html?request=https%3A%2F%2Fapi.navitia.io%2Fv1%2F%2Fcoverage%2Fsandbox%2F%3F&amp;token=3b036afe-0110-4202-b9ed-99718476c2e0">Try a basic request on Navitia playground</a></p>
+
+<p><a href="http://canaltp.github.io/navitia-playground/play.html?request=https%3A%2F%2Fapi.navitia.io%2Fv1%2Fcoverage%2Fsandbox%2Fjourneys%3Ffrom%3D2.3749036%253B48.8467927%26to%3D2.2922926%253B48.8583736%26&amp;token=3b036afe-0110-4202-b9ed-99718476c2e0">Try a journey request on Navitia playground</a></p>
+</blockquote>
 
 <aside class="success">
 if you only want to challenge Navitia functionality, take your token and go to the <a href="http://canaltp.github.io/navitia-playground">navitia playground website </a>.
@@ -108,9 +117,25 @@ if you only want to challenge Navitia functionality, take your token and go to t
 
 <p><img alt="Try Navitia playgroung" src="../images/navitia_playground.png" /></p>
 
-<p>For example, you can easy request for a journey there:</p>
+<h2 id="plugins">Plugins</h2>
 
-<p><a href="http://canaltp.github.io/navitia-playground/play.html?request=https%3A%2F%2Fapi.navitia.io%2Fv1%2Fcoverage%2Fsandbox%2Fjourneys%3Ffrom%3D2.3749036%253B48.8467927%26to%3D2.2922926%253B48.8583736%26&amp;token=3b036afe-0110-4202-b9ed-99718476c2e0">http://canaltp.github.io/navitia-playground/</a></p>
+<p>To help you in the building of your project, we have implemented tools to query the API Navitia:</p>
+
+<table><thead>
+<tr>
+<th>Language / Framework</th>
+<th>Plugin</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>PHP5</td>
+<td><a href="https://github.com/CanalTP/NavitiaComponent">https://github.com/CanalTP/NavitiaComponent</a></td>
+</tr>
+<tr>
+<td>Symfony 2 or 3</td>
+<td><a href="https://github.com/CanalTP/NavitiaBundle">https://github.com/CanalTP/NavitiaBundle</a></td>
+</tr>
+</tbody></table>
 
 <h2 id="about-the-data">About the data</h2>
 
